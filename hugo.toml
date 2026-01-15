@@ -1,0 +1,9 @@
+baseURL = 'https://techunder.tech/'
+languageCode = 'en-us'
+title = 'Techunder'
+theme = 'hugo-book'
+
+[params]
+  # (Optional, default docs) Specify section of content to render as menu
+  # You can also set value to "*" to render all sections to menu
+  BookSection = '*'
