@@ -9,6 +9,6 @@ All content in this repository is copyrighted by **Techunder (Guanhua Liu)**.
 A tech blog focused on AI/CS paper reading, code reproduction, and software engineering tips. Follow for in-depth technical content and practical tutorials!
 
 ## How to Build
-- Run `git submodule add https://github.com/alex-shpak/hugo-book.git themes/hugo-book` to add the hugo-book theme
+- Run `git submodule add -f https://github.com/alex-shpak/hugo-book.git themes/hugo-book` to add the hugo-book theme
 - Run `hugo server -D -N` to debug the site.
 - Run `hugo` to build the site to public/.
