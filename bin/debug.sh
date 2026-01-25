@@ -1,1 +1,1 @@
-hugo server -D -N
+hugo server --buildDrafts --navigateToChanged
