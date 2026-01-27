@@ -7,3 +7,8 @@ theme = 'hugo-book'
   BookSection = '*'
   BookToC = true
   BookLogo = 'logo.png'
+
+[markup.tableOfContents]
+  startLevel = 4
+  endLevel = 5
+  ordered = false

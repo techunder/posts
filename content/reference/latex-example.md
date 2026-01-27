@@ -6,9 +6,9 @@ bookToC: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
-# LaTeX 示例
+### LaTeX 示例
 
-## Symbols
+#### Symbols
 | Symbol | LaTeX Code | Description |
 |----------|----------|----------|
 | $\text{x}$ | \text{x} | |
