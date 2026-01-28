@@ -1,14 +1,13 @@
 ---
 title: "LaTeX 示例"
-date: 2026-01-15T16:52:14+08:00
 weight: 10
 bookToC: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
+<div style="text-align: center; font-weight: 700; font-size: 18px;">LaTeX 示例</div>
 {{< katex />}}
-### LaTeX 示例
 
-#### Symbols
+# Symbols
 | Symbol | LaTeX Code | Description |
 |----------|----------|----------|
 | $\text{x}$ | \text{x} | |

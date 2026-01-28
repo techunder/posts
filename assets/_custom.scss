@@ -1,1 +1,41 @@
+// 标题序号
 //@import "plugins/_numbered.scss";
+
+// 统一所有标题样式
+.markdown.book-article h1,
+.markdown.book-article h2,
+.markdown.book-article h3,
+.markdown.book-article h4,
+.markdown.book-article h5,
+.markdown.book-article h6 {
+  font-family: "SimHei", "Microsoft YaHei", sans-serif; // 字体
+  font-size: 16px !important; // 字体大小
+  line-height: 1.5 !important; // 行高
+  font-weight: 700 !important; // 加粗
+  margin: 1.2em 0 0.6em 0 !important; // 上下间距
+}
+
+// 次级标题文字稍淡
+.markdown.book-article h2,
+.markdown.book-article h3,
+.markdown.book-article h4,
+.markdown.book-article h5,
+.markdown.book-article h6 {
+  color: #333 !important;
+}
+
+// TOC目录的标题样式
+.book-toc nav#TableOfContents a {
+  font-family: "SimHei", "Microsoft YaHei", sans-serif; // 字体
+  font-size: 15px !important; // 字体大小
+}
+
+// 微调序号与标题文字的间距
+.markdown.book-article h1::before,
+.markdown.book-article h2::before,
+.markdown.book-article h3::before,
+.markdown.book-article h4::before,
+.markdown.book-article h5::before,
+.markdown.book-article h6::before {
+  margin-right: 1px !important;
+}

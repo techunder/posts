@@ -9,6 +9,9 @@ theme = 'hugo-book'
   BookLogo = 'logo.png'
 
 [markup.tableOfContents]
-  startLevel = 4
-  endLevel = 5
+  startLevel = 1
+  endLevel = 2
   ordered = false
+
+[markup.goldmark.renderer]
+  unsafe = true
