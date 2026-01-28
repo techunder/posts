@@ -5,7 +5,7 @@ weight: 10
 bookToC: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div style="text-align: center; font-weight: 700; font-size: 18px;">关于本站</div>
+<div class="page-title">关于本站</div>
 
 本网站为技术文章解读笔记，主要用于发表本人对编程技术、AI/CS 论文、网络技术相关文章的解读、分析与学习笔记。
 

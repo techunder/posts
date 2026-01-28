@@ -4,7 +4,7 @@ weight: 10
 bookToC: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div style="text-align: center; font-weight: 700; font-size: 18px;">LaTeX 示例</div>
+<div class="page-title">LaTeX 示例</div>
 {{< katex />}}
 
 # Symbols
