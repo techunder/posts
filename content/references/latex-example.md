@@ -28,6 +28,7 @@ bookToC: true
 | $\infty$ | \infty | infinity |
 | $\sim$ | \sim | |
 | $\tilde{x}$ | \tilde{x} | |
+| $\hat{y}$ | \hat{y} | |
 | $\frac{1}{a}$ | \frac{1}{a} | fraction |
 | $\lim_{m \to a}$ | \lim_{m \to a} | limit |
 | $\sum_{i=1}^{m}$ | \sum_{i=1}^{m} | |
