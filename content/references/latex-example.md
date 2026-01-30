@@ -59,3 +59,7 @@ bookToC: true
 | $\approx$ | \approx | |
 | $\le$ | \le | less equal |
 | $\ge$ | \ge | great equal |
+| $\begin{bmatrix} a \\\\ b \\\\ c \end{bmatrix}$ | \begin{bmatrix} a \\\\ b \\\\ c  \end{bmatrix} | bracket matrix |
+
+
+

@@ -146,25 +146,30 @@ $w$：权重系数（weight），代表 “运动时长对寿命的影响力度�
 
 > 影响因素只有量化了后才能放到模型里计算。
 
-上面的因素成为模型的自变量（或特征）。模型的目标是计算因变量$y$，即预期寿命（actual_lifespan）：
+上面的因素（特征）称成为模型的自变量。模型的目标是计算因变量$\hat{y}$，即预期寿命（actual_lifespan）：
 
 ```katex
 \hat{y} = b + w_1 \times x_1 + w_2 \times x_2 + w_3 \times x_3 + w_4 \times x_4 + w_5 \times x_5 + w_6 \times x_6 + w_7 \times x_7
 ```
-如果把自变量（或特征）按向量的方式表示：
+如果把特征按向量的方式表示为($1 \times 8$)：
 ```katex
 \boldsymbol{x} = [1, x_1, x_2, x_3, x_4, x_5, x_6, x_7]
 ```
-权重参数也表示为：
+权重参数也表示为($8 \times 1$)：
 ```katex
-\boldsymbol{w} = [b, w_1, w_2, w_3, w_4, w_5, w_6, w_7]
+\boldsymbol{w} = \begin{bmatrix} b \\ w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \end{bmatrix}
 ```
-那么，模型的预测值就可以写成：
+那么，模型的预测值就可以写成矩阵相乘的形式：
 ```katex
-\hat{y} = \boldsymbol{w}^T \boldsymbol{x}
+\hat{y} = \boldsymbol{x} \boldsymbol{w}
 ```
+
+> 矩阵($1 \times 8$)与矩阵($8 \times 1$)相乘得到一个($1 \times 1$)的标量，也就是预期寿命$\hat{y}$。
+
 > [!TIP]
 > $\boldsymbol{w}$ 就是我们想求解的权重系数，是模型的核心内容，也叫模型参数，通过训练数据由计算机自动计算出来。
+
+弄清楚了线性回归模型的概念，接下来我们看看一个完整例子的求解过程。
 
 # 一个完整的求解过程
 
