@@ -22,3 +22,7 @@ bookToC: true
 * 如果函数$f(x)$在区间$[a,\infty)$上没有其他破裂点，则$\int_a^\infty f(x)dx = \lim_{N \to \infty} \int_a^N f(x)dx$
 * 如果函数$f(x)$在区间$(-\infty,b]$上没有其他破裂点，则$\int_{-\infty}^b f(x)dx = \lim_{N \to \infty} \int_{-N}^b f(x)dx$
 * 如果函数$f(x)$在区间$(-\infty,\infty)$上没有其他破裂点，则$\int_{-\infty}^\infty f(x)dx = \lim_{N \to \infty} \int_{-N}^a f(x)dx +\lim_{N \to \infty} \int_a^N f(x)dx$
+* **比较判别法**：
+    * 如果 $\int_a^b f(x)dx \ge \int_a^b g(x)dx = \infty$，$\int_a^b f(x)dx$ 一定发散。
+    * 如果 $\int_a^b f(x)dx \le \int_a^b g(x)dx < \infty$，$\int_a^b f(x)dx$ 一定收敛。
+* **函数互为渐近线**：当$x \to a$时，$f(x) \sim g(x)$同$\lim_{x \to a} \frac{f(x)}{g(x)} = 1$ 有着同样的意义（但这并不意味着函数$f(x)$和函数$g(x)$的差非常小，只是差相比$f(x)$和$g(x)$非常小而已）。
