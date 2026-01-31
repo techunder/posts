@@ -60,6 +60,6 @@ bookToC: true
 | $\le$ | \le | less equal |
 | $\ge$ | \ge | great equal |
 | $\begin{bmatrix} a \\\\ b \\\\ c \end{bmatrix}$ | \begin{bmatrix} a \\\\ b \\\\ c  \end{bmatrix} | bracket matrix |
-
-
-
+| $\begin{bmatrix} a & b \\\\ c & d \end{bmatrix}$ | $\begin{bmatrix} a & b \\\\ c & d \end{bmatrix} | bracket matrix |
+| $\\|x\\|_2$ | \\\| x \\\|_2 | L2 norm |
+| $\left \\| \begin{bmatrix} a \\\\ b \\\\ c \end{bmatrix} \right \\| _2$ | \left \\| \begin{bmatrix} a \\ b \\ c \end{bmatrix} \right \\| _2 | L2 norm |
