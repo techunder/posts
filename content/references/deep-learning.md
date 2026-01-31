@@ -76,16 +76,23 @@ $\mathbf{a}^T \mathbf{b}$ is scalar, so $\mathbf{a}^T \mathbf{b} = (\mathbf{a}^T
 &= \mathbf{a}^T \mathbf{a} - (\mathbf{a}^T \mathbf{b})^T - \mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
 &= \mathbf{a}^T \mathbf{a} - \mathbf{b}^T \mathbf{a} - \mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
 &= \mathbf{a}^T \mathbf{a} - 2\mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
-&= \mathbf{a}^T \mathbf{a} - 2\mathbf{a}^T \mathbf{b} + \mathbf{b}^T \mathbf{b}
+&= \mathbf{a}^T \mathbf{a} - 2\mathbf{a}^T \mathbf{b} + \mathbf{b}^T \mathbf{b} \\
+&= \| \mathbf{b} - \mathbf{a} \|_2^2
 \end{aligned}
 ```
 
 # Gradients
-* Given $f: \mathbb{R}^d \to \mathbb{R}$ differentiable, let$\boldsymbol{x}=[x_1,\dots,x_d]^T$, the gradient is <span style="color:red;">$\nabla_{\boldsymbol{x}} f(\boldsymbol{x})=[\frac{\partial f(\boldsymbol{x})}{\partial x_1},\dots,\frac{\partial f(\boldsymbol{x})}{\partial x_d}]^T$</span> (partial derivate as a column vector)
+* Given $f: \mathbb{R}^d \to \mathbb{R}$ differentiable, let $\boldsymbol{x}=[x_1,\dots,x_d]^T$, the gradient is
+```katex  
+\color{red}
+\nabla_{\boldsymbol{x}} f(\boldsymbol{x})=[\frac{\partial f(\boldsymbol{x})}{\partial x_1},\dots,\frac{\partial f(\boldsymbol{x})}{\partial x_d}]^T
+```
+(partial derivate as a column vector)
 * Locally direction of most decrease is $-\nabla_{\boldsymbol{x}} f(\boldsymbol{x})$
 * Necessary condition for local minimality: If $ \boldsymbol{x}^* $ is a local minimum of $f$, then $\nabla_{\boldsymbol{x}} f(\boldsymbol{x}^*) = 0$
 
 # Linear Regression
+Notation:
 * Parameter: $\boldsymbol{w}=\begin{bmatrix} w_1 \\\\ w_2 \\\\ \vdots \\\\ w_d \end{bmatrix}$
 * Parameter: $\boldsymbol{\theta}=\begin{bmatrix} b \\\\ w_1 \\\\ w_2 \\\\ \vdots \\\\ w_d \end{bmatrix}$
 * Data: $\boldsymbol{x}_i = [x_1, x_2, \dots, x_d]$
@@ -94,13 +101,30 @@ $\mathbf{a}^T \mathbf{b}$ is scalar, so $\mathbf{a}^T \mathbf{b} = (\mathbf{a}^T
 * Dataset: $\tilde{\boldsymbol{X}} = \begin{bmatrix} \tilde{\boldsymbol{x}}_1 \\\\ \tilde{\boldsymbol{x}}_2 \\\\ \vdots \\\\ \tilde{\boldsymbol{x}}_N \end{bmatrix}$
 * Prediction: $\hat{y}_i = f(\boldsymbol{x}_i, \boldsymbol{\theta}) = b + \boldsymbol{x}_i \boldsymbol{w} = \tilde{\boldsymbol{x}}_i \boldsymbol{\theta}$
 * Ground truth: $\boldsymbol{y} = \begin{bmatrix} y_1 \\\\ y_2 \\\\ \vdots \\\\ y_N \end{bmatrix}$
-* EMR $min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})$:
+
+Calculate EMR $min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})$:
 ```katex
 \begin{aligned}
 J(\boldsymbol{\theta}) 
 &= \frac{1}{N} \sum_{i=1}^N (y_i - f(\tilde{\boldsymbol{x}}_i;\boldsymbol{\theta}))^2 \\
 &= \frac{1}{N} \left\| \begin{bmatrix} y_1 - f(\tilde{\boldsymbol{x}}_1;\boldsymbol{\theta}) \\ y_2 - f(\tilde{\boldsymbol{x}}_2;\boldsymbol{\theta}) \\ \vdots \\ y_N - f(\tilde{\boldsymbol{x}}_N;\boldsymbol{\theta}) \end{bmatrix} \right\|_2^2 \\
 &= \frac{1}{N} \left\| \boldsymbol{y} - \tilde{\boldsymbol{X}} \boldsymbol{\theta} \right\|_2^2 \\
-&= 
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - 2(\tilde{\boldsymbol{X}} \boldsymbol{\theta})^T \boldsymbol{y} + (\tilde{\boldsymbol{X}} \boldsymbol{\theta})^T \tilde{\boldsymbol{X}} \boldsymbol{\theta} \right) \\
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - 2\boldsymbol{\theta}^T \tilde{\boldsymbol{X}}^T \boldsymbol{y} + \boldsymbol{\theta}^T \tilde{\boldsymbol{X}}^T \tilde{\boldsymbol{X}} \boldsymbol{\theta} \right)
 \end{aligned}
+```
+To find the least squares solution, taking the derivative and set it to zero:
+```katex
+\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta})
+= \frac{1}{N} \left( -2\tilde{\boldsymbol{X}}^T \boldsymbol{y} + 2\tilde{\boldsymbol{X}}^T \tilde{\boldsymbol{X}} \boldsymbol{\theta} \right) = 0
+```
+```katex
+\tilde{\boldsymbol{X}}^T \tilde{\boldsymbol{X}} \boldsymbol{\theta}
+= \tilde{\boldsymbol{X}}^T \boldsymbol{y} 
+```
+```katex
+\fbox{$
+\boldsymbol{\theta}
+= (\tilde{\boldsymbol{X}}^T \tilde{\boldsymbol{X}})^{-1} \tilde{\boldsymbol{X}}^T \boldsymbol{y} 
+$}
 ```

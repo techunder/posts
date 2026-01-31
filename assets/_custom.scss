@@ -63,3 +63,15 @@
 .markdown.book-article h6::before {
   margin-right: 1px !important;
 }
+
+.red-katex {
+  color: #ff0000; /* Pure red (adjust to #e63946 for softer red) */
+  /* Optional: Keep KaTeX alignment/ spacing consistent with default */
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+/* Ensure KaTeX math inside the div inherits the red color */
+.red-katex .katex {
+  color: inherit !important; /* Override default KaTeX black color */
+}
