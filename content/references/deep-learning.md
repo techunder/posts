@@ -1,5 +1,5 @@
 ---
-title: "深度学习公式"
+title: "深度学习 (DL)"
 weight: 30
 bookToC: true
 draft: true
