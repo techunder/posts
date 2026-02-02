@@ -1,9 +1,0 @@
-<!-- layouts/partials/custom-header.html -->
-{{ if .Date }} <!-- 仅当存在 date 字段时显示，避免空值 -->
-<div class="article-meta" style="text-align: center; margin: 1em 0; color: #666; font-size: 14px;">
-  <span>发布时间：{{ .Date.Format "2006-01-02 15:04" }}</span>
-  {{ if .Lastmod and ne .Lastmod .Date }} <!-- 仅更新日期和发布日期不同时显示 -->
-  <span style="margin-left: 1em;">更新时间：{{ .Lastmod.Format "2006-01-02 15:04" }}</span>
-  {{ end }}
-</div>
-{{ end }}

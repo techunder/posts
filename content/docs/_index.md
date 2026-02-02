@@ -1,5 +1,5 @@
 ---
-title: "系列文章"
+title: "技术文章"
 weight: 30
 bookCollapseSection: false
 ---

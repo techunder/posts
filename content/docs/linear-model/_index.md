@@ -1,6 +1,6 @@
 ---
-title: "人文随笔"
-weight: 20
+title: "线性回归"
+weight: 10
 bookCollapseSection: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
