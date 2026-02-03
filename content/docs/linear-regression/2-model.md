@@ -14,7 +14,7 @@ draft: true
 # 问题描述
 假设我们通过对1000人进行了长期跟踪与统计，得到一份包含寿命影响因素和最终寿命的数据集（模拟生成，字段见[多元线性回归模型](#多元线性回归模型)）：
 
-{{< button href="attachments/lifespan_data_full.csv" >}}点击下载数据集 (.csv){{< /button >}}
+{{< button href="/attachments/docs/linear-regression/lifespan_data_full.csv" >}}点击下载数据集 (.csv){{< /button >}}
 {{% details "代码：生成模拟数据（阅读过程无需理解这份代码）" %}}
 ```python
 ```
