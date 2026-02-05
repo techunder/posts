@@ -33,25 +33,25 @@ draft: true
 
 我们已经知道了模型公式
 ```katex
-\hat{y} = w_1 x_1 + w_2 x_2 + w_3 x_3 + w_4 x_4 + w_5 x_5 + w_6 x_6 + w_7 x_7 + b
+\hat{y} := w_1 x_1 + w_2 x_2 + w_3 x_3 + w_4 x_4 + w_5 x_5 + w_6 x_6 + w_7 x_7 + b
 ```
 
 因为numpy等Python库已实现了矩阵的乘法，为了更好地利用这些库实现计算，我们接下来使用矩阵表示以上的模型公式。
 
 在特征后面加个常数1，可表示为向量的形式（$1 \times 8$）：
 ```katex
-\boldsymbol{x} = [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1]
+\boldsymbol{x} := [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1]
 ```
 
 权重参数加上截距项$b$也表示为向量的形式（$8 \times 1$）：
 ```katex
-\boldsymbol{w} = \begin{bmatrix} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \\ b \end{bmatrix}
+\boldsymbol{w} := \begin{bmatrix} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \\ b \end{bmatrix}
 ```
 
 按矩阵的乘法法则，模型的预测值就可以写成：
 ```katex
 \hat{y} 
-= [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1] \cdot \begin{bmatrix} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \\ b \end{bmatrix}
+:= [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1] \cdot \begin{bmatrix} w_1 \\ w_2 \\ w_3 \\ w_4 \\ w_5 \\ w_6 \\ w_7 \\ b \end{bmatrix}
 = \boldsymbol{x} \boldsymbol{w}
 ```
 
