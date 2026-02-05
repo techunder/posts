@@ -1,6 +1,6 @@
 ---
 title: "梯度下降"
-weight: 40
+weight: 50
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->

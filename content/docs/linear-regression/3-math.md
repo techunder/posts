@@ -128,24 +128,65 @@ L2范数的定义是这样的：
 J(\boldsymbol{\theta}) 
 &:= \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 \\
 &= \frac{1}{N} ||\boldsymbol{y} - \hat{\boldsymbol{y}}||_2^2 \\
-&= \frac{1}{N} (\boldsymbol{y} - \hat{\boldsymbol{y}})^T (\boldsymbol{y} - \hat{\boldsymbol{y}})
+&= \frac{1}{N} (\boldsymbol{y} - \hat{\boldsymbol{y}})^T (\boldsymbol{y} - \hat{\boldsymbol{y}}) \\
+&= \frac{1}{N} (\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\theta})^T (\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\theta}) \\
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - \boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta} - (\boldsymbol{X} \boldsymbol{\theta})^T \boldsymbol{y} + (\boldsymbol{X} \boldsymbol{\theta})^T \boldsymbol{X} \boldsymbol{\theta} \right) \\
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - \boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y} + \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right) \\
 \end{aligned}
 ```
-> 这里用到了矩阵的转置和乘法, $$
+> 这里用到了矩阵乘法的转置公式 $(\boldsymbol{A}\boldsymbol{B})^T = \boldsymbol{B}^T \boldsymbol{A}^T$
 
+这里我们分析一下其中一项 $\boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta}$ 的形状，
 
+$\boldsymbol{y}$是($N \times 1$)的列向量，$\boldsymbol{y}^T$是($1 \times N$)的行向量，
 
+$\boldsymbol{X}$是($N \times d$)的矩阵，
 
+$\boldsymbol{\theta}$是($d \times 1$)的列向量，
 
----
-todo
+所以$\boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta}$得($1 \times N$)($N \times d$)($d \times 1$)=($1 \times 1$)，是一个标量。
 
-下一步，我们要解出权重系数$w$。根据线性回归的数学模型，我们可以得到解析解的公式：
+而标量的转置等于它本身，于是
 ```katex
-w = (X^T X)^{-1} X^T y
+\boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta} = (\boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta})^T = \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y}
+```
+> 这里用到了矩阵乘法的转置公式 $(\boldsymbol{A}\boldsymbol{B}\boldsymbol{C})^T = \boldsymbol{C}^T \boldsymbol{B}^T \boldsymbol{A}^T$
+
+代入回目标函数，我们有：
+```katex
+\begin{aligned}
+J(\boldsymbol{\theta}) 
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - \boldsymbol{y}^T \boldsymbol{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y} + \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right) \\
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y} - \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y} + \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right) \\
+&= \frac{1}{N} \left( \boldsymbol{y}^T \boldsymbol{y} - 2 \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{y} + \boldsymbol{\theta}^T \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right)
+\end{aligned}
 ```
 
-接下来，可以开始通过Python代码实现解析解求解模型的权重系数了。代码如下
-```python
-import numpy as np
+## 求解最优值
+终于到最后一步了，仔细看看这个函数，它是关于$\boldsymbol{\theta}$的二次函数，这个函数的值永远 $\ge 0$（均方误差的最小值为零）。
+
+要计算这样一个函数的最小值，最简单的方法是对其关于自变量$\boldsymbol{\theta}$求导，并设导数为0，就会得到最优解。
+
+对$J(\boldsymbol{\theta})$关于$\boldsymbol{\theta}$求导，得到：
+```katex
+\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta})
+= \frac{1}{N} \left( -2\boldsymbol{X}^T \boldsymbol{y} + 2\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right)
 ```
+> 这里用到矩阵的求导公式 $\frac{\partial}{\partial{\boldsymbol{A}}} \left( \boldsymbol{A}^T \boldsymbol{B} \right) = \boldsymbol{B}$，以及 $\frac{\partial}{\partial{\boldsymbol{A}}} \left( \boldsymbol{A}^T \boldsymbol{B} \boldsymbol{A} \right) = 2\boldsymbol{B} \boldsymbol{A}$
+
+设导数为0，即：
+```katex
+\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = 0 \\
+\frac{1}{N} \left( -2\boldsymbol{X}^T \boldsymbol{y} + 2\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right) = 0 \\
+\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} = \boldsymbol{X}^T \boldsymbol{y} \\
+\boldsymbol{\theta} = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
+```
+
+一般我们通过$\boldsymbol{\theta}^*$表示最优解，即：
+```katex
+\boldsymbol{\theta}^* = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
+```
+
+至此，大功告成，如果你一直跟到这里，恭喜你，你已经掌握了线性回归的解析解的完整数据推理过程。
+
+后面的路就简单了，只需要编写代码实现这个公式即可。现在请静下心来，欣赏一下最后这个优美的公式，我们下一章见。
