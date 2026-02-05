@@ -1,5 +1,5 @@
 ---
-title: "内核知识"
+title: "内核笔记"
 weight: 1000
 bookCollapseSection: false
 ---

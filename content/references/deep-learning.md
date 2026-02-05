@@ -8,7 +8,7 @@ draft: true
 <div class="page-title">Deep Learning</div>
 {{< katex />}}
 
-IIT CS577
+根据 IIT (Illinois Institute of Technology) CS577 课程整理
 
 # Notations
 Let $i=1,2,\dots,N$ (the sample index)

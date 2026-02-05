@@ -44,7 +44,9 @@ LaTeX 是一种用于描述专业数学公式的语言，广泛应用于学术�
 | $\circledcirc$ | \circledcirc | circled circle |
 | $\pm$ | \pm | plus minus |
 | $\cdot$ | \cdot | center dot |
-| $\ldots$ | \ldots | lay dots |
+| $\cdots$ | \cdots | center dots |
+| $\ldots$ | \ldots | low dots |
+| $\ddots$ | \ddots | diagonal dots |
 | $\vdots$ | \vdots | vertical dots |
 | $\sqrt{a}$ | \sqrt{a} | square root |
 | $\epsilon$ | \epsilon | |
