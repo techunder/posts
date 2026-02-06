@@ -1,19 +1,18 @@
 ---
 title: "最小二乘法"
 weight: 30
-draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
 <div class="page-title">线性回归：最小二乘法</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-01-28 | 更新时间：2026-01-29
+  发布时间：2026-02-06 | 更新时间：2026-02-06
 </div>
 
 在[上一篇文章](../2-model/)，我们建立了线性回归模型，接下来我们要当一回数学家了。
 
-本文计划使用**最小二乘法**的解析解求权重系数，最小二乘法是通过计算误差的平方和最小值来求解模型参数的方法。
+本文计划使用**最小二乘法** (Least Squares Method) 的解析解求权重系数，最小二乘法是通过计算误差的平方和最小值来求解模型参数的方法。
 
 这是线性回归模型最烧脑的地方，需要做一些矩阵的运算，一旦弄懂了，将会受益无穷。
 
@@ -184,20 +183,24 @@ J(\boldsymbol{\theta})
 
 一般我们通过$\boldsymbol{\theta}^*$表示最优解，即：
 ```katex
+\fbox{$
 \boldsymbol{\theta}^* = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
+$}
 ```
 
-至此，大功告成，如果你一直跟到这里，恭喜你，你已经掌握了线性回归的最小二乘法解析解的完整数学推理过程。如果还没有完全理解，请多花点时间，重新仔细阅读思考前面的内容，如还是不能明白，请关注页面底部公众号给我留言。
+至此，大功告成，如果你一直跟到这里，那么恭喜你，你已经掌握了线性回归的最小二乘法解析解的完整数学推理过程。如果还没有完全理解，请多花点时间重新仔细阅读前面的内容，如还是不能明白，请关注页面底部公众号给我留言。
 
-后面的路就简单了，只需要编写代码实现这个公式即可。现在请静下心来，欣赏一下最后这个优美的公式。
+现在请静下心来，欣赏一下最后这个优美的方框中的公式。
+
+后面的路就简单了，只需要编写代码实现这个公式即可。
 
 ## 代码实现
 
 在[问题与建模](../2-model/)一篇中，我们提供了[数据集](/attachments/docs/linear-regression/lifespan_data_full.csv)，现在请把它下载到本地。
 
-我们的思路是，先读取数据集，然后将其转换为NumPy数组，最后使用前面推导的最小二乘法公式求解最优解。
+我们的思路是，读取数据集，将其转换为NumPy数组，然后使用前面推导的最小二乘法公式求解最优解。
 
-1. 依赖包
+1. 导入依赖包
 
 我们使用到了NumPy和Pandas这两个Python库。
 
@@ -208,21 +211,121 @@ import pandas as pd
 
 2. 数据装载
 
-读取数据集并转换为NumPy数组
+读取数据集，转换为NumPy数组
 
 ```python
 # 读取CSV文件
 df = pd.read_csv('lifespan_data_full.csv')
 
 # 转换为NumPy数组
-X = df[['parent_lifespan', 'gender', 'exercise_hours', 'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
+X = df[['parent_lifespan', 'gender', 'exercise_hours', \
+        'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
 y = df['actual_lifespan'].values
 ```
 
-3. 求逆矩阵
-
-最小二乘法的解析解公式的最关键部分是求解$(\boldsymbol{X}^T \boldsymbol{X})^{-1}$，这里用到了NumPy的`linalg.inv`函数。
+3. 处理特征矩阵 $\boldsymbol{X}$【
+$\boldsymbol{\theta}^* =
+\left( 
+\boldsymbol{X}^T 
+\color{red}
+\boldsymbol{X} 
+\color{black}
+\right)^{-1} 
+\boldsymbol{X}^T 
+\boldsymbol{y}$
+】
 
 ```python
-np.linalg.inv(X.T @ X)
+# 原始特征矩阵加上偏置项系数列（全1）
+X_with_bias = np.column_stack([X, np.ones(len(X))])
 ```
+
+4. 计算特征矩阵的转置 $\boldsymbol{X}^T$【
+$\boldsymbol{\theta}^* =
+\left( 
+\color{red}
+\boldsymbol{X}^T 
+\color{black}
+\boldsymbol{X} 
+\right)^{-1} 
+\color{red}
+\boldsymbol{X}^T 
+\color{black}
+\boldsymbol{y}$
+】
+
+```python
+# 计算 X^T
+X_T = X_with_bias.T
+```
+
+5. 计算 $\boldsymbol{X}^T \boldsymbol{X}$【
+$\boldsymbol{\theta}^* =
+\left( 
+\color{red}
+\boldsymbol{X}^T 
+\boldsymbol{X} 
+\color{black}
+\right)^{-1} 
+\boldsymbol{X}^T 
+\boldsymbol{y}$
+】
+
+```python
+# 计算 X^T X
+X_T_X = X_T @ X_with_bias
+```
+
+6. 求 $\boldsymbol{X}^T \boldsymbol{X}$ 的逆矩阵【
+$\boldsymbol{\theta}^* = 
+\color{red}
+\left( 
+\boldsymbol{X}^T 
+\boldsymbol{X} 
+\right)^{-1} 
+\color{black}
+\boldsymbol{X}^T 
+\boldsymbol{y}$
+】
+
+这是最小二乘法解析解最关键的部分，好在NumPy提供了`linalg.inv`函数可以直接使用。
+
+```python
+# 检查 X^T X 是否可逆
+if np.linalg.matrix_rank(X_T_X) != X_T_X.shape[0]:
+    raise ValueError("X^TX matrix is not invertible!")
+
+# 计算 (X^T X)^{-1}
+INV = np.linalg.inv(X_T_X)
+```
+
+> 这里我们使用了NumPy的`linalg.matrix_rank`函数来计算矩阵的秩，只有当矩阵的秩等于其阶数时，矩阵才可逆。
+
+7. 计算出最优解【
+$\boldsymbol{\theta}^* = 
+\color{red}
+\left( 
+\boldsymbol{X}^T 
+\boldsymbol{X} 
+\right)^{-1} 
+\boldsymbol{X}^T 
+\boldsymbol{y}
+\color{black}$
+】
+
+```python
+theta = INV @ X_T @ y
+```
+
+8. 提取权重和偏置项
+```python
+b = theta[-1]  # 偏置项（截距）
+w = theta[:-1]  # 权重系数
+print("偏置项:", b)
+print("权重系数:", w)
+```
+
+现在可以回到[问题与建模](../2-model/)一章，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。
+
+> [!TIP]
+> 关注网页底部公众号，发送"lr03"获取可直接运行的源代码。

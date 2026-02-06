@@ -1,13 +1,13 @@
 ---
 title: "线性回归"
-weight: 10
+weight: 20
 bookCollapseSection: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">线性回归</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-01-28 | 更新时间：2026-01-29
+  发布时间：2026-02-01 | 更新时间：2026-02-01
 </div>
 
 **线性回归模型**是我非常喜欢的机器学习模型，它简单、精致。

@@ -1,14 +1,13 @@
 ---
 title: "问题与建模"
 weight: 20
-draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
 <div class="page-title">线性回归：问题与建模</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-01-28 | 更新时间：2026-01-29
+  发布时间：2026-02-04 | 更新时间：2026-02-04
 </div>
 
 经过[上一篇文章](../1-concept/)，我们对线性回归模型有了个初步的印象，接下来我们考察一个具体的问题。
@@ -18,6 +17,17 @@ draft: true
 ）：
 
 {{< button href="/attachments/docs/linear-regression/lifespan_data_full.csv" >}}点击下载数据集 (.csv){{< /button >}}
+
+{{% details title="点我查看标准答案" %}}
+
+上面的数据是通过以下权重系数生成的，它们是这份数据隐藏的底层规律。线性回归的目标就是通过数据集学习到权重系数。请阅完后面的章节后，再回到这里对比自己计算的结果是否与本标准答案一致。
+
+### 标准答案
+
+$b=10$
+
+$w_1=0.4, w_2=6, w_3=0.8, w_4=-15, w_5=9, w_6=1.3, w_7=7$
+{{% /details %}}
 
 数据集的前5行如下：
 | 序号 | parent_lifespan | gender | exercise_hours | smoking | diet_health | sleep_hours | stress_level | actual_lifespan |
@@ -36,7 +46,7 @@ draft: true
 \hat{y} := w_1 x_1 + w_2 x_2 + w_3 x_3 + w_4 x_4 + w_5 x_5 + w_6 x_6 + w_7 x_7 + b
 ```
 
-因为numpy等Python库已实现了矩阵的乘法，为了更好地利用这些库实现计算，我们接下来使用矩阵表示以上的模型公式。
+因为NumPy等Python库已实现了矩阵的乘法，为了更好地利用这些库实现计算，我们接下来使用矩阵表示以上的模型公式。
 
 在特征后面加个常数1，可表示为向量的形式（$1 \times 8$）：
 ```katex
@@ -68,4 +78,5 @@ $}
 
 求解有两种方法，一种是**最小二乘法**求解，是以纯数学的方式求解答案；另一种是**梯度下降**法求解，以工程化的方式通过迭代来不断逼近最优解。
 
-> 关注网页底部公众号，发送"xwne"可获取可直接运行的生成以上测试集数据的源代码。
+> [!TIP]
+> 关注网页底部公众号，发送"lr02"获取生成以上测试数据集的源代码。
