@@ -1,11 +1,11 @@
 ---
-title: "解析解"
+title: "最小二乘法"
 weight: 30
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
-<div class="page-title">线性回归：解析解</div>
+<div class="page-title">线性回归：最小二乘法</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-01-28 | 更新时间：2026-01-29
@@ -13,7 +13,7 @@ draft: true
 
 在[上一篇文章](../2-model/)，我们建立了线性回归模型，接下来我们要当一回数学家了。
 
-本文计划使用最小二乘法的解析解求权重系数。
+本文计划使用**最小二乘法**的解析解求权重系数，最小二乘法是通过计算误差的平方和最小值来求解模型参数的方法。
 
 这是线性回归模型最烧脑的地方，需要做一些矩阵的运算，一旦弄懂了，将会受益无穷。
 
