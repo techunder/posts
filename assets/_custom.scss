@@ -4,7 +4,7 @@
 .page-title {
   text-align: center; 
   font-weight: 700; 
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .page-info {
@@ -32,7 +32,7 @@
 .markdown.book-article h5,
 .markdown.book-article h6 {
   font-family: "SimHei", "Microsoft YaHei", sans-serif; // 字体
-  font-size: 18px !important; // 字体大小
+  font-size: 20px !important; // 字体大小
   line-height: 1.5 !important; // 行高
   font-weight: 700 !important; // 加粗
   margin: 1.2em 0 0.6em 0 !important; // 上下间距
@@ -40,11 +40,16 @@
 
 // 次级标题文字稍小稍淡
 .markdown.book-article h2,
-.markdown.book-article h3,
+.markdown.book-article h3 {
+  color: #333 !important; // 字体颜色（灰）
+  font-size: 18px !important; // 字体大小
+}
+
+// 次级标题文字稍小稍淡
 .markdown.book-article h4,
 .markdown.book-article h5,
 .markdown.book-article h6 {
-  color: #333 !important; // 字体颜色（灰）
+  color: #555 !important; // 字体颜色（灰）
   font-size: 16px !important; // 字体大小
 }
 
@@ -62,16 +67,4 @@
 .markdown.book-article h5::before,
 .markdown.book-article h6::before {
   margin-right: 1px !important;
-}
-
-.red-katex {
-  color: #ff0000; /* Pure red (adjust to #e63946 for softer red) */
-  /* Optional: Keep KaTeX alignment/ spacing consistent with default */
-  font-size: 1.1em;
-  line-height: 1.5;
-}
-
-/* Ensure KaTeX math inside the div inherits the red color */
-.red-katex .katex {
-  color: inherit !important; /* Override default KaTeX black color */
 }

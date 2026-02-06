@@ -1,11 +1,11 @@
 ---
-title: "概念"
+title: "基本概念"
 weight: 10
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
-<div class="page-title">线性回归：概念</div>
+<div class="page-title">线性回归：基本概念</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-01-28 | 更新时间：2026-01-29

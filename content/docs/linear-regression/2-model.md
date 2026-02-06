@@ -1,11 +1,11 @@
 ---
-title: "建模"
+title: "问题与建模"
 weight: 20
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
-<div class="page-title">线性回归：建模</div>
+<div class="page-title">线性回归：问题与建模</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-01-28 | 更新时间：2026-01-29
@@ -66,6 +66,6 @@ $}
 
 接下来可以开始求解模型的权重系数了。
 
-求解有两种方法，一种是**解析解**求解，是以纯数学的方式求解答案；另一种是**梯度下降**法求解，以工程化的方式通过迭代来不断逼近最优解。
+求解有两种方法，一种是**最小二乘法**求解，是以纯数学的方式求解答案；另一种是**梯度下降**法求解，以工程化的方式通过迭代来不断逼近最优解。
 
 > 关注网页底部公众号，发送"xwne"可获取可直接运行的生成以上测试集数据的源代码。

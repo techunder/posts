@@ -121,7 +121,7 @@ L2范数的定义是这样的：
 = \boldsymbol{z}^T \boldsymbol{z}
 ```
 
-## 目标函数表示
+## 目标函数
 回到我们的目标函数$J(\boldsymbol{\theta})$, 想象$z_i$就是$y_i - \hat{y}_i$，于是
 ```katex
 \begin{aligned}
@@ -187,6 +187,42 @@ J(\boldsymbol{\theta})
 \boldsymbol{\theta}^* = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
 ```
 
-至此，大功告成，如果你一直跟到这里，恭喜你，你已经掌握了线性回归的解析解的完整数据推理过程。
+至此，大功告成，如果你一直跟到这里，恭喜你，你已经掌握了线性回归的最小二乘法解析解的完整数学推理过程。如果还没有完全理解，请多花点时间，重新仔细阅读思考前面的内容，如还是不能明白，请关注页面底部公众号给我留言。
 
-后面的路就简单了，只需要编写代码实现这个公式即可。现在请静下心来，欣赏一下最后这个优美的公式，我们下一章见。
+后面的路就简单了，只需要编写代码实现这个公式即可。现在请静下心来，欣赏一下最后这个优美的公式。
+
+## 代码实现
+
+在[问题与建模](../2-model/)一篇中，我们提供了[数据集](/attachments/docs/linear-regression/lifespan_data_full.csv)，现在请把它下载到本地。
+
+我们的思路是，先读取数据集，然后将其转换为NumPy数组，最后使用前面推导的最小二乘法公式求解最优解。
+
+1. 依赖包
+
+我们使用到了NumPy和Pandas这两个Python库。
+
+```python
+import numpy as np
+import pandas as pd
+```
+
+2. 数据装载
+
+读取数据集并转换为NumPy数组
+
+```python
+# 读取CSV文件
+df = pd.read_csv('lifespan_data_full.csv')
+
+# 转换为NumPy数组
+X = df[['parent_lifespan', 'gender', 'exercise_hours', 'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
+y = df['actual_lifespan'].values
+```
+
+3. 求逆矩阵
+
+最小二乘法的解析解公式的最关键部分是求解$(\boldsymbol{X}^T \boldsymbol{X})^{-1}$，这里用到了NumPy的`linalg.inv`函数。
+
+```python
+np.linalg.inv(X.T @ X)
+```
