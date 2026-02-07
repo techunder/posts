@@ -132,3 +132,10 @@ $}
 ```
 
 ## Gradient Descent
+
+Let $\epsilon_k > 0$ be the learning rates, $k$ is the iteration counter, $k = 1,2,\dots$
+* Initialize $\boldsymbol{\theta}$
+* While not converged:
+    * Select $m$ samples $\left \\{ \boldsymbol{x}^{(1)}, \cdots , \boldsymbol{x}^{(m)} \right \\}$ and matching labels $\left \\{ y^{(1)}, \cdots , y^{(m)} \right \\}$
+    * Computer gradient $\boldsymbol{g} \leftarrow \nabla_{\boldsymbol{\theta}} \frac{1}{m} \sum_{i=1}^m L(f(\boldsymbol{x}^{(i)},\boldsymbol{\theta}), y^{(i)})$
+    * Compute update $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \epsilon_k \boldsymbol{g}$
