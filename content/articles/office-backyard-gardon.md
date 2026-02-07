@@ -1,5 +1,5 @@
 ---
-title: "午后一隅"
+title: "午后一隅，冬日暖阳"
 weight: 20
 bookToC: false
 ---
@@ -11,7 +11,7 @@ bookToC: false
 </div>
 
 <p>
-  <img src="/images/articles/office-backyard-gardon/office-backyard-gardon.png" alt="office-backyard-gardon" style="width: 50%; height: auto;">
+  <img src="/images/articles/office-backyard-gardon/office-backyard-gardon.png" alt="office-backyard-gardon" style="width: 100%; height: auto;">
 </p>
 
 这是我们办公区的后花园，

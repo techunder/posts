@@ -93,6 +93,7 @@ $\mathbf{a}^T \mathbf{b}$ is scalar, so $\mathbf{a}^T \mathbf{b} = (\mathbf{a}^T
 * Necessary condition for local minimality: If $ \boldsymbol{x}^* $ is a local minimum of $f$, then $\nabla_{\boldsymbol{x}} f(\boldsymbol{x}^*) = 0$
 
 # Linear Regression
+## Least Squares Method (LSM)
 Notation:
 * Parameter: $\boldsymbol{w}=\begin{bmatrix} w_1 \\\\ w_2 \\\\ \vdots \\\\ w_d \end{bmatrix}$
 * Parameter: $\boldsymbol{\theta}=\begin{bmatrix} b \\\\ w_1 \\\\ w_2 \\\\ \vdots \\\\ w_d \end{bmatrix}$
@@ -129,3 +130,5 @@ To find the least squares solution, taking the derivative and set it to zero:
 = (\tilde{\boldsymbol{X}}^T \tilde{\boldsymbol{X}})^{-1} \tilde{\boldsymbol{X}}^T \boldsymbol{y} 
 $}
 ```
+
+## Gradient Descent
