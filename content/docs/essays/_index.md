@@ -1,5 +1,5 @@
 ---
-title: "人文随笔"
+title: "个人随笔"
 weight: 20
 bookCollapseSection: false
 ---
