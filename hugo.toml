@@ -4,7 +4,7 @@ title = 'Techunder'
 theme = 'hugo-book'
 
 [params]
-  BookSection = '*'
+  BookSection = 'docs'
   BookToC = true
   BookLogo = 'images/logo.png'
 

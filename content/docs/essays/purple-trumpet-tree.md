@@ -23,7 +23,7 @@ bookToC: false
 每当我灵感枯竭之时，是你这一抹春天的色彩，松动了我创意的泥土，让灵感萌发新芽。在我精力疲惫之际，是你这一片春意生机，焕醒了我内里的朝气。
 
 <p>
-  <img src="/images/articles/purple-trumpet-tree/purple-trumpet-tree.jpg" alt="purple-trumpet-tree" style="width: 100%; height: auto;">
+  <img src="/images/docs/essays/purple-trumpet-tree/purple-trumpet-tree.jpg" alt="purple-trumpet-tree" style="width: 100%; height: auto;">
 </p>
 
 你有一个特别的名字，紫花风铃木，纵有万山遍野开，唯独窗外你一支。

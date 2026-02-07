@@ -8,7 +8,7 @@ draft: true
 <div class="page-title">随笔模版</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-01-28 | 更新时间：2026-01-29
+  本文2026-02-02首发于「Techunder技术人文」微信公众号
 </div>
 
 开篇文字
