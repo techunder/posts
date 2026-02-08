@@ -162,24 +162,25 @@ J(\boldsymbol{\theta})
 # 求解最优值
 终于到最后一步了，仔细看看这个函数，它是关于$\boldsymbol{\theta}$的二次函数，这个函数的值永远 $\ge 0$（均方误差的最小值为零）。
 
-要计算这样一个函数的最小值，最简单的方法是对其关于自变量$\boldsymbol{\theta}$求导，并设导数为0，就会得到最优解。
+要计算这样一个二次函数的最小值，最简单的方法是对其关于自变量 $\boldsymbol{\theta}$ 求导，并设导数为 0，就会得到最优解。
 
-对$J(\boldsymbol{\theta})$关于$\boldsymbol{\theta}$求导，得到：
+对 $J(\boldsymbol{\theta})$ 关于 $\boldsymbol{\theta}$ 求导，得到：
 ```katex
 \nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta})
 = \frac{1}{N} \left( -2\boldsymbol{X}^T \boldsymbol{y} + 2\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right)
 ```
 > 这里用到矩阵的求导公式 $\frac{\partial}{\partial{\boldsymbol{A}}} \left( \boldsymbol{A}^T \boldsymbol{B} \right) = \boldsymbol{B}$，以及 $\frac{\partial}{\partial{\boldsymbol{A}}} \left( \boldsymbol{A}^T \boldsymbol{B} \boldsymbol{A} \right) = 2\boldsymbol{B} \boldsymbol{A}$
 
-设导数为0，即：
+设导数为0，即可得到最优解 $\boldsymbol{\theta}^*$：
 ```katex
-\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = 0 \\
-\frac{1}{N} \left( -2\boldsymbol{X}^T \boldsymbol{y} + 2\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} \right) = 0 \\
-\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta} = \boldsymbol{X}^T \boldsymbol{y} \\
-\boldsymbol{\theta} = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
+\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}^*) = 0
 ```
-
-一般我们通过$\boldsymbol{\theta}^*$表示最优解，即：
+```katex
+\frac{1}{N} \left( -2\boldsymbol{X}^T \boldsymbol{y} + 2\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta}^* \right) = 0
+```
+```katex
+\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\theta}^* = \boldsymbol{X}^T \boldsymbol{y}
+```
 ```katex
 \fbox{$
 \boldsymbol{\theta}^* = \left( \boldsymbol{X}^T \boldsymbol{X} \right)^{-1} \boldsymbol{X}^T \boldsymbol{y}
@@ -206,17 +207,21 @@ import pandas as pd
 ```
 
 2. 数据装载。
-读取数据集，提取特征矩阵和目标列。
+读取数据集，提取特征矩阵和目标列。为了方便后续的模型评估，我们将前900个样本用于训练，后100个样本用于模型评估。
 ```python
 # 读取CSV文件
 df = pd.read_csv('lifespan_data_full.csv')
 
 # 提出特征矩阵
-X = df[['parent_lifespan', 'gender', 'exercise_hours', \
+X0 = df[['parent_lifespan', 'gender', 'exercise_hours', \
         'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
 
 # 提出目标列
-y = df['actual_lifespan'].values
+y0 = df['actual_lifespan'].values
+
+# 使用前900个样本进行训练（保留后100个样本用于模型评估）
+X = X0[0:900]
+y = y0[0:900]
 ```
 
 3. 为特征矩阵拼接偏置项系数1。
