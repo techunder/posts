@@ -18,11 +18,9 @@ weight: 30
 
 来，都看到这了，别退缩 ~
 
-# 解析解
-
 我们先对变量做一下定义。
 
-## 变量定义
+# 变量定义
 
 [训练数据](../2-model/)的每一行可以表示为向量$[x_1, x_2, x_3, x_4, x_5, x_6, x_7]$的形式，其中$x_1$到$x_7$是样本的特征值，我们在后面添加一个固定的系数$x_8=1$作为与截距项相乘的系数（后面会看到这样做的好处），
 得到$\boldsymbol{x}_i := [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1] = [x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8]$
@@ -75,7 +73,7 @@ x_{N1} & x_{N2} & \cdots & x_{Nd}
 := \begin{bmatrix} y_1 \\\\ y_2 \\\\ \vdots \\\\ y_N \end{bmatrix}
 ```
 
-## 最小化误差
+# 最小化误差
 
 当我们直接使用胡乱猜测的$\boldsymbol{\theta}$去计算预测寿命，效果当然是很不理想的，我们的目标是让计算机学习数据集的规律，得到符合数据规律的$\boldsymbol{\theta}$值。
 
@@ -96,7 +94,7 @@ $J(\boldsymbol{\theta})$就是我们的目标函数（也叫损失函数 loss fu
 \min_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) := \min_{\boldsymbol{\theta}} \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
 ```
 
-## L2范数
+# L2范数
 上面我们得到的目标函数$J(\boldsymbol{\theta})$固然是好，但它是以循环历遍的方式求值，表达不够简洁，计算效率也不高，如果能用矩阵运算的方式来表示就更好了，于是我们想到了**L2范数**（欧几里得范数， L2 norm)，因为$\sum_{i=1}^{N} (y_i - \hat{y}_i)^2$这部分和L2范数的平方很像。
 
 L2范数的定义是这样的：
@@ -120,7 +118,7 @@ L2范数的定义是这样的：
 = \boldsymbol{z}^T \boldsymbol{z}
 ```
 
-## 目标函数
+# 目标函数
 回到我们的目标函数$J(\boldsymbol{\theta})$, 想象$z_i$就是$y_i - \hat{y}_i$，于是
 ```katex
 \begin{aligned}
@@ -161,7 +159,7 @@ J(\boldsymbol{\theta})
 \end{aligned}
 ```
 
-## 求解最优值
+# 求解最优值
 终于到最后一步了，仔细看看这个函数，它是关于$\boldsymbol{\theta}$的二次函数，这个函数的值永远 $\ge 0$（均方误差的最小值为零）。
 
 要计算这样一个函数的最小值，最简单的方法是对其关于自变量$\boldsymbol{\theta}$求导，并设导数为0，就会得到最优解。
@@ -194,38 +192,36 @@ $}
 
 后面的路就简单了，只需要编写代码实现这个公式即可。
 
-## 代码实现
+# 代码实现
 
 在[问题与建模](../2-model/)一篇中，我们提供了[数据集](/attachments/docs/linear-regression/lifespan_data_full.csv)，现在请把它下载到本地。
 
-我们的思路是，读取数据集，将其转换为NumPy数组，然后使用前面推导的最小二乘法公式求解最优解。
+我们的思路是，读取数据集，将其转换为NumPy数组，然后代入前面推导的最小二乘法公式求解最优解。
 
-1. 导入依赖包
-
+1. 导入依赖包。
 我们使用到了NumPy和Pandas这两个Python库。
-
 ```python
 import numpy as np
 import pandas as pd
 ```
 
-2. 数据装载
-
-读取数据集，转换为NumPy数组
-
+2. 数据装载。
+读取数据集，提取特征矩阵和目标列。
 ```python
 # 读取CSV文件
 df = pd.read_csv('lifespan_data_full.csv')
 
-# 转换为NumPy数组
+# 提出特征矩阵
 X = df[['parent_lifespan', 'gender', 'exercise_hours', \
         'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
+
+# 提出目标列
 y = df['actual_lifespan'].values
 ```
 
-3. 处理特征矩阵 $\boldsymbol{X}$【
-$\boldsymbol{\theta}^* =
-\left( 
+3. 为特征矩阵拼接偏置项系数1。
+对应公式中红色的部分：
+$\left( 
 \boldsymbol{X}^T 
 \color{red}
 \boldsymbol{X} 
@@ -233,16 +229,14 @@ $\boldsymbol{\theta}^* =
 \right)^{-1} 
 \boldsymbol{X}^T 
 \boldsymbol{y}$
-】
-
 ```python
 # 原始特征矩阵加上偏置项系数列（全1）
 X_with_bias = np.column_stack([X, np.ones(len(X))])
 ```
 
-4. 计算特征矩阵的转置 $\boldsymbol{X}^T$【
-$\boldsymbol{\theta}^* =
-\left( 
+4. 特征矩阵转置。
+对应公式中红色的部分：
+$\left( 
 \color{red}
 \boldsymbol{X}^T 
 \color{black}
@@ -252,16 +246,14 @@ $\boldsymbol{\theta}^* =
 \boldsymbol{X}^T 
 \color{black}
 \boldsymbol{y}$
-】
-
 ```python
 # 计算 X^T
 X_T = X_with_bias.T
 ```
 
-5. 计算 $\boldsymbol{X}^T \boldsymbol{X}$【
-$\boldsymbol{\theta}^* =
-\left( 
+5. 计算 $\boldsymbol{X}^T \boldsymbol{X}$。
+对应公式中红色的部分：
+$\left( 
 \color{red}
 \boldsymbol{X}^T 
 \boldsymbol{X} 
@@ -269,16 +261,15 @@ $\boldsymbol{\theta}^* =
 \right)^{-1} 
 \boldsymbol{X}^T 
 \boldsymbol{y}$
-】
-
 ```python
 # 计算 X^T X
 X_T_X = X_T @ X_with_bias
 ```
 
-6. 求 $\boldsymbol{X}^T \boldsymbol{X}$ 的逆矩阵【
-$\boldsymbol{\theta}^* = 
-\color{red}
+6. 求 $\boldsymbol{X}^T \boldsymbol{X}$ 的逆矩阵。
+这是最小二乘法解析解最关键的部分，好在NumPy提供了`linalg.inv`函数可以直接使用。
+对应公式中红色的部分：
+$\color{red}
 \left( 
 \boldsymbol{X}^T 
 \boldsymbol{X} 
@@ -286,10 +277,6 @@ $\boldsymbol{\theta}^* =
 \color{black}
 \boldsymbol{X}^T 
 \boldsymbol{y}$
-】
-
-这是最小二乘法解析解最关键的部分，好在NumPy提供了`linalg.inv`函数可以直接使用。
-
 ```python
 # 检查 X^T X 是否可逆
 if np.linalg.matrix_rank(X_T_X) != X_T_X.shape[0]:
@@ -299,9 +286,9 @@ if np.linalg.matrix_rank(X_T_X) != X_T_X.shape[0]:
 INV = np.linalg.inv(X_T_X)
 ```
 
-> 这里我们使用了NumPy的`linalg.matrix_rank`函数来计算矩阵的秩，只有当矩阵的秩等于其阶数时，矩阵才可逆。
+> 矩阵只有秩等于其阶数时才可逆。这里我们使用了NumPy的`linalg.matrix_rank`函数来计算矩阵的秩。
 
-7. 计算出最优解【
+7. 计算出最优解。
 $\boldsymbol{\theta}^* = 
 \color{red}
 \left( 
@@ -311,13 +298,11 @@ $\boldsymbol{\theta}^* =
 \boldsymbol{X}^T 
 \boldsymbol{y}
 \color{black}$
-】
-
 ```python
 theta = INV @ X_T @ y
 ```
 
-8. 提取权重和偏置项
+8. 提取权重和偏置项。
 ```python
 b = theta[-1]  # 偏置项（截距）
 w = theta[:-1]  # 权重系数
@@ -325,7 +310,7 @@ print("偏置项:", b)
 print("权重系数:", w)
 ```
 
-现在可以回到[问题与建模](../2-model/)一章，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。
+现在可以回到[问题与建模](../2-model/)一章查看生成数据所用的权重系数$\boldsymbol{w}$和偏置项$b$，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。
 
 > [!TIP]
 > 关注网页底部公众号，发送"lr03"获取可直接运行的源代码。
