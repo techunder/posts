@@ -564,6 +564,7 @@ draft: false
     * **比较判别法**：
         * 如果 $\int_a^b f(x)dx \ge \int_a^b g(x)dx = \infty$，$\int_a^b f(x)dx$ 一定发散。
         * 如果 $\int_a^b f(x)dx \le \int_a^b g(x)dx < \infty$，$\int_a^b f(x)dx$ 一定收敛。
+        * 对所有的$x>0$，$e^{-x} \le \frac{C}{x^n}$，让后利用比较判别法（因为$\lim_{x \to \infty} \frac{x^n}{e^x} = 0$，可以把$C$理解成函数$f(x)=\frac{x^n}{e^x}$的最大值；$x$也可以替换为当$x \to \infty$时，$p(x) \to \infty$的多项式$p(x)$）
     * **极限比较判别法**：
         * **渐近线等价**：当$x \to a$时，$f(x) \color{red} \sim \color{black} g(x)$表示$\lim_{x \to a} \frac{f(x)}{g(x)} = 1$
             * 这并不是说明当$x$接近于$a$时，$f(x)$大约等于$g(x)$（它们可能相差数百万），而是说明当$x$接近于$a$时，$f(x)$和$g(x)$的比值接近于1。
@@ -574,7 +575,6 @@ draft: false
         * 当$p>1$时，积分$\int_a^{\infty} \frac{1}{x^p} dx$收敛
         * 其它情况都发散
     * **绝对收敛判别法**：如果积分$\int_a^b |f(x)| dx$收敛，那么$\int_a^b f(x) dx$也一定收敛。这对$\int_a^{\infty} |f(x)| dx$同样适用。
-    * 对所有的$x>0$，$e^{-x} \le \frac{C}{x^n}$（因为$\lim_{x \to \infty} \frac{x^n}{e^x} = 0$，可以把$C$理解成函数$f(x)=\frac{x^n}{e^x}$的最大值）
 * **解题思路**：
     * 确保被积函数为正：通过取反、绝对收敛判别法
     * 没有瑕点的积分，都是收敛的
