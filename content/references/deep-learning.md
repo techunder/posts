@@ -22,64 +22,16 @@ Let $i=1,2,\dots,N$ (the sample index)
 * Empirical risk minimization (ERM) $min_{\boldsymbol{\theta} \in \Theta} J(\boldsymbol{\theta}) := \frac{1}{N} \sum_{i=1}^N L(\hat{y_i}, y_i)$
 * Population risk minimization (PRM) $min_{\boldsymbol{\theta} \in \Theta} J(\boldsymbol{\theta}) := \mathbb{E}_{(\boldsymbol{x}, y) \sim \mathcal{D}}[L(\hat{y}, y)]$
 
-# Linear Algebra
+# 余弦相似度
+设有两个向量 $\boldsymbol{x}$ 和 $\boldsymbol{y}$，
+其中 $\theta$ 为 $\boldsymbol{x}$ 和 $\boldsymbol{y}$ 的夹角。
 
-## Matrix Transpose
+根据余弦定理，
 ```katex
-(\mathbf{a}+\mathbf{b})^T = \mathbf{a}^T + \mathbf{b}^T
-```
-```katex
-(\mathbf{ab})^T = \mathbf{b}^T \mathbf{a}^T
-```
-```katex
-(\mathbf{abc})^T = \mathbf{c}^T \mathbf{b}^T \mathbf{a}^T
-```
-
-## Matrix Equation
-```katex
-\mathbf{ax} = \mathbf{by} \\
-\mathbf{x} = \mathbf{a}^{-1} \mathbf{by}
-```
-
-## Matrix Calculus
-```katex
-    \frac{\partial}{\partial{\mathbf{a}}}
-        \left( \mathbf{a}^T \mathbf{b} \right)
-    = \mathbf{b}
-```
-
-```katex
-    \frac{\partial}{\partial{\mathbf{a}}}
-        \left( \mathbf{a}^T \mathbf{M} \mathbf{a} \right)
-    = 2 \mathbf{Ma}
-```
-
-## Squared L2 Norm
-
-let $\boldsymbol{z} = \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_d \end{bmatrix}$
-
-```katex
-\begin{aligned}
-\| \boldsymbol{z} \|_2^2 \\
-&= \left({\sqrt{z_1^2 + z_2^2 + \dots + z_d^2}}\right)^2 \\
-&= z_1^2 + z_2^2 + \dots + z_d^2  \\
-&= \boldsymbol{z}^T \boldsymbol{z}
-\end{aligned}
-```
-let $\mathbf{a}$ and $\mathbf{b}$ be two vectors in $\mathbb{R}^d$.
-
-$\mathbf{a}^T \mathbf{b}$ is scalar, so $\mathbf{a}^T \mathbf{b} = (\mathbf{a}^T \mathbf{b})^T = \mathbf{b}^T \mathbf{a}$
-```katex
-\begin{aligned}
-\| \mathbf{a} - \mathbf{b} \|_2^2 \\
-&= (\mathbf{a} - \mathbf{b})^T(\mathbf{a} - \mathbf{b}) \\
-&= \mathbf{a}^T \mathbf{a} - \mathbf{a}^T \mathbf{b} - \mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
-&= \mathbf{a}^T \mathbf{a} - (\mathbf{a}^T \mathbf{b})^T - \mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
-&= \mathbf{a}^T \mathbf{a} - \mathbf{b}^T \mathbf{a} - \mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
-&= \mathbf{a}^T \mathbf{a} - 2\mathbf{b}^T \mathbf{a} + \mathbf{b}^T \mathbf{b} \\
-&= \mathbf{a}^T \mathbf{a} - 2\mathbf{a}^T \mathbf{b} + \mathbf{b}^T \mathbf{b} \\
-&= \| \mathbf{b} - \mathbf{a} \|_2^2
-\end{aligned}
+\| \boldsymbol{x} - \boldsymbol{y} \|^2 = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta \\
+(\boldsymbol{x} - \boldsymbol{y}) \cdot (\boldsymbol{x} - \boldsymbol{y}) = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta \\
+\|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\boldsymbol{x} \cdot \boldsymbol{y} = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta \\
+\cos \theta = \frac{\boldsymbol{x} \cdot \boldsymbol{y}}{\|\boldsymbol{x}\| \|\boldsymbol{y}\|}
 ```
 
 # Gradients

@@ -121,6 +121,8 @@ draft: false
             * $cos(A)cos(B)=\frac{1}{2}(cos(A-B)+cos(A+B))$
             * $sin(A)sin(B)=\frac{1}{2}(cos(A-B)-cos(A+B))$
             * $sin(A)cos(B)=\frac{1}{2}(sin(A-B)+sin(A+B))$
+    * <span style="color:red;">余弦定理</span>：任意三角形中，$a^2 = b^2 + c^2 - 2bc \cos A$，$A$为边$b$与边$c$的夹角
+        * 当 $A=\frac{\pi}{2}$ 时，$a^2 = b^2 + c^2$（勾股定理）
     
 
 # 反三角函数
