@@ -61,12 +61,17 @@ let $\boldsymbol{z} = \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_d \end{bma
 
 ## $L_2$ Norm
 向量的的长度
+
 ```katex
 \begin{aligned}
 \| \boldsymbol{z} \|_2 \\
 &= \sqrt{z_1^2 + z_2^2 + \dots + z_d^2} \\
 &= \sqrt{\boldsymbol{z}^T \boldsymbol{z}}
 \end{aligned}
+```
+<span style="color:orange;">没写下标默认就是 $L_2$</span>，即
+```katex
+\| \boldsymbol{z} \| = \| \boldsymbol{z} \|_2
 ```
 
 ## Squared $L_2$ Norm
