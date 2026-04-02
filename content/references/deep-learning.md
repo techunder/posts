@@ -113,6 +113,26 @@ Let $\epsilon_k > 0$ be the learning rates, $k$ is the iteration counter, $k = 1
 
 注意力机制
 
+## overall
+
+1. 一句话 → 切成 token
+​
+2. 每个 token → 变成 embedding 向量
+​
+3. 这句话就变成了一组向量列表
+​
+4. 每个 token 都被映射成 Q、K、V 三个向量
+​
+5. 要预测下一个字时，
+拿最后一个字的 Q
+去跟前面所有字的 K 算相关性
+​
+6. 相关性 = 权重
+​
+7. 用权重对前面所有字的 V 加权融合
+​
+8. 最后用融合出来的结果 → 算下一个 token 的概率
+
 ## 先从一个具体例子说起
 
 假设我们有 3 个 token：「我」、「爱」、「你」。
