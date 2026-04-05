@@ -13,7 +13,7 @@ draft: true
 
 自注意力机制（Self-Attention Mechanism）是 Transformer 模型的核心机制。
 
-# 大语言模型工作的整体流程
+# 整体流程
 
 1. 输入一句话 → 切成 token（词元）
 2. 每个 token → 变成 embedding 向量（通过查表）→ 得到一组 embedding 向量列表
