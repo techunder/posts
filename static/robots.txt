@@ -1,3 +1,7 @@
-User-Agent: *
+User-agent: *
 Allow: /
-Disallow: /references/
+
+User-agent: GPTBot
+Allow: /
+
+Sitemap: https://techunder.tech/sitemap.xml
