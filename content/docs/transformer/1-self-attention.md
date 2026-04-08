@@ -13,6 +13,8 @@ draft: false
 
 自注意力机制（Self-Attention Mechanism）是 Transformer 模型的核心机制。
 
+下文是按推理（生成）的过程来描述的。
+
 # 整体流程
 
 1. 输入一句话 → 切成 token（词元）
