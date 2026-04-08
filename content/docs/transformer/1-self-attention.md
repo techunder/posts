@@ -28,7 +28,7 @@ draft: true
 
 每个 token 都会先表示为 embedding 向量。
 
-每个 token 进入注意力层之前，会先被投影成三个向量——Q（Query）、K（Key）、V（Value）。
+每个 token 进入注意力层之前，会先被投影成三个向量 —— Q（Query）、K（Key）、V（Value）。
 
 粗略理解：
 - Q = "我在找什么"
@@ -46,17 +46,17 @@ Q = embedding \times W_q (d_{model} → d_k) \\
 K = embedding \times W_k (d_{model} → d_k) \\
 V = embedding \times W_v (d_{model} → d_v)
 ```
-$W_q$、$W_k$、$W_v$ 是可学习的矩阵，维度分别为 $d_{model} \times d_k$、$d_{model} \times d_k$ 和 $d_{model} \times d_v$。
+$W_q$、$W_k$、$W_v$ 是可学习的矩阵，shape 分别为 $(d_{model}, d_k)$、$(d_{model}, d_k)$ 和 $(d_{model}, d_v)$。
 
 $d_k$ = 通常比 $d_{model}$ 小很多，比如 $d_{model}$ = 4096，$d_k$ = 64。
 
-这样做是为了省计算量 —— 下面的注意力计算里，$QK^T$ 的矩阵乘法规模是 $(1 \times d_k \times n) = O(n·d_k)$，$d_k$ 越小越快。
+这样做是为了省计算量 —— 例如下面的注意力计算里，$QK^T$ 的矩阵乘法规模是 $(1 \times d_k \times n) = O(n·d_k)$，所以 $d_k$ 越小越快。
 
 # 单步注意力公式
 
-我们的目标是，看到「我」、「爱」、「你」三个 token，要计算下一个 token 的概率，挑概率最大的作为下一个 token。
+我们的目标是，看到「我」、「爱」、「你」三个 token，要计算下一个 token 的概率，然后挑概率最大的作为下一个 token。
 
-原理是以当前最后一个 token， 即「你」，作为 query，去跟当前所有已经出现的 token，即「我」、「爱」、「你」，的 key 算相关性，相关性 = 权重，按权重取值。
+原理是以当前最后一个 token， 即「你」，作为 query，去跟当前已经出现的所有 token，即「我」、「爱」、「你」，的 key 计算相关性，相关性 = 权重，按权重取值。
 
 单次注意力的完整公式是：
 
@@ -66,7 +66,7 @@ $d_k$ = 通常比 $d_{model}$ 小很多，比如 $d_{model}$ = 4096，$d_k$ = 64
 $}
 ```
 
-分三步走：
+分步拆解：
 
 ## 第一步：算相似度权重
 
@@ -74,13 +74,13 @@ $}
 S = \frac{Q K^T}{\sqrt{d_k}}
 ```
 
-Q 是 shape (1, $d_k$) 的行向量
+Q 是 shape 为 $(1, d_k)$ 的行向量
 
-K 是 shape (n, $d_k$) 的矩阵（n = token 数量）
+K 是 shape 为 (n, $d_k$) 的矩阵（n = token 数量）
 
-$Q \times K^T$ 得到 shape (1, n) 的分数向量
+$Q \times K^T$ 得到 shape (1, n) 的向量，为相似度权重
 
-除以 $\sqrt{d_k}$ 是为了防止 $d_k$ 太大导致 softmax 梯度消失
+为了防止 $d_k$ 太大导致 softmax 梯度消失，除以 $\sqrt{d_k}$
 
 以 3 个 token 为例：
 
@@ -102,7 +102,7 @@ s₁ 表示"第一个 token 对当前 query 的相关程度"。
 \alpha_i = \frac{e^{s_i}}{\sum_j e^{s_j}}
 ```
 
-结果是三个概率值，和为 1，代表每个历史 token 对当前 query 的**注意力权重**。
+结果是三个概率值和为 1，代表每个历史 token 对当前 query 的**注意力权重**。
 
 
 ## 第三步：加权求和
