@@ -1,7 +1,7 @@
 ---
 title: "线性回归"
 weight: 20
-bookCollapseSection: false
+bookCollapseSection: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">线性回归</div>

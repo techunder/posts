@@ -10,6 +10,7 @@ draft: false
    <span class="original-tag">原创</span>
   发布时间：2026-04-08 | 更新时间：2026-04-08
 </div>
+{{< katex />}}
 
 自注意力机制（Self-Attention Mechanism）是 Transformer 模型的核心机制。
 

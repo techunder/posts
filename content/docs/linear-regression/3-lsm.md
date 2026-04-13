@@ -1,6 +1,7 @@
 ---
 title: "最小二乘法"
 weight: 30
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
@@ -9,6 +10,7 @@ weight: 30
    <span class="original-tag">原创</span>
   发布时间：2026-02-06 | 更新时间：2026-02-06
 </div>
+{{< katex />}}
 
 在[上一篇文章](../2-model/)，我们建立了线性回归模型，接下来我们要当一回数学家了。
 

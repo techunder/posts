@@ -1,6 +1,7 @@
 ---
 title: "基本概念"
 weight: 10
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
@@ -9,6 +10,7 @@ weight: 10
    <span class="original-tag">原创</span>
   发布时间：2026-02-02 | 更新时间：2026-02-02
 </div>
+{{< katex />}}
 
 线性回归模型是一个朴素而强大的工具，可以帮我们发现潜藏于大量数据下，各个因素相对目标变量的线性规律。
 

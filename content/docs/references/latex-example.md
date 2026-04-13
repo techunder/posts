@@ -1,0 +1,72 @@
+---
+title: "LaTeX示例"
+weight: 10
+bookToC: true
+draft: false
+---
+<!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
+<div class="page-title">LaTeX示例</div>
+{{< katex />}}
+
+LaTeX 是一种用于描述专业数学公式的语言，广泛应用于学术界和技术领域的专业文档中。
+
+# 符号 (Symbols)
+| Symbol | LaTeX Code | Description |
+|----------|----------|----------|
+| $\text{x}$ | \text{x} | |
+| $\textbf{x}$ | \textbf{x} | |
+| $x$ | x | |
+| $\boldsymbol{x}$ | \boldsymbol{x} | |
+| $\mathcal{X}$ | \mathcal{X} | |
+| $\mathfrak{L}$ | \mathfrak{L} | |
+| $\mathbb{R}$ | \mathbb{R} | |
+| $\in$ | \in | |
+| $\cup$ | \cup | |
+| $\cap$ | \cap | |
+| $\setminus$ | \setminus | |
+| $\times$ | \times | |
+| $\phi$ | \phi | |
+| $\vert$ | \vert | |
+| $\Vert$ | \Vert | |
+| $\infty$ | \infty | infinity |
+| $\sim$ | \sim | |
+| $\tilde{x}$ | \tilde{x} | |
+| $\hat{y}$ | \hat{y} | |
+| $\frac{1}{a}$ | \frac{1}{a} | fraction |
+| $\lim_{m \to a}$ | \lim_{m \to a} | limit |
+| $\sum_{i=1}^{m}$ | \sum_{i=1}^{m} | |
+| $\int_a^b$ | \int_a^b | integral |
+| $F(x)\|_a^b$ | F(x)\|_a^b | |
+| $F(x)\big\|_a^b$ | F(x)\big\|_a^b | |
+| $F(x)\bigg\|_a^b$ | F(x)\bigg\|_a^b | |
+| $F(x)\Bigg\|_a^b$ | F(x)\Bigg\|_a^b | |
+| $\circ$ | \circ | circle |
+| $\circledcirc$ | \circledcirc | circled circle |
+| $\pm$ | \pm | plus minus |
+| $\cdot$ | \cdot | center dot |
+| $\cdots$ | \cdots | center dots |
+| $\ldots$ | \ldots | low dots |
+| $\ddots$ | \ddots | diagonal dots |
+| $\vdots$ | \vdots | vertical dots |
+| $\sqrt{a}$ | \sqrt{a} | square root |
+| $\epsilon$ | \epsilon | |
+| $\theta$ | \theta | |
+| $\Theta$ | \Theta | |
+| $\Delta$ | \Delta | |
+| $\nabla$ | \nabla | |
+| $\implies$ | \implies | |
+| $\mapsto$ | \mapsto | |
+| $\to$ | \to | |
+| $\rightarrow$ | \rightarrow | |
+| $\leftarrow$ | \leftarrow | |
+| $\leftrightarrow$ | \leftrightarrow | |
+| $\neq$ | \neq | |
+| $\approx$ | \approx | |
+| $\le$ | \le | less equal |
+| $\ge$ | \ge | great equal |
+| $\quad$ | \quad | quarter, like \t |
+| $\qquad$ | \qquad | more quarter, like \t\t |
+| $\begin{bmatrix} a \\\\ b \\\\ c \end{bmatrix}$ | \begin{bmatrix} a \\\\ b \\\\ c  \end{bmatrix} | bracket matrix |
+| $\begin{bmatrix} a & b \\\\ c & d \end{bmatrix}$ | $\begin{bmatrix} a & b \\\\ c & d \end{bmatrix} | bracket matrix |
+| $\\|x\\|_2$ | \\\| x \\\|_2 | L2 norm |
+| $\left \\| \begin{bmatrix} a \\\\ b \\\\ c \end{bmatrix} \right \\| _2$ | \left \\| \begin{bmatrix} a \\ b \\ c \end{bmatrix} \right \\| _2 | L2 norm |

@@ -1,6 +1,7 @@
 ---
 title: "问题与建模"
 weight: 20
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 {{< katex />}}
@@ -9,6 +10,7 @@ weight: 20
    <span class="original-tag">原创</span>
   发布时间：2026-02-04 | 更新时间：2026-02-04
 </div>
+{{< katex />}}
 
 经过[上一篇文章](../1-concept/)，我们对线性回归模型有了个初步的印象，接下来我们考察一个具体的问题。
 
