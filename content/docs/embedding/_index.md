@@ -22,13 +22,13 @@ draft: true
 
 输入切分成 token → token 转换成 embedding 向量 → 输入大语言模型推理 → 逐个输出 token。
 
-例如 “我喜欢大自然” 会被拆分成 4 个 token：「我」、「喜欢」、「大」、「自然」。
+例如 “我喜欢大自然” 会被拆分成 4 个 token：'我'、'喜欢'、'大'、'自然'。
 
 人类自然语言里所有这些 token（词元）会组成一个**词库**。
 
 词库里的每一个 token 都会静态地映射到一个高维向量。
 
-例如「喜欢」这个 token，利用 `paraphrase-multilingual-MiniLM-L12-v2` 这个 embedding model 可以映射为向量：
+例如'喜欢'这个 token，利用 `paraphrase-multilingual-MiniLM-L12-v2` 这个 embedding model 可以映射为向量：
 ```text
 [ 1.5620e-01 -5.2500e-02  8.6000e-03 -3.2600e-02 -1.4270e-01 -6.3600e-02
   4.2780e-01  2.1300e-01 -3.4000e-02  7.7500e-02 -6.3300e-02 -2.5110e-01
@@ -43,6 +43,7 @@ draft: true
  -1.6410e-01  1.6050e-01  3.6710e-01 -1.9900e-02  9.8300e-02  8.7700e-02]
 （维度: 384）
 ```
+
 {{% details title="计算 token embedding 的代码" open=false %}}
 ```python
 from sentence_transformers import SentenceTransformer
@@ -64,6 +65,9 @@ for word, emb in zip(words, embeddings):
     print(f"向量: {emb.round(4)}")
 ```
 {{% /details %}}
+
+> [!NOTICE]
+> 按 `python test_embedding.py <token>` 格式运行即可计算入参的余弦相似度。
 
 这个映射不是随意的，是对人类自然语言进行大量学习后摸索出的规律，使得语义相关性高的 token 向量值也比较类似。
 
@@ -92,7 +96,7 @@ for word, emb in zip(words, embeddings):
 
 通常使用 $cos(\theta)$ 的值表示两个向量的相似度（也可以理解为距离），
 
-$cos(\theta)$ 的值的范围为 $[-1,1]$，两个向量的越相似，夹角 $\theta$ 越小，值越接近 $1$。
+$cos(\theta)$ 的值的范围为 [-1,1]，两个向量的越相似，夹角 $\theta$ 越小，值越接近 1。
 
 根据余弦定理，余弦相似度的公式为：
 ```katex
@@ -110,7 +114,7 @@ $cos(\theta)$ 的值的范围为 $[-1,1]$，两个向量的越相似，夹角 $\
 ```katex
 (\boldsymbol{x} - \boldsymbol{y}) \cdot (\boldsymbol{x} - \boldsymbol{y}) = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta \\
 \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\boldsymbol{x} \cdot \boldsymbol{y} = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta \\
-\color{red}
+\color{blue}
 \cos \theta = \frac{\boldsymbol{x} \cdot \boldsymbol{y}}{\|\boldsymbol{x}\| \|\boldsymbol{y}\|}
 ```
 
@@ -126,5 +130,109 @@ $cos(\theta)$ 的值的范围为 $[-1,1]$，两个向量的越相似，夹角 $\
 ```
 {{% /details %}}
 
+> [!TIP]
+> 除了常见的使用余弦相似度来表示向量相似度外，还有**点积**（IP / Inner Product）、**欧几里得距离**（L2 Norm，Euclidean Distance）、**曼哈顿距离**（L1 Norm，Manhattan Distance）等。
+
+# 相似度示例
+接下来，我们来测试一下不同词的余弦相似度。
+
+下面是生成两个词的余弦相似度的 `python` 代码。
+
+{{% details title="计算余弦相似度的代码" open=false %}}
+```python
+from sentence_transformers import SentenceTransformer
+import numpy as np
+import argparse
+
+parser = argparse.ArgumentParser(
+    description="Calculate cosine similarity between two texts"
+)
+parser.add_argument("text1", help="First text")
+parser.add_argument("text2", help="Second text")
+args = parser.parse_args()
+
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+
+words = [args.text1, args.text2]
+embeddings = model.encode(words)
+
+sim = cosine_similarity(embeddings[0], embeddings[1])
+print(f"\n=== 余弦相似度 ===")
+print(f"'{args.text1}' vs '{args.text2}': {sim:.4f}")
+```
+{{% /details %}}
+
 > [!NOTICE]
-> 除了常见的使用余弦相似度来表示向量相似度外，还有点积（IP / Inner Product）、欧几里得距离（L2，Euclidean Distance）、Manhattan Distance（L1，曼哈顿距离）等。
+> 按 `python test_similarity.py <token1> <token2>` 格式运行即可计算两个入参的余弦相似度。
+
+记得余弦相似度的值的范围为 [-1,1]
+ 
+- '天空' vs '手机': `0.3239`
+
+  这是一对少有关联的词汇，表现出了弱相关性，符合预期
+
+- '美丽' vs '漂亮': `0.9531`
+
+  这是一对是中文的同义词，表现出了接近1的强相关性
+
+- 'man' vs '男人'：`0.9630`
+
+  这是一对是不同语言的同义词，表现出了强相关性，这代表 embedding model 准确地捕捉了它们的语义的相关性
+
+# Embedding 类比推理
+最后做一个类比推理的实验，看看不同 embedding model 在 ('king' - 'man' + 'woman') vs 'queen' 的表现如何。
+
+{{% details title="测试 Embedding 类比推理的代码" open=false %}}
+```python
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+models = [
+    ("all-MiniLM-L6-v2", "英语模型"),
+    ("paraphrase-multilingual-MiniLM-L12-v2", "多语言模型"),
+]
+
+for model_name, model_label in models:
+    print(f"\n{'='*50}")
+    print(f"模型: {model_name} ({model_label})")
+    print('='*50)
+
+    model = SentenceTransformer(model_name)
+
+    king = model.encode("king")
+    man = model.encode("man")
+    woman = model.encode("woman")
+    queen = model.encode("queen")
+
+    # (king - man + woman)
+    analogy = king - man + woman
+
+    sim = cosine_similarity(analogy, queen)
+    print(f"(king - man + woman) vs 'queen': {sim:.4f}")
+```
+{{% /details %}}
+
+> [!NOTICE]
+> 直接运行 `python test_analogy.py` 即可。
+
+运行结果如下：
+
+- 模型: all-MiniLM-L6-v2 (英语模型)
+
+  ('king' - 'man' + 'woman') vs 'queen': `0.5795`
+
+- 模型: paraphrase-multilingual-MiniLM-L12-v2 (多语言模型)
+
+  ('king' - 'man' + 'woman') vs 'queen': `0.7900`
+
+可以看到 `paraphrase-multilingual-MiniLM-L12-v2` 这个模型表现出来明显的类比推理能力。
