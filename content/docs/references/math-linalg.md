@@ -54,13 +54,17 @@ let $\boldsymbol{z} = \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_d \end{bma
 ```
 
 ## $L_1$ Norm
-也称为曼哈顿距离
+也称为**曼哈顿距离**
 ```katex
 \| \boldsymbol{z} \|_1 = \sum_{i=1}^{d} |z_i|
 ```
 
 ## $L_2$ Norm
-向量的的长度
+向量的的长度，
+
+也称向量的**欧几里得距离**（Euclidean distance，两点间的直线距离）
+
+或**笛卡尔距离**（Cartesian distance，笛卡尔坐标系下计算的欧氏距离）
 
 ```katex
 \begin{aligned}

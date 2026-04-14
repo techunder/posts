@@ -73,6 +73,12 @@ LLM是智能体的核心引擎和智力源泉。
 > [!NOTICE]
 > 像GPT这一类主流生成大模型，只有右边的架构，输出是一个字一个字往外蹦（Decoder-only）
 
+{{< asciinema
+  cast="/asciinema-627097.cast"
+  loop=true
+  autoplay=true
+  speed=2 >}}
+
 > [!NOTICE]
 > 像BERT这一类理解模型，只有左边的架构，直接吐出整个语句的结果，用于分类或意图理解（Encoder-only）
 
@@ -94,8 +100,9 @@ Transformer是一种基于自注意力机制的深度神经网络架构，其核
 
 每个token会被投射到embedding的向量空间中，语义相近的token距离较近。
 
-![向量空间](/images/docs/ai-agent-intro/vector.jpeg)
-
+<p>
+  <img src="/images/docs/ai-agent-intro/vector.jpeg" alt="向量空间" style="width: 50%; height: auto;">
+</p>
 <center>（图：向量空间）</center>
 
 向量空间的维度通常较高，比如LLaMA-3 8B为4096维、OpenAI text-embedding-3-large默认3072维等
