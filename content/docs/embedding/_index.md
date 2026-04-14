@@ -1,8 +1,8 @@
 ---
 title: "Embedding"
-weight: 40
+weight: 201
 bookCollapseSection: false
-draft: true
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">Embedding</div>
@@ -12,23 +12,23 @@ draft: true
 </div>
 {{< katex />}}
 
-**Embedding** 这个概念在大语言模型（Large Language Model）领域中随处可见，
+**Embedding** 概念在大语言模型（Large Language Model）领域中随处可见，
 
 本文从应用的角度去理解一下 **embedding** 究竟是什么。
 
 # 什么是 Embedding
 
-常见的大语言模型运行过程是这样的：
+常见的大语言模型推理过程是这样的：
 
-输入切分成 token → token 转换成 embedding 向量 → 输入大语言模型推理 → 逐个输出 token。
+把输入切分成 token → 把 token 转换成 embedding 向量 → 输入大语言模型做推理 → 逐个输出 token。
 
-例如 “我喜欢大自然” 会被拆分成 4 个 token：'我'、'喜欢'、'大'、'自然'。
+例如 “我喜欢大自然” 会被拆分成 「我」、「喜欢」、「大」、「自然」 这四个 token。
 
-人类自然语言里所有这些 token（词元）会组成一个**词库**。
+人类自然语言里所有 token（词元）会组成一个**词库**。
 
 词库里的每一个 token 都会静态地映射到一个高维向量。
 
-例如'喜欢'这个 token，利用 `paraphrase-multilingual-MiniLM-L12-v2` 这个 embedding model 可以映射为向量：
+例如 「喜欢」 这个 token，利用 `paraphrase-multilingual-MiniLM-L12-v2` 这个 embedding model 可以映射为向量：
 ```text
 [ 1.5620e-01 -5.2500e-02  8.6000e-03 -3.2600e-02 -1.4270e-01 -6.3600e-02
   4.2780e-01  2.1300e-01 -3.4000e-02  7.7500e-02 -6.3300e-02 -2.5110e-01
@@ -44,7 +44,7 @@ draft: true
 （维度: 384）
 ```
 
-{{% details title="计算 token embedding 的代码" open=false %}}
+{{% details title="计算 token embedding 的 python 代码" open=false %}}
 ```python
 from sentence_transformers import SentenceTransformer
 import argparse
@@ -67,9 +67,9 @@ for word, emb in zip(words, embeddings):
 {{% /details %}}
 
 > [!NOTICE]
-> 按 `python test_embedding.py <token>` 格式运行即可计算入参的余弦相似度。
+> 运行 `python test_embedding.py <token>` 打印输入 token 的 embedding 向量。
 
-这个映射不是随意的，是对人类自然语言进行大量学习后摸索出的规律，使得语义相关性高的 token 向量值也比较类似。
+这个映射不是随意的，是对人类自然语言进行大量学习后摸索出的规律，使得语义相关高的 token 向量值也比较类似。
 
 学习到的规律以权重参数的形式存储在 embedding model 里，只要输入 token，embedding model 就可以推理出其 embedding 向量。
 
@@ -78,11 +78,11 @@ for word, emb in zip(words, embeddings):
 不同的 embedding model 的向量维度可以不一样。
 
 > [!NOTICE]
-> 例如上面的 `paraphrase-multilingual-MiniLM-L12-v2` embedding model 的维度为 384。
+> 例如上面提到的 `paraphrase-multilingual-MiniLM-L12-v2` embedding model 的维度为 384。
 
-# 相似度的度量：余弦相似度
+# 相似度的度量
 
-上文提到的"语义相关性高的 token 向量值也比较类似"，一般是通过**余弦相似度**来度量的。
+前面提到的"语义相关性高的 token 向量值也比较类似"，这一般是通过余弦相似度来度量的。
 
 一个向量，可以描绘为向量维度的坐标系里的一个点，向量本身可以理解为从坐标原点指向该点的一条有向箭头。
 <center>
@@ -94,11 +94,11 @@ for word, emb in zip(words, embeddings):
 
 所有向量都会从坐标原点出发，所以两个向量会形成夹角，设为 $\theta$。
 
-通常使用 $cos(\theta)$ 的值表示两个向量的相似度（也可以理解为距离），
+通常使用 $cos(\theta)$ 的值表示两个向量的相似度（也可以理解为距离），称为**余弦相似度**。
 
-$cos(\theta)$ 的值的范围为 [-1,1]，两个向量的越相似，夹角 $\theta$ 越小，值越接近 1。
+$cos(\theta)$ 的值范围为 [-1,1]，两个向量的越相似，它们之间的夹角 $\theta$ 越小，$cos(\theta)$越接近 1。
 
-根据余弦定理，余弦相似度的公式为：
+余弦相似度的计算公式为：
 ```katex
 \cos \theta = \frac{\boldsymbol{x} \cdot \boldsymbol{y}}{\|\boldsymbol{x}\| \|\boldsymbol{y}\|}
 ```
@@ -106,7 +106,7 @@ $cos(\theta)$ 的值的范围为 [-1,1]，两个向量的越相似，夹角 $\th
 {{% details title="余弦相似度的数学推导过程" open=false %}}
 设有两个向量 $\boldsymbol{x}$ 和 $\boldsymbol{y}$，$\theta$ 为 $\boldsymbol{x}$ 和 $\boldsymbol{y}$ 的夹角。
 
-根据余弦定理，
+根据**余弦定理**，
 ```katex
 \| \boldsymbol{x} - \boldsymbol{y} \|^2 = \|\boldsymbol{x}\|^2 + \|\boldsymbol{y}\|^2 - 2\|\boldsymbol{x}\|\|\boldsymbol{y}\| \cos \theta
 ```
@@ -131,14 +131,14 @@ $cos(\theta)$ 的值的范围为 [-1,1]，两个向量的越相似，夹角 $\th
 {{% /details %}}
 
 > [!TIP]
-> 除了常见的使用余弦相似度来表示向量相似度外，还有**点积**（IP / Inner Product）、**欧几里得距离**（L2 Norm，Euclidean Distance）、**曼哈顿距离**（L1 Norm，Manhattan Distance）等。
+> 除了常见的使用余弦相似度来表示向量相似度之外，还有**点积**（IP / Inner Product）、**欧几里得距离**（L2 Norm，Euclidean Distance）、**曼哈顿距离**（L1 Norm，Manhattan Distance）等。
 
 # 相似度示例
-接下来，我们来测试一下不同词的余弦相似度。
+接下来，我们来测试一下不同 token 的余弦相似度。
 
-下面是生成两个词的余弦相似度的 `python` 代码。
+下面是生成两个 token 的余弦相似度的 `python` 代码。
 
-{{% details title="计算余弦相似度的代码" open=false %}}
+{{% details title="计算余弦相似度的 python 代码" open=false %}}
 ```python
 from sentence_transformers import SentenceTransformer
 import numpy as np
@@ -168,26 +168,28 @@ print(f"'{args.text1}' vs '{args.text2}': {sim:.4f}")
 {{% /details %}}
 
 > [!NOTICE]
-> 按 `python test_similarity.py <token1> <token2>` 格式运行即可计算两个入参的余弦相似度。
+> 运行 `python test_similarity.py <token1> <token2>` 计算两个入参 token 的余弦相似度。
 
-记得余弦相似度的值的范围为 [-1,1]
+记得余弦相似度值的范围为 [-1,1]
  
 - '天空' vs '手机': `0.3239`
 
-  这是一对少有关联的词汇，表现出了弱相关性，符合预期
+  这是一对关联度低的词汇，表现出了弱相关性，符合预期
 
 - '美丽' vs '漂亮': `0.9531`
 
-  这是一对是中文的同义词，表现出了接近1的强相关性
+  这是一对是中文的同义词，表现出了很强相关性
 
 - 'man' vs '男人'：`0.9630`
 
-  这是一对是不同语言的同义词，表现出了强相关性，这代表 embedding model 准确地捕捉了它们的语义的相关性
+  这是一对是不同语言下的同义词，表现出了强相关性，这代表 embedding model 准确地捕捉到了它们的语义的相关性
 
-# Embedding 类比推理
-最后做一个类比推理的实验，看看不同 embedding model 在 ('king' - 'man' + 'woman') vs 'queen' 的表现如何。
+# 类比推理
+最后做一个类比推理的实验，看看不同 embedding model 的向量代数运算表现如何：
 
-{{% details title="测试 Embedding 类比推理的代码" open=false %}}
+我们测试这个 embedding 向量代数运算：`('king' - 'man' + 'woman') vs 'queen'`
+
+{{% details title="测试 Embedding 类比推理的 python 代码" open=false %}}
 ```python
 from sentence_transformers import SentenceTransformer
 import numpy as np
@@ -223,16 +225,19 @@ for model_name, model_label in models:
 {{% /details %}}
 
 > [!NOTICE]
-> 直接运行 `python test_analogy.py` 即可。
+> 运行 `python test_analogy.py` 打印测试结果。
 
 运行结果如下：
 
-- 模型: all-MiniLM-L6-v2 (英语模型)
+- 模型 all-MiniLM-L6-v2 (英语模型)：`0.5795`
+- 模型 paraphrase-multilingual-MiniLM-L12-v2 (多语言模型): `0.7900`
 
-  ('king' - 'man' + 'woman') vs 'queen': `0.5795`
+这说明 embedding 是可以做算术运算的，
 
-- 模型: paraphrase-multilingual-MiniLM-L12-v2 (多语言模型)
+并且可以看到 `paraphrase-multilingual-MiniLM-L12-v2` 这个模型表现了更好的类比推理能力。
 
-  ('king' - 'man' + 'woman') vs 'queen': `0.7900`
+# 结语
+区别于传统基于字符串匹配的工作模式，例如正则表达式（regexp）、模糊匹配、全文检索（Full-Text Search）等，embedding 的语义特性，为软件打开了语义理解的大门，各种向量数据库纷纷涌现，这在知识库、RAG（Retrieval-Augmented Generation）等应用发挥了重要作用，是 AI 时代一块不可或缺的基石。
 
-可以看到 `paraphrase-multilingual-MiniLM-L12-v2` 这个模型表现出来明显的类比推理能力。
+> [!TIP]
+> 就像星星嵌在夜晚的天空中一样，我们按语义把 token 嵌入到了一个高维向量空间中，故名 「**embedding**」（嵌入）

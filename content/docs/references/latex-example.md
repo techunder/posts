@@ -1,11 +1,11 @@
 ---
-title: "LaTeX示例"
+title: "LaTeX 示例"
 weight: 10
 bookToC: true
 draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div class="page-title">LaTeX示例</div>
+<div class="page-title">LaTeX 示例</div>
 {{< katex />}}
 
 LaTeX 是一种用于描述专业数学公式的语言，广泛应用于学术界和技术领域的专业文档中。

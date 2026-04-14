@@ -16,3 +16,4 @@ bookToC: false
 
 ## 📢 最近更新
 - [Transformer：自注意力机制](/docs/transformer/1-self-attention/)
+- [Embedding](/docs/embedding/)
