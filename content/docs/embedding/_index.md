@@ -244,4 +244,4 @@ for model_name, model_label in models:
 </p>
 
 > [!TIP]
-> 就像星星悬挂在黑色的夜空中一样，离散的 token 也被镶嵌在高维向量空间中，形成语义相近空间邻近的优美分布，故名 embedding（嵌入）
+> 就像星星悬挂在黑色的夜空中一样，离散的 token 也被镶嵌在高维向量空间中，形成语义相近空间相邻的优美分布，故名 embedding（嵌入）
