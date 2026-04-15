@@ -127,82 +127,78 @@ graph LR
 
 > LLM 通常使用 temperature 或 top_p 调用参数来控制结果输出的采样策略
 
-# 大语言模型（LLM）
-LLM是智能体的核心引擎和智力源泉。
+# 大语言模型
 
-现代的LLM基本是**Transformer架构**或其变体，始于Google Brain团队于2017年发表的一篇论文《Attention Is All You Need》。
+LLM 是智能体的核心引擎和智力源泉。
+
+现代的 LLM 基本是 **Transformer 架构** 或其变体，始于 Google Brain 团队于 2017 年发表的一篇论文《Attention Is All You Need》。
 
 ![Transformer模型架构](/images/docs/ai-agent-intro/transformer-model-architecture.png)
 
-<center>（图：Transformer模型架构）</center>
+<center>（图：Transformer 模型架构）</center>
 
 > [!NOTICE]
-> 像GPT这一类主流生成大模型，只有右边的架构，输出是一个字一个字往外蹦（Decoder-only）
+> 像 GPT 这一类主流生成大模型，只有右边的架构（Decoder-only），输出是一个字一个字往外蹦的
+
+> [!NOTICE]
+> 像 BERT 这一类理解模型，只有左边的架构（Encoder-only），可以直接吐出整个语句的结果，用于分类或意图理解
+
+Transformer 是一种基于自注意力机制的深度神经网络架构，其核心模块通常采用**多头自注意力**结构。
+
+通过投喂海量的通用知识，让其习得了其中的规律，并保存为模型的权重参数，这个过程称为**预训练**（Pre-training）。
+
+> [!TIP]
+> 模型以人类自然语言为基础习得，且权重参数量巨大，故名**大语言模型**
+
+之后需要经过价值对齐、监督微调等的**后训练**（Post-training）过程才能上线使用。
+
+# LLM 推理过程
+
+使用过程中，让 LLM 生成内容的过程成为**推理**（inference），大语言模型推理过程是这样的：
+
+`把输入切分成 token → 把 token 转换成 embedding 向量 → 输入大语言模型做推理 → 逐个输出 token`
 
 {{< asciinema
-  cast="/asciinema-627097.cast"
+  cast="/images/docs/ai-agent-intro/stoken-spit-one-by-one.cast"
   loop=true
   autoplay=true
   speed=2 >}}
 
-> [!NOTICE]
-> 像BERT这一类理解模型，只有左边的架构，直接吐出整个语句的结果，用于分类或意图理解（Encoder-only）
+例如 “我喜欢大自然” 会被拆分成 「我」、「喜欢」、「大」、「自然」 这四个 token。
 
-Transformer是一种基于自注意力机制的深度神经网络架构，其核心模块通常采用**多头自注意力**结构。
+人类自然语言里所有 token（词元）会组成一个**词库**。
 
-通过投喂海量的通用知识，让其习得了其中的规律，并保存为模型的权重参数。
-这个过程称为「**预训练**」（Pre-training）。
+词库里的每一个 token 都可以通过 **embedding model**（嵌入模型）生成对应的高维 embedding 向量。
 
-> [!TIP]
-> 模型以人类自然语言为基础习得，权重参数量巨大，故名「**大语言模型**」
-
-之后需要经过价值对齐、监督微调等的「**后训练**」（Post-training）过程才能上线使用。
-
-# Token & Embedding
-
-一段话先拆分成词元（token），例如
-
-“我喜欢大自然” →「我」、「喜欢」、「大」、「自然」
-
-每个token会被投射到embedding的向量空间中，语义相近的token距离较近。
-
-<p>
-  <img src="/images/docs/ai-agent-intro/vector.jpeg" alt="向量空间" style="width: 50%; height: auto;">
-</p>
-<center>（图：向量空间）</center>
-
-向量空间的维度通常较高，比如LLaMA-3 8B为4096维、OpenAI text-embedding-3-large默认3072维等
-
-> [!TIP]
-> 就像星星嵌在夜晚的天空中一样，我们按语义把token嵌入到一个高维向量空间中，故名 「**embedding**」（嵌入）
-
-![embedding示意图](/images/docs/ai-agent-intro/embedding.png)
-
-<center>（图：embedding示意图）</center>
-
-> [!NOTICE]
-> man ≈ 男人
-
-> [!NOTICE]
-> king - man + woman ≈ queen
-
-对LLM的调用，通过输入和输出的token计费。
+生成的 embedding 向量不是随意的，是对人类自然语言进行大量学习后摸索出的规律，使得语义相关高的 token 向量值也比较类似。
 
 > [!WARNING]
-> LLM以Token为计量单位，是AI时代像“电”一样的基本能源单位
+> embedding model ≠ LLM
 
-# LLM 推理过程
+不同的企业或开源社区，都可以训练出自己的 embedding model。
 
-1. 输入一句话 → 切成 token（词元）
-2. 每个 token 变成 embedding 向量 → 得到一组 embedding 向量列表
-3. 每个 embedding 向量都分别被映射成 Q、K、V 三个向量
-4. 预测下一个字时，拿最后一个字的 Q，去跟前面所有字的 K 算相关性，相关性 = 权重
-5. 用权重对前面所有 token 的 V 加权融合 → 得到单头注意力 output
-6. 拼接多个单头注意力的 output → 映射回 embedding 向量列表
-7. 最后输出映射：$d_{model}$ → $d_{vocab}$ → softmax → token 概率
+不同的 embedding model 的向量维度可以不一样。
+
+> 例如 `paraphrase-multilingual-MiniLM-L12-v2` embedding model 的维度为 384。
+
+有几个有意思的 embedding 例子：
+
+> man ≈ 男人
+
+> 美丽 ≈ 漂亮
+
+> king - man + woman ≈ queen
+
+想更深入了解 embedding 的知识，青看这篇文档：[embedding](/docs/embedding/)
+
+对 LLM 的调用，通过输入和输出的 token 计费。
+
+> [!TIP]
+> LLM 以 token 为计量单位，token 是 AI 时代像“电”一样的存在，都为能源消耗基础单位，需要消耗 token 得到结果
 
 # Context Length
 
 上下文长度
 
 # Tool Calling
+
