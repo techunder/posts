@@ -1,65 +1,131 @@
 ---
-title: "关于LLM"
+title: "关于 LLM，我们需要知道的"
 weight: 10
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 
-<div class="page-title">关于LLM</div>
+<div class="page-title">关于 LLM，我们需要知道的</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-13 | 更新时间：2026-04-13
+  发布时间：2026-04-14 | 更新时间：2026-04-14
 </div>
 {{< katex />}}
 
-关于LLM我们需要知道的
+要好用 AI Agent，我们需要先理解其核心，大语言模型（Large Language Model），简称 LLM
+
+本文简要介绍，关于 LLM，我们需要知道的基础知识。
 
 # 人工智能
 
-人工智能经过几十年的发展，已经形成一个庞大的分支。
+人工智能经过几十年的发展，已经形成一系列庞大的分支
 
 ```mermaid
 graph LR
-    AI[人工智能<br/>Artificial Intelligence]
-    
-    subgraph 机器学习
-        ML[Machine Learning]
-        TRAD[传统机器学习<br/>SVM / 决策树 / 聚类 / 回归]
-    end
-    
-    subgraph 深度学习
-        DL[Deep Learning]
-        CNN[CNN 图像]
-        RNN[RNN/LSTM 时序]
-        TRANS[Transformer]
-        GEN[生成式AI<br/>GAN / Diffusion]
-    end
-    
-    APP[应用领域<br/>CV / NLP / 语音 / 机器人]
+    AI[🤖 人工智能<br>Artificial Intelligence]
 
-    AI --> ML
-    ML --> TRAD
-    ML --> DL
-    DL --> CNN
-    DL --> RNN
-    DL --> TRANS
-    DL --> GEN
-    AI --> APP
+    AI --> Classical[🎯 经典AI<br>符号主义]
+    AI --> ML[📊 机器学习<br>Machine Learning]
+    AI --> Emerging[⚡ 新兴方法<br>Emerging]
 
-    style TRANS fill:#ffdd57,stroke:#333,stroke-width:2px
+    Classical --> ExpertSystems[🧠 专家系统<br>Expert Systems]
+    Classical --> Logic[🧮 逻辑规划<br>Logic Planning]
+    Classical --> Search[🔍 搜索算法<br>Search Algorithms]
+
+    ML --> Supervised[✅ 监督学习<br>Supervised Learning]
+    ML --> Unsupervised[🔎 无监督学习<br>Unsupervised Learning]
+    ML --> RL[🎮 强化学习<br>Reinforcement Learning]
+    ML --> DL[🧠 深度学习<br>Deep Learning]
+
+    Supervised --> Classification[🏷️ 分类<br>Classification]
+    Supervised --> Regression[📈 回归<br>Regression]
+
+    Unsupervised --> Clustering[📍 聚类<br>Clustering]
+    Unsupervised --> DimReduce[📉 降维<br>Dimensionality Reduction]
+
+    DL --> CNN[🖼️ 卷积神经网络<br>CNN]
+    DL --> RNN[ RNN / LSTM]
+    DL --> Transformer[🔄 Transformer]
+    DL --> GAN[🎨 生成对抗网络<br>GAN]
+    DL --> Diffusion[✨ 扩散模型<br>Diffusion]
+
+    Transformer --> NLP[💬 自然语言处理<br>NLP]
+    Transformer --> LLM[📚 大语言模型<br>LLM]
+    Transformer --> Vision[👁️ 视觉模型<br>Vision Models]
+
+    RL --> PolicyOpt[⚙️ 策略优化<br>Policy Optimization]
+    RL --> Q-Learning[🎯 Q-Learning]
+
+    Emerging --> NeuroSymbolic[🧩 神经符号AI<br>NeuroSymbolic]
+    Emerging --> AGI[🌟 通用人工智能<br>AGI]
+    Emerging --> Quantum[⚛️ 量子AI<br>Quantum AI]
+    Emerging --> EdgeAI[📱 边缘AI<br>Edge AI]
+
+    %% 高亮 Transformer
+    style Transformer fill:#FFD700,stroke:#DAA520,stroke-width:3px,color:#000
+    style LLM fill:#FFF8DC,stroke:#DAA520,stroke-width:2px
 ```
-<center>（图：人工智能的主要分支）</center>
-当前是Tranformer架构在大放异彩。
 
-# 神经网络
-这是深度学习的主要方式，它模拟人类的大脑神经网络，通过神经元的连接权重和激活函数，把左边的输入转换成右边的输出，再选择概率高的作为最终结果。
+<center>（图：人工智能的主要分支）</center>
+
+> 当前大放异彩的 LLM 就是属于 Tranformer 这一支
+
+# 深度学习
+
+深度学习是通过**深度神经网络**实现的，它模拟了人类的大脑神经网络结构。
+
+<p>
+  <img src="/images/docs/ai-agent-intro/neuron.png" alt="神经元" style="width: 20%; height: auto;">
+  <img src="/images/docs/ai-agent-intro/brain.png" alt="大脑神经网络" style="width: 45%; height: auto;">
+</p>
 
 ![计算机深度神经网络](/images/docs/ai-agent-intro/neural-network.png)
 
 <center>（图：计算机深度神经网络）</center>
 
-> [!WARNING]
-> 机器学习是建立在**概率论**之上的一门学科
+深度神经网络由大量神经元组成，每层神经元接收前一层输出的**加权和**，经过**激活函数**实现非线性变换后传递给下一层，最终到达输出层。输出层根据任务类型给出相应形式的输出：
+- **多分类任务**经 softmax 归一化为各类别的概率分布，推理时通常选择概率最高的类别作为预测结果；
+- **二分类任务**经 sigmoid 输出 0 到 1 之间的标量值，可视为正类概率；
+- **回归任务**则无激活函数，直接输出线性结果。
+
+{{% details title="相关的数学表达式" open=false %}}
+### 加权求和+激活:
+```katex
+\boldsymbol{a}_{next} = \sigma(\boldsymbol{a}^T \boldsymbol{W} + \boldsymbol{b})
+```
+设按上一层 m 个神经元与当前层 n 个神经元**全连接**，其中
+- $\boldsymbol{a}$ 为上一层的输出，shape 为 (m,1)
+- $\boldsymbol{W}$ 为当前层的权重，shape 为 (m,n)
+- $\boldsymbol{b}$ 为当前层的偏置，shape 为 (n,1)
+- $\sigma$ 为激活函数，常见为：
+    - $relu(x) = max(0, x)$，主流
+    - $sigmoid(x) = \frac{1}{(1+e^{-x})}$，输出 0~1
+    - $tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}$，输出 -1~1
+
+### softmax:
+```katex
+\text{softmax}(\boldsymbol{x}) = 
+\begin{bmatrix} 
+\text{softmax}(\boldsymbol{x})_1 \\ 
+\text{softmax}(\boldsymbol{x})_2 \\ 
+\cdots \\ 
+\text{softmax}(\boldsymbol{x})_n 
+\end{bmatrix}
+```
+其中 $\boldsymbol{x}$ 为向量
+```katex
+\text{softmax}(\boldsymbol{x})_i = \frac{e^{x_i}}{\sum_{j=1}^n e^{x_j}}
+```
+{{% /details %}}
+
+一般的过程是通过训练得到权重 $\boldsymbol{W}$，封装成模型，再投放到应用场景中做推理。
+
+不同的模型，会选择不同的架构，不同的权重参数量。
+
+> [!TIP]
+> 深度学习是建立在**概率论**之上的一门技术，对它来说，没有 100% 的必然 —— 每次输出只是当前条件下概率较高的 token，而非逻辑推导的必然结果。
+
+> LLM 通常使用 temperature 或 top_p 调用参数来控制结果输出的采样策略
 
 # 大语言模型（LLM）
 LLM是智能体的核心引擎和智力源泉。
