@@ -189,6 +189,31 @@ $O_{vocab}$ 的维度为整个词表大小，与 token 一一对应
 
 通过 softmax 归一化后，取权重最高或按温度随机取 token。
 
+# 上下文长度
+上下文长度对自注意力机制的计算量影响很大，呈 $O(n^2)$ 复杂度，下面逐步拆解。
+
+假设输入 token 序列长度为 $n$：
+
+- Q: ($n$, $d_{model}$)
+- K: (n, $d_{model}$)
+- V: (n, $d_v$)
+
+第一步：$QK^T$
+
+> $QK^T = (n, d_{model}) \times (d_{model}, n) = (n, n)$，复杂度为 $O(n^2d_{model})$
+
+第二步：Softmax
+
+> 对 $(n, n)$ 矩阵的每一行做 softmax，复杂度仍然是 $O(n^2)$
+
+第三步：$\times V$
+
+> $(n, n) \times (n, d_v) = (n, d_v)$，复杂度为 $O(n^2d_v)$
+
+最后做复杂度统计，因为 $d_{model}$ 和 $d_v$ 通常远小于 $n$，
+
+$O(n^2d_{model}) + O(n^2) + O(n^2d_v) = O(n^2)$
+
 # 权重总结
 
 总的来说，我们需要以下权重

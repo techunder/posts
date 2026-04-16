@@ -138,10 +138,10 @@ LLM 是智能体的核心引擎和智力源泉。
 <center>（图：Transformer 模型架构）</center>
 
 > [!NOTICE]
-> 像 GPT 这一类主流生成大模型，只有右边的架构（Decoder-only），输出是一个字一个字往外蹦的
+> 像 GPT 这一类主流**生成大模型**，只有右边的架构（Decoder-only），输出是一个字一个字往外蹦的
 
 > [!NOTICE]
-> 像 BERT 这一类理解模型，只有左边的架构（Encoder-only），可以直接吐出整个语句的结果，用于分类或意图理解
+> 像 BERT 这一类**理解模型**，只有左边的架构（Encoder-only），可以直接吐出整个语句的结果，用于分类或意图理解
 
 Transformer 是一种基于自注意力机制的深度神经网络架构，其核心模块通常采用**多头自注意力**结构。
 
@@ -204,7 +204,7 @@ flowchart LR
 > [!TIP]
 > LLM 以 token 为计量单位，token 是 AI 时代像“电”一样的存在，都为能源消耗基础单位，需要消耗 token 得到结果
 
-# Context Length
+# 上下文长度
 
 LLM 是无状态的，只有权重和矩阵运算，所有的惊喜，都藏在输入里，输入称为**提示词**（prompt），有提示 LLM 产生期望输出之意。
 
@@ -274,13 +274,29 @@ stateDiagram-v2
 
 所以，你发现了吗？雪球越滚越大！
 
-但在 LLM 里，从 prompt 的第一个 token 开始的所有输入 token，以及已生成的 token，都需要参与矩阵运算才能输出下一个 token，
+但在 LLM 里，对每一次请求，从 prompt 的第一个 token 开始，到已生成的 token，都会参与矩阵运算才能输出下一个 token，
 
-所以每一个 LLM，都有一个叫上下文长度（context length）的硬指标，来指定包括 prompt 在内加上能生成 token 的上限（以 token 个数为计量单位）
+> [!TIP]
+> 就好像一本几百页的小说，开篇的一句话，也会影响到结尾处的结局
+
+所以每一个 LLM，都有一个叫**上下文长度**（context length）的硬指标，来限定 prompt token 加上能生成 token 的上限（以 token 个数为计量单位）
 
 > 例如，模型 `DeepSeek-V3.2` 的上下文长度度为 128K，`MiniMax-M2.7` 200K，`Qwen3.6-Plus` 为 1M
 
-> 事实上，LLM 所在的服务一般是有缓存的，因为通常一个 session 都会有多轮对话，每一次轮对话中，prompt 里所有的 token embedding 向量都是需要映射成为 K 和 V 向量并参与到后面每个 token 的生成，所以 LLM 服务通常会缓存已知 token 的 KV 向量，用于在后面的对话中，以减少运算量和提高响应速度，称为 **KV Cache**
+> [!WARNING]
+> - 自注意力机制的计算复杂度为 $O(n^2)$，$n$ 为 context length，计算量与上下文长度成平方关系
+> - 每个 token 都要缓存它的 K（Key）和 V（Value）向量，KV Cache 导致显存瓶颈
 
-# Tool Calling
+所以我们在日常的 LLM 使用中，最关心的莫过于当前 context length 还剩下多少。
 
+> [!TIP]
+> 随着大模型的发展，context length 可能会越来越大，但限于算力和显存资源，是不可能无限增长的，所以**上下文工程**就是围绕这个问题而诞生的工程方法
+
+> 事实上，LLM 所在的服务一般是有缓存（**KV Cache**）的，因为通常一个 session 都会有多轮对话，每一次轮对话的输入 prompt 的前面部分都是一样的，而 prompt 里所有的 token embedding 向量都是需要映射为 K（Key） 和 V（Value） 向量并参与到后面每个 token 的生成，所以 LLM 服务通常会缓存 token 的 KV，用于后续对话的计算
+
+想更深入了解自注意力机制，请看这篇文章：[自注意力机制](/docs/transformer/1-self-attention/)
+
+# 工具调用
+
+> [!TIP]
+> 工具调用（tool calling）是大语言模型接管世界的开始，是这位“文科生”能理工化的原因

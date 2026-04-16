@@ -237,11 +237,13 @@ for model_name, model_label in models:
 并且可以看到 `paraphrase-multilingual-MiniLM-L12-v2` 这个模型表现了更好的类比推理能力。
 
 # 结语
-区别于传统基于字符串匹配的工作模式，例如正则表达式（regexp）、模糊匹配、全文检索（Full-Text Search），embedding 的语义特性，为软件打开了语义理解的大门，各种向量数据库纷纷涌现，从此，**不再需要逐字上的精确匹配，而是允许语义上的模糊提取**，这在知识库、RAG（Retrieval-Augmented Generation）等应用发挥了重要作用，是 AI 时代一块不可或缺的基石。
+区别于传统基于字符串匹配的工作模式，例如正则表达式（regexp）、模糊匹配、全文检索（Full-Text Search），embedding 的语义特性，为软件打开了语义理解的大门，各种向量数据库纷纷涌现，从此，**不再需要逐字上的精确匹配，而是允许语义上的模糊提取**，这在知识库、RAG（Retrieval-Augmented Generation）等应用发挥了重要作用。
+
+Embedding 也是深度学习的标准输入格式，它把文字、图像、音频这些离散信号，变成神经网络能懂的连续向量，是**多模态**输入的编码器（Encoder）和特征提取器（Feature Extractor）。所以 embedding 是 AI 时代一块不可或缺的基石，是整个现代 AI 的基础设施之一。
 
 <p>
   <img src="/images/docs/embedding/embedding.png" alt="向量空间" style="width: 50%; height: auto;">
 </p>
 
 > [!TIP]
-> 就像星星悬挂在黑色的夜空中一样，离散的 token 也被镶嵌在高维向量空间中，形成语义相近空间相邻的优美分布，故名 embedding（嵌入）
+> 就像星星悬挂在黑色的夜空中一样，离散的 token 也被镶嵌在高维向量空间中，形成**语义相近空间相邻**的优美分布，故名 embedding（嵌入）
