@@ -586,4 +586,4 @@ message = client.messages.create(
 
 也有像 [OpenRouter](https://openrouter.ai/) 这样的 LLM Gateway，提供接口代理访问其它大模型（兼容 `OpenAI Chat Completions` 接口）
 
-> LLM 也可以本地部署，例如使用 [Ollama](https://ollama.com/)，它提供了自己的接口格式。本地部署需要配置非常好的 GPU 才能跑起效果尚可的 LLM。
+> LLM 也可以本地部署，例如使用 [Ollama](https://ollama.com/)，它提供了自己的接口格式。本地部署需要配置非常高的 GPU 才能跑得起效果尚可的 LLM。

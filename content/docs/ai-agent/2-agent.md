@@ -35,6 +35,104 @@ AI Agent 是一个由软硬件组成的复杂系统，按我个人的理解，�
 </table>
 
 为了方便后面举例，这里也把 OpenClaw 的架构简要描述一下：
+```mermaid
+stateDiagram-v2
+    direction LR
+
+    feishu: 飞书
+    qq: QQ
+    wechat: 微信
+    openclaw: OpenClaw
+    webchat: Web Control UI
+    telegram: Telegram
+    node: iOS/Android Node
+
+    state openclaw {
+        direction LR
+        ChannelPlugin --> gateway
+    }
+
+    feishu --> ChannelPlugin: 指令/交互
+    qq --> ChannelPlugin: 指令/交互
+    wechat --> ChannelPlugin: 指令/交互
+    telegram --> ChannelPlugin: 指令/交互
+
+    TUI --> gateway
+    webchat --> gateway
+    node --> gateway
+
+    gateway --> LLM
+
+    style telegram fill:#f0f8ff,stroke:#666,stroke-width:1px
+    style feishu fill:#f0f8ff,stroke:#666,stroke-width:1px
+    style qq fill:#f0f8ff,stroke:#666,stroke-width:1px
+    style wechat fill:#f0f8ff,stroke:#666,stroke-width:1px
+    style openclaw fill:#eeeeee,stroke:#999999,stroke-width:1px
+    style LLM fill:#ffdd57,stroke:#333,stroke-width:2px
+```
+
+```mermaid
+stateDiagram-v2
+    direction LR
+
+    %% === 外部平台 ===
+    feishu   : 飞书
+    qq       : QQ
+    telegram : Telegram
+    nostr    : Nostr
+
+    %% === Gateway → 外部 ===
+    feishu   --> ch
+    qq       --> ch
+    telegram --> ch
+    nostr    --> ch
+
+    %% === OpenClaw 核心 ===
+    state openclaw {
+        direction LR
+
+        ch      : Channel Layer
+        gw      : Core Gateway
+        skill   : Skill Engine
+        session : Session Manager
+        mem     : Memory
+
+        ch      --> gw
+        session --> gw
+        skill   --> gw
+        mem     --> gw
+    }
+
+    %% === 客户端 ===
+    webui    : Web UI
+    tui      : TUI
+    node_app : Node App
+
+    webui    --> gw
+    tui      --> gw
+    node_app --> gw
+
+    %% === LLM ===
+    gw --> llm: LLM Providers
+
+    %% === 样式 ===
+    style feishu    fill:#e8f4fd,stroke:#4a90d9
+    style qq        fill:#e8f4fd,stroke:#4a90d9
+    style telegram  fill:#e8f4fd,stroke:#4a90d9
+    style nostr     fill:#e8f4fd,stroke:#4a90d9
+    style openclaw  fill:#f5f5f5,stroke:#999,stroke-width:2px
+    style ch        fill:#dceefb,stroke:#4a90d9
+    style gw        fill:#dceefb,stroke:#4a90d9
+    style skill     fill:#dceefb,stroke:#4a90d9
+    style session   fill:#dceefb,stroke:#5a7ab8
+    style mem       fill:#dceefb,stroke:#4a90d9
+    style webui     fill:#d9f0e0,stroke:#5a9a6e
+    style tui       fill:#d9f0e0,stroke:#5a9a6e
+    style node_app  fill:#d9f0e0,stroke:#5a9a6e
+    style sa1       fill:#f0e8ff,stroke:#9a6ed4
+    style sa2       fill:#f0e8ff,stroke:#9a6ed4
+    style llm       fill:#fff3cd,stroke:#d48806,stroke-width:2px
+```
 
 # 会话
 
@@ -77,3 +175,6 @@ MCP
 - **ACP**: Agent Communication Protocol [JSON-RPC 2.0] (https://agentcommunicationprotocol.dev/) 
 - **ACP**: Agent Client Protocol (https://agentclientprotocol.com)
 
+# 结语
+
+关于 OpenClaw，我是如何部署的，都用来干什么
