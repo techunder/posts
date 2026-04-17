@@ -417,7 +417,7 @@ stateDiagram-v2
 
 ```
 
-{{% details title="LLM 工具调用的 python 代码" open=false %}}
+{{% details title="LLM 工具调用的 Python 代码" open=false %}}
 ```python
 # copied and modified from `https://api-docs.deepseek.com/zh-cn/guides/tool_calls`
 import json
@@ -509,9 +509,9 @@ else:
 
 # LLM 接口
 
-目前市面上的 LLM 接口，大多兼容以下接口
+目前市面上的 LLM，大多兼容以下接口之一
 
-- **OpenAI Chat Completions** `/v1/chat/completions`（最主流）
+{{% details title="**OpenAI Chat Completions** `/v1/chat/completions`（最主流）" open=false %}}
 ```python
 from openai import OpenAI
 
@@ -531,7 +531,9 @@ response = client.chat.completions.create(
     extra_body={"enable_thinking": True},
 )
 ```
-- **OpenAI Responses** `/v1/responses`（较新）
+{{% /details %}}
+
+{{% details title="**OpenAI Responses** `/v1/responses`（较新）" open=false %}}
 ```python
 from openai import OpenAI
 
@@ -548,8 +550,9 @@ response = client.responses.create(
     extra_body={"enable_thinking": True},
 )
 ```
+{{% /details %}}
 
-- **Anthropic** `/v1/messages`
+{{% details title="**Anthropic** `/v1/messages`" open=false %}}
 ```python
 import anthropic
 
@@ -574,8 +577,13 @@ message = client.messages.create(
     ]
 )
 ```
+{{% /details %}}
 
 > 这就是为什么你调用的明明不是 OpenAI 或 Anthropic 的模型，却在使用他们的 SDK 的原因。
 > 只要设置正确的模型 URL 和 API Key，模型厂家提供兼容接口。
 
 此外有些模型厂家会有自己格式的接口，例如 Google Gemini 原生接口格式，阿里云百炼的 DashScope 接口格式。
+
+也有像 [OpenRouter](https://openrouter.ai/) 这样的 LLM Gateway，提供接口代理访问其它大模型（兼容 `OpenAI Chat Completions` 接口）
+
+> LLM 也可以本地部署，例如使用 [Ollama](https://ollama.com/)，它提供了自己的接口格式。本地部署需要配置非常好的 GPU 才能跑起效果尚可的 LLM。
