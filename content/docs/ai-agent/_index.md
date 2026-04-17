@@ -53,3 +53,9 @@ stateDiagram-v2
 
 > [!TIP]
 > 精通编程语言，便可调用各种接口，触达互联网上的任意资源，这意味着 AI Agent，只要被授权，便可接管整个世界
+
+<hr style="border-top: 1px dashed grey;" />
+
+本系列文章
+* [LLM，智力的源头](/docs/ai-agent/1-llm/)
+* Agent，工程的起航
