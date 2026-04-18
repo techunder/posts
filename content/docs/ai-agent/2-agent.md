@@ -147,7 +147,6 @@ OpenClaw 是运行在用户自有服务器（或个人电脑）上的私有 AI A
   <tr style="background:#F8F8F8"><td>1</td><td>⚡ 能源层</td><td>超大型 AI 数据中心年耗电量相当于中等城市的居民年用电量</td></tr>
 </table>
 
-
 # 会话
 
 前文[上下文长度](/docs/ai-agent/1-llm/#%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6)中，我们提到了每一个 LLM 都是有上下文限制。
@@ -174,8 +173,6 @@ constitution + memory + skills + tools
 
 # 技能
 
-技能（skill）
-
 # 工具
 
 tool
@@ -192,3 +189,4 @@ MCP
 # 结语
 
 关于 OpenClaw，我是如何部署的，都用来干什么
+
