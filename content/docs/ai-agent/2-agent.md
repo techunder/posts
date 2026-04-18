@@ -175,9 +175,7 @@ constitution + memory + skills + tools
 
 # 工具
 
-tool
-
-MCP
+tool + MCP
 
 # 生态协议
 
