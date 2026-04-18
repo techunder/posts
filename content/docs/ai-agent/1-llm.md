@@ -24,46 +24,39 @@ draft: false
 graph LR
     AI[🤖 人工智能<br>Artificial Intelligence]
 
-    AI --> Classical[🎯 经典 AI<br>符号主义]
+    %% 技术分支
     AI --> ML[📊 机器学习<br>Machine Learning]
-    AI --> Emerging[⚡ 新兴方法<br>Emerging]
-
-    Classical --> ExpertSystems[🧠 专家系统<br>Expert Systems]
-    Classical --> Logic[🧮 逻辑规划<br>Logic Planning]
-    Classical --> Search[🔍 搜索算法<br>Search Algorithms]
+    AI --> DL[🧠 深度学习<br>Deep Learning]
 
     ML --> Supervised[✅ 监督学习<br>Supervised Learning]
     ML --> Unsupervised[🔎 无监督学习<br>Unsupervised Learning]
     ML --> RL[🎮 强化学习<br>Reinforcement Learning]
-    ML --> DL[🧠 深度学习<br>Deep Learning]
 
-    Supervised --> Classification[🏷️ 分类<br>Classification]
-    Supervised --> Regression[📈 回归<br>Regression]
+    Supervised --> ClassReg[🏷️ 分类 & 回归<br>Classification & Regression]
+    Unsupervised --> ClusterDim[📍 聚类 & 降维<br>Clustering & Dim. Reduction]
 
-    Unsupervised --> Clustering[📍 聚类<br>Clustering]
-    Unsupervised --> DimReduce[📉 降维<br>Dimensionality Reduction]
+    DL --> CNN[🖼️ CNN<br>卷积神经网络]
+    DL --> RNN[🔁 RNN / LSTM<br>循环神经网络]
+    DL --> Trans[🔄 Transformer]
+    DL --> GAN[🎨 GAN<br>生成对抗网络]
+    DL --> Diffusion[✨ 扩散模型<br>Diffusion Model]
+    DL --> GNN[🕸️ GNN<br>图神经网络]
 
-    DL --> CNN[🖼️ 卷积神经网络<br>CNN]
-    DL --> RNN[ RNN / LSTM]
-    DL --> Transformer[🔄 Transformer]
-    DL --> GAN[🎨 生成对抗网络<br>GAN]
-    DL --> Diffusion[✨ 扩散模型<br>Diffusion]
+    Trans --> NLP[💬 NLP<br>自然语言处理]
+    Trans --> LLM[📚 大语言模型<br>Large Language Model]
+    Trans --> Multimodal[🎭 多模态模型<br>Multimodal Model]
 
-    Transformer --> NLP[💬 自然语言处理<br>NLP]
-    Transformer --> LLM[📚 大语言模型<br>LLM]
-    Transformer --> Vision[👁️ 视觉模型<br>Vision Models]
+    %% 前沿方向
+    AI --> Emerging[🔮 前沿<br>Emerging AI]
+    Emerging --> Embodied[🤖 具身智能<br>Embodied Intelligence]
+    Emerging --> NeuroSymbolic[🧩 神经符号 AI<br>Neuro-symbolic AI]
+    Emerging --> EdgeAI[📱 边缘 AI<br>Edge AI]
 
-    RL --> PolicyOpt[⚙️ 策略优化<br>Policy Optimization]
-    RL --> Q-Learning[🎯 Q-Learning]
-
-    Emerging --> NeuroSymbolic[🧩 神经符号AI<br>NeuroSymbolic]
-    Emerging --> AGI[🌟 通用人工智能<br>AGI]
-    Emerging --> Quantum[⚛️ 量子AI<br>Quantum AI]
-    Emerging --> EdgeAI[📱 边缘AI<br>Edge AI]
-
-    %% 高亮 Transformer
-    style Transformer fill:#FFD700,stroke:#DAA520,stroke-width:3px,color:#000
+    %% 样式
+    style Trans fill:#FFD700,stroke:#DAA520,stroke-width:3px,color:#000
+    style NLP fill:#FFF8DC,stroke:#DAA520,stroke-width:2px
     style LLM fill:#FFF8DC,stroke:#DAA520,stroke-width:2px
+    style Multimodal fill:#FFF8DC,stroke:#DAA520,stroke-width:2px
 ```
 
 <center>（图：人工智能的主要分支）</center>

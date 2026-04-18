@@ -10,9 +10,8 @@ bookCollapseSection: true
   发布时间：2026-04-06 | 更新时间：2026-04-06
 </div>
 
-**Transformer** 模型是大语言模型（Large Language Model）的一种，是当前最流行的模型之一。
-
-现在最流行、最常用的大语言模型通常都基于 Transformer 架构，它正在改变着这个世界。
+**Transformer** 是当前流行的大语言模型（Large Language Model）架构，是这轮 AI
+变革的核心。
 
 Transformer 模型由 Google Brain 团队于 2017 年提出，论文标题为《Attention Is All You Need》。
 
