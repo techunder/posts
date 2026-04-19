@@ -20,9 +20,9 @@ draft: true
 
 本文按这套工程实践展开，分享 AI Agent 的核心逻辑。
 
-过程中会以当下流行的个人智能体 [OpenClaw](https://github.com/openclaw/openclaw) 为例。
+过程中会以当下流行的**个人智能体 [OpenClaw](https://github.com/openclaw/openclaw)** 为例。
 
-# 实例架构：OpenClaw
+# 架构实例：OpenClaw 架构
 
 OpenClaw 的简要架构如下：
 
@@ -55,6 +55,7 @@ stateDiagram-v2
         skill   : 技能引擎<br/>（Skill Engine）
         session : 会话管理<br/>（Session Manager）
         mem     : 记忆<br/>（Memory）
+        plugin  : 插件系统<br/>（Plugin）
 
         ch      --> gw
         session --> gw
@@ -128,10 +129,14 @@ OpenClaw 是运行在用户自有服务器（或个人电脑）上的私有 AI A
 - **子代理（Sub-Agent）**
 
     由 Gateway 派生出的并行任务执行单元，适用于复杂任务分解与独立处理（未在图中画出）。
+
+- **插件系统（Plugin）**
+
+    通过能力注册制和事件钩子，自定义扩展 OpenClaw 的各种能力。
 {{% /details %}}
 
 
-# 抽象架构：架构分层
+# 架构抽象：分层架构
 
 一般化的 AI Agent，按个人理解，抽象成如下几层：
 
@@ -147,7 +152,60 @@ OpenClaw 是运行在用户自有服务器（或个人电脑）上的私有 AI A
   <tr style="background:#F8F8F8"><td>1</td><td>⚡ 能源层</td><td>超大型 AI 数据中心年耗电量相当于中等城市的居民年用电量</td></tr>
 </table>
 
-# 会话
+# 提示词 Prompt
+
+在模型训练阶段，如果输入的是干净且全面的数据，最后模型学会的就是这些数据组成的统计结构。
+
+模型训练出来后，知识的量就已经固定了。
+
+> [!TIP]
+> 就好像在水快要放干的池塘里面捞鱼，虽然随意都能抓到，但若使用称心的工具，效果将大大提高。
+
+在模型推理阶段，**提示词**（prompt）品质，将直接决定了大模型输出的质量。
+
+> [!WARNING]
+> 大模型的核心是自注意力机制，所谓的提示工程（Prompt Engineering），就是为**管理 LLM 的注意力**
+
+OpenClaw 的提示词由以下部分组成：
+
+- 系统提示词（system prompt）
+- 技能（skill）列表
+- 工具（tool）列表
+- 记忆（memory）
+- 历史对话内容
+
+**系统提示词**是对 LLM 的框定和约束，OpenClaw 中由位于 agent 工作区（workspace）的多个 markdown 文件组成。
+
+{{% details title="OpenClaw Agent 定义文件" open=false %}}
+| 文件 | 用途 | Context 注入 |
+|------|------|:----:|
+| 📋 **AGENTS.md** | 宪法，Agent 的工作手册与行为指南 | ✅ |
+| 🍼 **BOOTSTRAP.md** | 首次启动引导，引导完成后删除 | ✅ |
+| 🪪 **IDENTITY.md** | Agent 的身份，名字、角色、风格、头像 | ✅ |
+| ❤️ **SOUL.md** | Agent 的灵魂，核心原则与处事态度 | ✅ |
+| 🔧 **TOOLS.md** | 工具备注，环境配置 | ✅ |
+| 👥 **USER.md** | 用户档案，基本信息与偏好 | ✅ |
+| 🧠 **MEMORY.md** | 长期记忆 | ✅ |
+| 🌙 **DREAMS.md** | 梦境日志，浅睡眠的反思碎片 | ❌ |
+| 💓 **HEARTBEAT.md** | 心跳检查清单，周期性后台任务 | ❌ |
+{{% /details %}}
+
+> [!TIP]
+> 一个会话中，与 LLM 的交互，提示词就像是滚雪球，越滚越大，只是这个**初始雪球并不小**，一个简单的 OpenClaw 新会话提示词就有 12k tokens 之多
+
+> [!WARNING]
+> 标准自注意力机制（Self-Attention）决定了 **Transformer 并不会削弱远距离 token 的权重**，只要模型正确学到了训练数据的内在模式，prompt 开头的 token 照样会对末尾的 token 生成带来该有的影响。
+> **但过大的上下文，会稀释单个提示词 token 的权重**，所以当上下文过大时，我们就需要考虑重置（reset）或压缩（compact）上下文
+
+# 技能 Skills
+
+# 工具 Tools
+
+tool + MCP
+
+# 记忆 Memory
+
+# 会话 Sessions
 
 前文[上下文长度](/docs/ai-agent/1-llm/#%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6)中，我们提到了每一个 LLM 都是有上下文限制。
 
@@ -165,20 +223,9 @@ Session 的状态可以分为：
 
 > 以 OpenClaw 来举例，每一个 channel （飞书、QQ、微信）的每一个 Agent 都会对应一个活跃状态的 Agent。
 
-# 提示词
-
-constitution + memory + skills + tools
-
-# 记忆
-
-# 技能
-
-# 工具
-
-tool + MCP
-
 # 生态协议
 
+- **AGENTS.md**: https://agents.md/
 - **LSP**: Language Server Protocol [JSON-RPC 2.0] (https://microsoft.github.io/language-server-protocol/)
 - **MCP**: Model Context Protocol [JSON-RPC 2.0] (https://modelcontextprotocol.io/)
 - **ACP**: Agent Communication Protocol [JSON-RPC 2.0] (https://agentcommunicationprotocol.dev/) 
@@ -186,5 +233,24 @@ tool + MCP
 
 # 结语
 
-关于 OpenClaw，我是如何部署的，都用来干什么
+以上虽然以 OpenClaw 为例子，但实际讲得是 AI 智能体工程的技术方法。
+
+虽然 OpenClaw 的定位是个人 AI 助手，但它同时也是当前 AI 智能体工程领域世界一流水准的实战应用，与 Claude Code 等顶级工具并肩。
+
+开源与开放的架构，让它（OpenClaw）更具学习与研究价值。更重要的是，其设计思想与方法论可迁移至我们的业务流程，让世界变得更便捷、更智能。
+
+# 后话
+
+我是如何部署 OpenClaw 的
+
+- 一台专门的云服务器（2核8GB内存40GB硬盘，安装了各种编程语言的开发环境，同时作为我的个人开发机，多年套餐月均百元不到）
+- 购买了国内大模型厂家的 coding/token plan（几十元每月）
+- 对接了QQ、微信和飞书，随时触手可达，24 小时待命，多 agent 多渠道，便于并行多会话
+
+目前我都用 OpenClaw 来干什么
+
+- 实时新闻推送：定时（每小时）在网络上搜寻重大新闻，如有发现，主动推送给我（QQ/微信/飞书），让我随时了解世界宏观动态
+- 金融数据推送：每日定时（晚上）推送主要宽基指数估值信息，了解国内外经济行情变化
+- 调研好伙伴：深挖某一个课题或开源项目的技术原理，通过聊天层层推进，步步展开，并最终变成可运行的代码
+
 
