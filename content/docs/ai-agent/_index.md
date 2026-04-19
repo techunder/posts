@@ -58,4 +58,4 @@ stateDiagram-v2
 
 本系列文章
 * [LLM，智力的源头](/docs/ai-agent/1-llm/)
-* Agent，工程的起航
+* [Agent，工程的起航](/docs/ai-agent/2-agent/)

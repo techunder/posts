@@ -1,14 +1,14 @@
 ---
 title: "Agent，工程的起航"
 weight: 20
-draft: true
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 
 <div class="page-title">Agent，工程的起航</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-16 | 更新时间：2026-04-17
+  发布时间：2026-04-19 | 更新时间：2026-04-19
 </div>
 {{< katex />}}
 
@@ -135,7 +135,6 @@ OpenClaw 是运行在用户自有服务器（或个人电脑）上的私有 AI A
     通过能力注册制和事件钩子，自定义扩展 OpenClaw 的各种能力。
 {{% /details %}}
 
-
 # 架构抽象：分层架构
 
 一般化的 AI Agent，按个人理解，抽象成如下几层：
@@ -152,27 +151,27 @@ OpenClaw 是运行在用户自有服务器（或个人电脑）上的私有 AI A
   <tr style="background:#F8F8F8"><td>1</td><td>⚡ 能源层</td><td>超大型 AI 数据中心年耗电量相当于中等城市的居民年用电量</td></tr>
 </table>
 
-# 提示词 Prompt
+# 上下文 Context
 
 在模型训练阶段，如果输入的是干净且全面的数据，最后模型学会的就是这些数据组成的统计结构。
 
 模型训练出来后，知识的量就已经固定了。
 
 > [!TIP]
-> 就好像在水快要放干的池塘里面捞鱼，虽然随意都能抓到，但若使用称心的工具，效果将大大提高。
+> 就好像在水快要放干的池塘里面捞鱼，虽然随意都能抓到，但若使用有效的工具，效果将大大提高。
 
 在模型推理阶段，**提示词**（prompt）品质，将直接决定了大模型输出的质量。
 
 > [!WARNING]
-> 大模型的核心是自注意力机制，所谓的提示工程（Prompt Engineering），就是为**管理 LLM 的注意力**
+> 大模型的核心是自注意力机制，所谓的提示词工程（Prompt Engineering），就是为了**管理 LLM 的注意力**
 
-OpenClaw 的提示词由以下部分组成：
+OpenClaw 的上下文（同时也是提示词）由以下部分组成：
 
-- 系统提示词（system prompt）
-- 技能（skill）列表
-- 工具（tool）列表
-- 记忆（memory）
-- 历史对话内容
+- 系统提示词（System Prompt）
+- 技能列表（Skills）
+- 工具列表（Tools）
+- 记忆（Memory）
+- 历史对话内容（Chat History）
 
 **系统提示词**是对 LLM 的框定和约束，OpenClaw 中由位于 agent 工作区（workspace）的多个 markdown 文件组成。
 
@@ -190,67 +189,283 @@ OpenClaw 的提示词由以下部分组成：
 | 💓 **HEARTBEAT.md** | 心跳检查清单，周期性后台任务 | ❌ |
 {{% /details %}}
 
+> [**AGENTS.md**](https://agents.md/) 是一种被越来越多的智能体采用的**命名约定**与**格式规范**，它定义了智能体的工作手册与行为指南，与写给人类阅读的 `README.md` 对应
+
+
 > [!TIP]
-> 一个会话中，与 LLM 的交互，提示词就像是滚雪球，越滚越大，只是这个**初始雪球并不小**，一个简单的 OpenClaw 新会话提示词就有 12k tokens 之多
+> 一个会话中，与 LLM 的交互，上下文就像是滚雪球，越滚越大，只是这个**初始雪球并不小**，一个简单的 OpenClaw 新会话上下文就有 13K tokens 之多
 
 > [!WARNING]
-> 标准自注意力机制（Self-Attention）决定了 **Transformer 并不会削弱远距离 token 的权重**，只要模型正确学到了训练数据的内在模式，prompt 开头的 token 照样会对末尾的 token 生成带来该有的影响。
-> **但过大的上下文，会稀释单个提示词 token 的权重**，所以当上下文过大时，我们就需要考虑重置（reset）或压缩（compact）上下文
+> 标准自注意力机制（Self-Attention）决定了 **Transformer 并不会削弱远距离 token 的权重**，只要模型正确学到了训练数据的内在模式，提示词开头的 token 照样会对末尾的 token 生成产生影响。
+> **但过大的上下文，会稀释单个提示词 token 的权重**，所以当上下文过大时，我们就需要考虑重置（reset）或压缩（compact）上下文了
+
+{{% details title="一个上下文例子（精简后）" open=false %}}
+```json
+{
+  "model": "qwen3.5:0.8b",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a personal assistant running inside OpenClaw ... + 技能清单（Skills）、工具清单（Tools）"
+    },
+    {
+      "role": "user",
+      "content": "A new session was started via /new or /reset ..."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "name": "read",
+            "arguments": {
+              "path": "/root/.openclaw/workspace-thea/memory/2026-04-18.md"
+            }
+          }
+        },
+        {
+          "function": {
+            "name": "read",
+            "arguments": {
+              "path": "/root/.openclaw/workspace-thea/memory/2026-04-17.md"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "<the CONTENT in /root/.openclaw/workspace-thea/memory/2026-04-18.md>",
+      "tool_name": "read"
+    },
+    {
+      "role": "tool",
+      "content": "<the CONTENT in /root/.openclaw/workspace-thea/memory/2026-04-17.md>",
+      "tool_name": "read"
+    },
+    {
+      "role": "assistant",
+      "content": "下午好，Johnson 👋 新的一天，有什么想聊的或者需要帮忙的吗？"
+    },
+    {
+      "role": "user",
+      "content": "未来三天天气怎么样？"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "name": "read",
+            "arguments": {
+              "path": "/usr/local/node-v22.22.0/lib/node_modules/openclaw/skills/weather/SKILL.md"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "<the CONTENT /usr/local/node-v22.22.0/lib/node_modules/openclaw/skills/weather/SKILL.md>",
+      "tool_name": "read"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "name": "exec",
+            "arguments": {
+              "command": "curl -s \"wttr.in/Foshan?format=3\" && echo \"\" && curl -s \"wttr.in/Foshan?1\""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "<佛山的天气预报内容>",
+      "tool_name": "exec"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "function": {
+            "name": "exec",
+            "arguments": {
+              "command": "curl -s \"wttr.in/Foshan?format=j1\" | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\ndays = d['weather']\nlocation = d['nearest_area'][0]['areaName'][0]['value']\nprint(f'📍 佛山 (Foshan) 未来三天天气：\\n')\nfor i, day in enumerate(days):\n    date = day['date']\n    max_t = day['maxtempC']\n    min_t = day['mintempC']\n    desc = day['hourly'][4]['weatherDesc'][0]['value']  # midday description\n    rain = day['hourly'][4]['precipMM']\n    humidity = day['hourly'][4]['humidity']\n    print(f'📅 {date} (周{[\\\"日\\\",\\\"一\\\",\\\"二\\\",\\\"三\\\",\\\"四\\\",\\\"五\\\",\\\"六\\\"][(i+4)%7]})')\n    print(f'   {desc}，气温 {min_t}–{max_t}°C')\n    print(f'   降水概率 {rain}mm，湿度 {humidity}%\\n')\n\"\n"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "📍 佛山 (Foshan) 未来三天天气：\n\n📅 2026-04-19 (周四)\n   Cloudy ，气温 28–34°C\n   降水概率 0.0mm，湿度 40%\n\n📅 2026-04-20 (周五)\n   Cloudy ，气温 26–32°C\n   降水概率 0.0mm，湿度 45%\n\n📅 2026-04-21 (周六)\n   Patchy rain nearby，气温 26–33°C\n   降水概率 0.1mm，湿度 40%",
+      "tool_name": "exec"
+    },
+    {
+      "role": "assistant",
+      "content": "📍 **佛山未来三天天气：**\n\n- **今天（周四）：** 多云 🌥️，28–34°C，湿度 40%\n- **明天（周五）：** 多云 🌥️，26–32°C，湿度 45%\n- **后天（周六）：** 局部小雨 🌦️，26–33°C，湿度 40%\n\n这周气温比较稳定，周末可能有小雨，出门记得带伞～"
+    }
+  ],
+  "stream": true,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "read",
+        "description": "Read the contents of a file. Supports text files and images (jpg, png, gif, webp). Images are sent as attachments. For text files, output is truncated to 2000 lines or 50KB (whichever is hit first). Use offset/limit for large files. When you need the full file, continue with offset until complete.",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "description": "Path to the file to read (relative or absolute)",
+              "type": "string"
+            },
+            "offset": {
+              "description": "Line number to start reading from (1-indexed)",
+              "type": "number"
+            },
+            "limit": {
+              "description": "Maximum number of lines to read",
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "exec",
+        "description": "Execute shell commands with background continuation for work that starts now. Use yieldMs/background to continue later via process tool. For long-running work started now, rely on automatic completion wake when it is enabled and the command emits output or fails; otherwise use process to confirm completion. Use process whenever you need logs, status, input, or intervention. Use pty=true for TTY-required commands (terminal UIs, coding agents).",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "command"
+          ],
+          "properties": {
+            "command": {
+              "description": "Shell command to execute",
+              "type": "string"
+            },
+            "workdir": {
+              "description": "Working directory (defaults to cwd)",
+              "type": "string"
+            },
+            "env": {
+              "type": "object",
+              "patternProperties": {
+                "^(.*)$": {
+                  "type": "string"
+                }
+              }
+            },
+            "yieldMs": {
+              "description": "Milliseconds to wait before backgrounding (default 10000)",
+              "type": "number"
+            },
+            "background": {
+              "description": "Run in background immediately",
+              "type": "boolean"
+            },
+            "timeout": {
+              "description": "Timeout in seconds (optional, kills process on expiry)",
+              "type": "number"
+            },
+            "pty": {
+              "description": "Run in a pseudo-terminal (PTY) when available (TTY-required CLIs, coding agents)",
+              "type": "boolean"
+            },
+            "elevated": {
+              "description": "Run on the host with elevated permissions (if allowed)",
+              "type": "boolean"
+            },
+            "host": {
+              "description": "Exec host/target (auto|sandbox|gateway|node).",
+              "type": "string"
+            },
+            "security": {
+              "description": "Exec security mode (deny|allowlist|full).",
+              "type": "string"
+            },
+            "ask": {
+              "description": "Exec ask mode (off|on-miss|always).",
+              "type": "string"
+            },
+            "node": {
+              "description": "Node id/name for host=node.",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "options": {
+    "num_ctx": 131072
+  },
+  "think": true
+}
+```
+{{% /details %}}
+
+以上例子的完整版会话上下文请戳「<a href="/images/docs/ai-agent-intro/openclaw-session.json" target="_blank">这里</a>」（文件大小 69 KB）
 
 # 技能 Skills
-
-# 工具 Tools
-
-tool + MCP
 
 # 记忆 Memory
 
 # 会话 Sessions
 
-前文[上下文长度](/docs/ai-agent/1-llm/#%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6)中，我们提到了每一个 LLM 都是有上下文限制。
+在上一篇文章的[上下文长度](/docs/ai-agent/1-llm/#%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6)章节中，我们提到了每一个 LLM 都是有上下文限制。
 
-每一轮的对话，都会附加到一个对话列表中，整个对话列表就组成一个**会话**（session）。
+每一轮的对话，都会附加到历史对话列表中，整个对话列表组成一个**会话**（session）。
 
-Session 终有到达模型上下文长度上限的时候，所以 Session 是有生命周期的。
+不断滚大的会话终有到达模型上下文长度上限的时候，所以会话是有生命周期的。
 
-Session 的状态可以分为：
+会话的状态可以分为：
 
 - Running：活跃状态，随时可以接着继续聊
-- Stopped：已归档，保留一段时间
+- Stopped：已归档，留存一段时间
 - Deleted：已删除，释放存储空间
 
-因为 session 只是多轮对话的集合，所以是可以同时开启多个活跃状态的 session。
+因为会话只是多轮对话的集合，所以是可以同时开启多个活跃状态的 session 的。
 
-> 以 OpenClaw 来举例，每一个 channel （飞书、QQ、微信）的每一个 Agent 都会对应一个活跃状态的 Agent。
-
-# 生态协议
-
-- **AGENTS.md**: https://agents.md/
-- **LSP**: Language Server Protocol [JSON-RPC 2.0] (https://microsoft.github.io/language-server-protocol/)
-- **MCP**: Model Context Protocol [JSON-RPC 2.0] (https://modelcontextprotocol.io/)
-- **ACP**: Agent Communication Protocol [JSON-RPC 2.0] (https://agentcommunicationprotocol.dev/) 
-- **ACP**: Agent Client Protocol (https://agentclientprotocol.com)
+> 以 OpenClaw 来举例，每一个渠道（Channel，例如飞书、QQ、微信）每一个 agent 都可以对应一个活跃状态的会话。
 
 # 结语
 
-以上虽然以 OpenClaw 为例子，但实际讲得是 AI 智能体工程的技术方法。
+以上虽然以 OpenClaw 为例子，但**实际讲得是 AI 智能体工程的技术方法**。
 
-虽然 OpenClaw 的定位是个人 AI 助手，但它同时也是当前 AI 智能体工程领域世界一流水准的实战应用，与 Claude Code 等顶级工具并肩。
+即使 OpenClaw 的定位是个人 AI 助手，但它同时也是当前 AI 智能体工程领域世界一流水准的实战应用，与 Claude Code 等顶级工具并肩。
 
-开源与开放的架构，让它（OpenClaw）更具学习与研究价值。更重要的是，其设计思想与方法论可迁移至我们的业务流程，让世界变得更便捷、更智能。
+**开源与开放的架构，让它（OpenClaw）更具学习与研究价值**。更重要的是，其设计思想与方法论可迁移至我们的业务流程，可以让世界变得更便捷、更智能。
 
 # 后话
 
-我是如何部署 OpenClaw 的
+1. 我是如何部署 OpenClaw 的
 
-- 一台专门的云服务器（2核8GB内存40GB硬盘，安装了各种编程语言的开发环境，同时作为我的个人开发机，多年套餐月均百元不到）
-- 购买了国内大模型厂家的 coding/token plan（几十元每月）
-- 对接了QQ、微信和飞书，随时随地触手可达，24 小时待命，多 agent 多渠道，便于并行多会话
+- 一台专门的云服务器（2核8GB内存40GB硬盘，安装了各种编程语言的开发环境，同时作为我的个人开发机，预付费套餐，月均百元不到）
+- 购买了国内大模型厂商的 coding/token plan（小几十元每月）
+- 对接了QQ、微信和飞书，随时随地触手可达，24 小时待命，多 agent 多渠道并行多会话
 
-目前我都用 OpenClaw 来干什么
+2. 目前我都用 OpenClaw 来干什么
 
-- 实时新闻推送：定时（每小时）在网络上搜寻重大新闻，如有发现，主动推送给我（QQ/微信/飞书），让我随时了解世界宏观动态
+- 实时新闻推送：定时（每小时）在网络上搜寻重大新闻，如有发现，主动推送给我，让我随时了解世界宏观动态
 - 金融数据推送：每日定时（晚上）推送主要宽基指数估值信息，了解国内外经济行情变化
-- 调研好伙伴：深挖某一个课题或开源项目的技术原理，通过聊天层层推进，步步展开，并最终变成可运行的代码
+- 调研好伙伴：深挖某一个课题或开源项目的技术原理，通过聊天层层推进，步步展开，并最终产出可运行的代码
 
-我目前主要是研究它是如何工作的，几乎没有安装什么技能，没有对接 MCP，只是授权它使用Linux命令行和联网。
+目前主要是研究它是如何工作的，几乎没有安装什么技能，没有对接 MCP，只是授权它使用 Linux 命令行和联网搜索。
+
+> [!TIP]
+> AI 只是个放大器，不能无中生有。没有业务基础，没有足够的认知，AI 放大的是零，终局还是零。只有懂业务、认知深，才能真正用 AI 在后面加上多个 0。

@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">LLM，智力的源头</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-14 | 更新时间：2026-04-16
+  发布时间：2026-04-14 | 更新时间：2026-04-18
 </div>
 {{< katex />}}
 
