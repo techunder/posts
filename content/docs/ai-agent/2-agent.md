@@ -423,6 +423,252 @@ OpenClaw 的上下文（同时也是提示词）由以下部分组成：
 
 # 技能 Skills
 
+技能（skill）就是
+
+# Tools & MCP
+
+Tool（工具） 是赋予 AI 模型执行**外部动作**或**访问外部数据**能力的接口。它打破了纯"生成文本"的局限，让模型能真正与世界交互。
+
+Tool 可以是本地命令、访问网络的命令，甚至可以通过代码调用外部的接口。
+例如前面的读取本地文件和通过 `curl` 命令获取天气。
+
+通过代码调用外部接口时，每个 AI 应用都需要编写客户端代码。为了解决"每个 AI 应用都重复造轮子对接工具和数据"的问题，
+Anthropic 在 2024 年底提出 MCP 并开源。
+
+**MCP**（Model Context Protocol，模型上下文协议）是一个[开放协议](https://modelcontextprotocol.io/)，旨在标准化 AI 助手与外部数据源、工具之间的通信方式。
+
+> [!TIP]
+> 类似于 HTTP 在 Web 中的角色 —— MCP 想要成为 AI 时代的"数据与工具接入标准协议"
+
+```mermaid
+stateDiagram-v2
+    direction LR
+
+    host    : Host（AI 应用）
+    mcp_cli1 : MCP Client1
+    mcp_cli2 : MCP Client2
+    mcp_ser1 : MCP Server1
+    mcp_ser2 : MCP Server2
+
+    %% OpenClaw 核心
+    state host {
+        direction LR
+        mcp_cli1
+        mcp_cli2
+    }
+
+    mcp_cli1 --> mcp_ser1
+    mcp_cli2 --> mcp_ser2
+
+    note left of mcp_cli1
+        与 Server 维持一比一连接
+    end note
+
+    note right of mcp_ser1
+        暴露工具（Tools），
+        提供数据资源（Resources）
+    end note
+
+    style mcp_cli1   fill:#d9f0e0,stroke:#5a9a6e
+    style mcp_cli2   fill:#d9f0e0,stroke:#5a9a6e
+    style mcp_ser1   fill:#fff3cd,stroke:#d48806,stroke-width:2px
+    style mcp_ser2   fill:#fff3cd,stroke:#d48806,stroke-width:2px
+```
+
+MCP Client 与 MCP Server 的连接方式（transport mode）有两种
+- STDIO（本地部署 MCP Server）
+- Streamable HTTP（远程部署 MCP Server）
+
+> Streamable HTTP 是一种混合传输层模式，本质是：
+> 客户端 → 服务端：用 HTTP POST；服务端 → 客户端：用 SSE (Server-Sent Events)
+
+MCP 基于 JSON-RPC 2.0 构建，所有消息均为 JSON 格式，日常使用的主要是下面几类原语
+
+{{% details title="**`initialize`** 初始化连接" open=false %}}
+请求（Request）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {
+      "roots": {
+        "listChanged": true
+      },
+      "sampling": {}
+    },
+    "clientInfo": {
+      "name": "ExampleClient",
+      "version": "1.0.0",
+    }
+  }
+}
+```
+响应（Response）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {
+      "logging": {},
+      "prompts": {
+        "listChanged": true
+      },
+      "resources": {
+        "subscribe": true,
+        "listChanged": true
+      },
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "serverInfo": {
+      "name": "ExampleServer",
+      "version": "1.0.0",
+  }
+}
+```
+{{% /details %}}
+
+{{% details title="**`resources/list`** 读取资源列表" open=false %}}
+请求（Request）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "resources/list",
+  "params": {
+    "cursor": "optional-cursor-value"
+  }
+}
+```
+响应（Response）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "resources": [
+      {
+        "uri": "file:///project/src/main.rs",
+        "name": "main.rs",
+        "description": "Primary application entry point",
+        "mimeType": "text/x-rust"
+      }
+    ],
+    "nextCursor": "next-page-cursor"
+  }
+}
+```
+{{% /details %}}
+
+{{% details title="**`resources/read`** 读取某个资源" open=false %}}
+请求（Request）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "resources/read",
+  "params": {
+    "uri": "file:///project/src/main.rs"
+  }
+}
+```
+响应（Response）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "contents": [
+      {
+        "uri": "file:///project/src/main.rs",
+        "mimeType": "text/x-rust",
+        "text": "fn main() {\n    println!(\"Hello world!\");\n}"
+      }
+    ]
+  }
+}
+```
+{{% /details %}}
+
+{{% details title="**`tools/list`** 读取工具列表" open=false %}}
+请求（Request）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/list",
+  "params": {
+    "cursor": "optional-cursor-value"
+  }
+}
+```
+响应（Response）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "tools": [
+      {
+        "name": "get_weather",
+        "description": "Get current weather information for a location",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "description": "City name or zip code"
+            }
+          },
+          "required": ["location"]
+        }
+      }
+    ],
+    "nextCursor": "next-page-cursor"
+  }
+}
+```
+{{% /details %}}
+
+{{% details title="**`tools/call`** 调用某个工具" open=false %}}
+请求（Request）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "get_weather",
+    "arguments": {
+      "location": "New York"
+    }
+  }
+}
+```
+响应（Response）：
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Current weather in New York:\nTemperature: 72°F\nConditions: Partly cloudy"
+      }
+    ],
+    "isError": false
+  }
+}
+```
+{{% /details %}}
+
 # 记忆 Memory
 
 # 会话 Sessions
