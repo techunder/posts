@@ -423,7 +423,91 @@ OpenClaw 的上下文（同时也是提示词）由以下部分组成：
 
 # 技能 Skills
 
-技能（skill）就是
+> [!TIP]
+> 如果你给一个原始人一辆车，那大概率只能看到一个赤裸着上身的原始人躺在车顶上晒太阳，但倘若你教会他如何驾驶这俩车，那你或许只能看见汽车飞驰而过扬起的灰尘和听到远处传来的机车轰鸣声
+
+**技能**（skill）是 AI Agent 中一种**可复用、模块化的能力封装**，它将特定的工具、流程和指令打包成一个标准单元，让 agent 在面对相应任务时能快速调用。
+
+**Skill 本质是一份 markdown 文档（SKILL.md）**，可选附上相关脚本和资源文件，放在一个以 skill 名称命名的一个文件夹中：
+```text
+skill-name/
+├── SKILL.md          # 必需：元数据 + 使用说明
+├── scripts/          # 可选：可执行脚本
+├── references/       # 可选：参考文档
+├── assets/           # 可选：模板、资源文件
+└── ...               # 其他任意文件或目录
+```
+
+为了让 Skills 能复用在各种智能体上，目前已经形成了相关的**行业标准**：[Agent Skills](https://agentskills.io/specification)
+
+> 它是 Anthropic 推出的开放标准，已广泛被各种 AI 产品所采纳（Claude Code、Cursor、VS Code、GitHub Copilot、OpenClaw 等）
+
+{{% details title="一个天气查询 SKILL.md 的例子" open=false %}}
+```markdown
+---
+name: weather
+description: 查询指定城市或地点的当前天气和未来预报。当用户询问'天气'、'气温'、'下雨吗'、'要不要带伞'、或任意城市名+天气时激活。支持中英文输出。
+license: MIT
+compatibility: 需网络访问能力（调用外部天气 API）
+metadata:
+  author: thea
+  version: "1.0"
+---
+
+# Weather Skill
+
+## 功能说明
+
+根据用户提供的城市或地点，查询：
+- 当前天气状况、气温、湿度、风力
+- 未来 1-3 天天气预报
+- 出行建议（如带伞、防晒等）
+
+## 输入参数
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| location | string | 是 | 城市或地点名称 |
+
+## 执行流程
+
+1. 从用户输入中解析 location（如"佛山天气" → "佛山"）
+2. 调用天气 API（优先使用 wttr.in 或 Open-Meteo）
+3. 将返回数据格式化为易读的中文文本
+4. 附上简短的出行建议
+
+## 输出示例
+
+> 📍 **佛山今日天气**
+> 多云，28–34°C，湿度 40%
+> 东风 2 级
+> 
+> 💡 出行建议：今日气温较高，注意防晒。
+
+## 注意事项
+
+- 若城市未找到，返回："未找到该城市的天气信息"
+- 若 API 超时或失败，返回："查询失败，请稍后重试"
+- 默认使用摄氏度，可根据用户语言偏好调整
+
+## 参考资料
+
+- wttr.in: https://wttr.in/
+- Open-Meteo: https://open-meteo.com/
+```
+{{% /details %}}
+
+每个 Skill 解决某一类具体问题，agent 通过自然语言指令 + Skill 的描述匹配来决定调用哪个。
+
+> [!WARNING]
+> **渐进式披露**（Progressive disclosure）是一种上下文管理技术，为了减少 token 消耗和上下文污染。先投喂给 LLM 每个 skill 的名称（name）和描述（description），让 LLM 决定是否进一步加载技能
+
+> 有时候也不是 skill 安装得越多越好的，太多 skills 的 name 和 description 也会把上下文塞满，分散 LLM 的注意力。更好的做法是，**建立不同的 agent，不同的 agent 启用不同的 skills**，各自有各自侧重的能力
+
+列几个当下流行的 skills 市场：
+- [ClawHub](https://clawhub.ai)：OpenClaw 生态的官方 Skill 市场 
+- [skills.sh](https://skills.sh/)：社区运营的开放 Agent Skills 生态
+- `npx skills add <github repos>`：直接安装任意 `github` 代码仓库中的 skills
 
 # Tools & MCP
 
@@ -792,7 +876,7 @@ stateDiagram-v2
 
 每一轮的对话，都会附加到历史对话列表中，整个对话列表组成一个**会话**（session）。
 
-不断滚大的会话终有到达模型上下文长度上限的时候，所以会话是有生命周期的。
+不断滚大的会话终有到达模型上下文长度上限的时候，所以**会话是有生命周期的**。
 
 会话的状态可以分为：
 
@@ -800,9 +884,13 @@ stateDiagram-v2
 - Stopped：已归档，留存一段时间
 - Deleted：已删除，释放存储空间
 
-因为会话只是多轮对话的集合，所以是可以同时开启多个活跃状态的 session 的。
+因为会话只是多轮对话的集合，所以是可以同时开启多个活跃状态的会话，每个会话执行不同的任务。
 
 > 以 OpenClaw 来举例，每一个渠道（Channel，例如飞书、QQ、微信）每一个 agent 都可以对应一个活跃状态的会话。
+
+需要**关注会话当前的的上下文水位**，当一个会话的任务结束，**随手打开一个新的会话是个好习惯**，减少 token 消耗，无上下文信息污染
+
+> 以 OpenClaw 来举例，可以通过 `/status` 这个 slash command 来查看当前会话的的上下文水位。如果超过 60% 了，可以通过 `/compact` 压缩，或 `/new` 另起一个新的会话
 
 # 结语
 
