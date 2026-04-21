@@ -12,13 +12,13 @@ draft: false
 </div>
 {{< katex />}}
 
-要好用 AI Agent，我们需要先理解其核心，大语言模型（Large Language Model），简称 LLM
+要好用 AI Agent，我们需要先理解其核心：**大语言模型**（Large Language Model）
 
-本文简要介绍，关于 LLM，我们需要知道的基础知识。
+本文介绍应用 LLM，我们需要知道的知识。
 
 # 人工智能
 
-人工智能经过几十年的发展，已经形成一系列庞大的分支
+人工智能经过几十年的发展，已经形成庞大的一系列分支
 
 ```mermaid
 graph LR
@@ -76,13 +76,13 @@ graph LR
 
 <center>（图：计算机深度神经网络）</center>
 
-深度神经网络由大量神经元组成，每层神经元接收前一层输出的**加权和**，经过**激活函数**实现非线性变换后传递给下一层，最终到达输出层。输出层根据任务类型给出相应形式的输出：
-- **多分类任务**经 softmax 归一化为各类别的概率分布，推理时通常选择概率最高的类别作为预测结果；
-- **二分类任务**经 sigmoid 输出 0 到 1 之间的标量值，可视为正类概率；
-- **回归任务**则无激活函数，直接输出线性结果。
+深度神经网络由大量神经元组成，**每层神经元接收前一层输出的加权和，经过激活函数实现非线性变换后传递给下一层**，最终到达输出层。输出层根据任务类型给出相应形式的输出：
+- **多分类任务**：经过 softmax 函数归一化为各类别的概率分布，常选择概率最高的作为预测结果
+- **二分类任务**：经 sigmoid 函数输出 0 到 1 之间的标量值，可视为正类概率
+- **回归任务**：无激活函数，直接输出线性结果
 
-{{% details title="相关的数学表达式" open=false %}}
-### 加权求和+激活:
+{{% details title="推理过程的数学表达式" open=false %}}
+### 加权求和激活
 ```katex
 \boldsymbol{a}_{next} = \sigma(\boldsymbol{a}^T \boldsymbol{W} + \boldsymbol{b})
 ```
@@ -91,11 +91,11 @@ graph LR
 - $\boldsymbol{W}$ 为当前层的权重，shape 为 (m,n)
 - $\boldsymbol{b}$ 为当前层的偏置，shape 为 (n,1)
 - $\sigma$ 为激活函数，常见为：
-    - $relu(x) = max(0, x)$，主流
+    - $relu(x) = max(0, x)$，输出 $\ge 0$， 主流
     - $sigmoid(x) = \frac{1}{(1+e^{-x})}$，输出 0~1
     - $tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}$，输出 -1~1
-
-### softmax:
+---
+### Softmax
 ```katex
 \text{softmax}(\boldsymbol{x}) = 
 \begin{bmatrix} 
@@ -113,16 +113,16 @@ graph LR
 
 一般的过程是通过训练得到权重 $\boldsymbol{W}$，封装成模型，再投放到应用场景中做推理。
 
-不同的模型，会选择不同的架构，不同的权重参数量。
+不同的模型，会设计不同的神经网络架构，有不同的权重参数量。
 
 > [!TIP]
-> 深度学习是建立在**概率论**之上的一门技术，对它来说，没有 100% 的必然 —— 每次输出只是当前条件下概率较高的 token，而非逻辑推导的必然结果。
+> 深度学习是建立在**概率论**之上的一门技术，对它来说，没有 100% 的必然 —— 每次输出只是当前条件下概率较高的输出，而非逻辑运算后的确定结果
 
-> LLM 通常使用 temperature 或 top_p 调用参数来控制结果输出的采样策略
+> LLM 通常使用 `temperature` 或 `top_p` 参数来控制输出采样策略
 
 # 大语言模型
 
-LLM 是智能体的核心引擎和智力源泉。
+大语言模型（LLM）是智能体的核心引擎和智力源泉。
 
 现代的 LLM 基本是 **Transformer 架构** 或其变体，始于 Google Brain 团队于 2017 年发表的一篇论文《Attention Is All You Need》。
 
@@ -131,19 +131,36 @@ LLM 是智能体的核心引擎和智力源泉。
 <center>（图：Transformer 模型架构）</center>
 
 > [!NOTICE]
-> 像 GPT 这一类主流**生成大模型**，只有右边的架构（Decoder-only），输出是一个字一个字往外蹦的
+> 像 GPT 这一类**生成大模型**，只有右边的架构（Decoder-only），输出是一个字一个字往外蹦
 
 > [!NOTICE]
-> 像 BERT 这一类**理解模型**，只有左边的架构（Encoder-only），可以直接吐出整个语句的结果，用于分类或意图理解
+> 像 BERT 这一类**理解模型**，只有左边的架构（Encoder-only），直接吐出整个语句的结果，用于分类、embedding 或意图理解
 
-Transformer 是一种基于自注意力机制的深度神经网络架构，其核心模块通常采用**多头自注意力**结构。
+Transformer 是一种基于**自注意力机制**的深度神经网络架构，核心模块是**多头自注意力**结构。
 
 通过投喂海量的通用知识，让其习得了其中的规律，并保存为模型的权重参数，这个过程称为**预训练**（Pre-training）。
 
+之后需要经过价值对齐、监督微调等的**后训练**（Post-training）过程才能上线使用。
+
+```mermaid
+flowchart LR
+    A["🧠 <b>预训练</b><br/>海量知识里提取规律"]
+    B["🎯 <b>后训练</b><br/>价值对齐、监督微调"]
+    C["🚀 <b>推理</b><br/>部署使用"]
+
+    A --> B
+    B --> C
+
+    style A fill:#f0f8ff,stroke:#1890ff,stroke-width:2px,rx:12
+    style B fill:#fff0f6,stroke:#eb2f96,stroke-width:2px,rx:12
+    style C fill:#f6ffed,stroke:#52c41a,stroke-width:2px,rx:12
+
+    linkStyle 0 stroke:#ccc,stroke-width:2px
+    linkStyle 1 stroke:#ccc,stroke-width:2px
+```
+
 > [!TIP]
 > 模型以人类自然语言为基础习得，且权重参数量巨大，故名**大语言模型**
-
-之后需要经过价值对齐、监督微调等的**后训练**（Post-training）过程才能上线使用。
 
 # 推理过程
 
@@ -181,9 +198,9 @@ flowchart LR
 > [!WARNING]
 > embedding model ≠ LLM
 
-生成的 embedding 向量不是随意的，而是对人类自然语言进行大量学习后摸索出规律，使得语义相关性高的 token 向量值也比较类似。
+生成的 embedding 向量不是随意的，而**是对人类自然语言进行大量学习后摸索出规律，使得语义相关性高的 token 向量值也比较类似**。
 
-有几个有意思的 embedding 例子：
+几个 embedding 例子：
 
 - man ≈ 男人
 - 美丽 ≈ 漂亮
@@ -195,18 +212,20 @@ flowchart LR
 
 > 例如 `paraphrase-multilingual-MiniLM-L12-v2` embedding model 的维度为 384。
 
-想更深入了解 embedding 的知识，请看这篇文章：[embedding](/docs/embedding/)
+想更深入了解 embedding 的知识，请看这篇：[embedding](/docs/embedding/)
 
 对 LLM 的调用，通过输入和输出的 token 计费。
 
 > [!TIP]
-> LLM 以 token 为计量单位，token 是 AI 时代像“电”一样的存在，都为能源消耗基础单位，需要消耗 token 得到结果
+> LLM 以 token 为计量单位，token 是 AI 时代像“电”一样的存在，为能源消耗单位，消耗 token 得到推理结果
 
 # 上下文长度
 
-LLM 是无状态的，只有权重和矩阵运算，所有的惊喜，都藏在输入里，输入称为**提示词**（prompt），有提示 LLM 产生期望输出之意。
+**LLM 是无状态的，只有权重与矩阵函数运算**，所有的惊喜，都藏在输入里，输入称为**提示词**（prompt）。
 
 > [!TIP]
+> 有提示 LLM 产生期望输出之意
+
 > 所以早期关于 LLM 的应用工程，叫**提示词工程**（Prompt Engineering）
 
 ```mermaid
@@ -222,11 +241,11 @@ stateDiagram-v2
 
 因为 LLM 无状态，所以每一次请求，都必须带上完整的**上下文**（context）信息，让 LLM 知道前面对话的内容
 
-> [!TIP]
 > 所以后来关于 LLM 的应用工程，也叫**上下文工程**（Context Engineering）
 
-下面模拟一个含有多轮对会的过程，多轮对话组成一个**会话**（session）
+下面模拟一个含有多轮对会的过程，
 
+{{% details title="由多轮对话组成的**会话**（session）" open=false %}}
 {{% steps %}}
 1. ### 第一轮请求
     1. **人类**：<span style="color:blue;">你好，什么是白开水？</span>
@@ -269,36 +288,36 @@ stateDiagram-v2
 10. ### 第五轮回复
     1. **模型**：简单来说，白开水健康有益，日常要养成定时、少量多次喝水的好习惯，少喝含糖饮料。
 {{% /steps %}}
+{{% /details %}}
 
-所以，你发现了吗？雪球越滚越大！
+你发现了吗？会话雪球越滚越大！
 
-> 以上例子是按类似 OpenAI 传统的 `/v1/chat/completions` Completions API 视觉。如果采用较新的 `/v1/responses` Responses API，不用每次都把会话上下文都传过去，只需要发最新的问题即可，服务端会维护会话的上下文，接口会更简洁，减少了传输开销，但 token 消耗并不会因此减少。
+> 以上例子是按类似 OpenAI 的 `/v1/chat/completions` Chat Completions API 视觉展开的。如果采用较新的 `/v1/responses` Responses API，不用每次都把会话上下文传过去，只需要发送最新的问题即可，服务端会维护会话的上下文，接口会更简洁，减少了传输开销，但 token 消耗并不会因此而减少。
 
-但在 LLM 里，对每一次请求，从 prompt 的第一个 token 开始，到已生成的 token，都会参与矩阵运算才能输出下一个 token，
+但在 LLM 里，对每一次请求，从 prompt 的第一个 token 开始到已经生成的 token，都会参与到自注意力运算才能输出下一个 token，
 
 > [!TIP]
 > 就好像一本几百页的小说，开篇的一句话，也会影响到结尾处的结局
 
-所以每一个 LLM，都有一个叫**上下文长度**（context length）的硬指标，来限定 prompt token 加上能生成 token 的上限（以 token 个数为计量单位）
+所以每一个 LLM，都有一个叫**上下文长度**（context length）的硬指标，来限定 prompt token 加上能生成 token 数的上限（以 token 个数为计量单位）
 
-> 例如，模型 `DeepSeek-V3.2` 的上下文长度度为 128K，`MiniMax-M2.7` 200K，`Qwen3.6-Plus` 为 1M
+> 例如，模型 `DeepSeek-V3.2` 的上下文长度为 128K，`MiniMax-M2.7` 200K，`Qwen3.6-Plus` 为 1M
 
 > [!WARNING]
-> - 自注意力机制的计算复杂度为 $O(n^2)$，$n$ 为 context length，计算量与上下文长度成平方关系
-> - 每个 token 都要缓存它的 K（Key）和 V（Value）向量，KV Cache 导致显存瓶颈
-
-所以我们在日常的 LLM 使用中，最关心的莫过于当前 context length 还剩下多少。
+> 过长的上下文会让 KV 缓存爆炸、单 token 平均注意力降低，但更核心的问题是模型能否在海量 tokens 中准确定位关键信息
 
 > [!TIP]
 > 随着大模型的发展，context length 可能会越来越大，但限于算力和显存资源，是不可能无限增长的，所以**上下文工程**就是围绕这个问题而诞生的工程方法
 
-> 事实上，LLM 所在的服务一般是有缓存（**KV Cache**）的，因为通常一个 session 都会有多轮对话，每一次轮对话的输入 prompt 的前面部分都是一样的，而 prompt 里所有的 token embedding 向量都是需要映射为 K（Key） 和 V（Value） 向量并参与到后面每个 token 的生成，所以 LLM 服务通常会缓存 token 的 KV，用于后续对话的计算
+我们在日常的 LLM 使用中，最关心的莫过于当前 context length 还剩下多少。
 
-想更深入了解自注意力机制，请看这篇文章：[自注意力机制](/docs/transformer/1-self-attention/)
+> 事实上，LLM 所在的服务一般是有缓存（**KV Cache**）的，因为通常一个 session 都会有多轮对话，每一次轮对话的输入 prompt 的前面部分都是一样的，而 prompt 里所有的 token 都是需要映射为 K（Key） 和 V（Value） 向量并参与到后面每个 token 的生成，所以 LLM 服务通常会缓存 token 的 KV，用于后续对话的计算
+
+想更深入了解自注意力机制，请看这篇：[自注意力机制](/docs/transformer/1-self-attention/)
 
 # 结构化输出
 
-就像前面的例子，人类与 LLM 的一般对话，输出的是一段一段文本，但现在很多的 LLM 都支持**结构化输出**（一般是支持 JSON 格式输出）。
+像前面的例子，人类与 LLM 的对话，一般是输出一段自然语言文本，为了支持流程程序化，现在很多 LLM 都支持**结构化输出**（一般是 JSON 格式）。
 
 ```mermaid
 stateDiagram-v2
@@ -307,7 +326,7 @@ stateDiagram-v2
     human: 人类（用户）
     LLM: 大语言模型（LLM）
 
-    human --> LLM: 用户请求，指定回复 JSON
+    human --> LLM: 用户请求，要求 JSON 回复
     LLM --> human: 回复 JSON 格式
 
     style human fill:#a8e6cf,stroke:#333,stroke-width:2px
