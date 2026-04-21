@@ -1,11 +1,11 @@
 ---
-title: "AI Agent 导读"
+title: "AI Agent 简介"
 weight: 200
 bookCollapseSection: true
 draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div class="page-title">AI Agent 导读</div>
+<div class="page-title">AI Agent 简介</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-04-13 | 更新时间：2026-04-14
@@ -56,6 +56,13 @@ stateDiagram-v2
 
 <hr style="border-top: 1px dashed grey;" />
 
-本系列文章
-* [LLM，智力的源头](/docs/ai-agent/1-llm/)
-* [Agent，工程的起航](/docs/ai-agent/2-agent/)
+本系列文章拆分成两篇，分别是大语言模型基础知识和现代 Agent 架构
+
+- [LLM，智力的源头](/docs/ai-agent-intro/1-llm/)
+
+    人工智能 → 深度学习 → 大语言模型 → 上下文 → 工具调用 → LLM 接口
+
+- [Agent，工程的起航](/docs/ai-agent-intro/2-agent/)
+
+  OpenClaw 架构 → 分层架构 → 上下文实例 → 技能 → MCP → 记忆 → 会话
+
