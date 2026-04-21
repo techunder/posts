@@ -421,6 +421,8 @@ OpenClaw 的上下文（同时也是提示词）由以下部分组成：
 
 以上例子的完整版会话上下文请戳「<a href="/images/docs/ai-agent-intro/openclaw-session.json" target="_blank">这里</a>」（文件大小 69 KB）
 
+其中的 system prompt 部分请戳 「<a href="/images/docs/ai-agent-intro/system-prompt.txt" target="_blank">这里</a>」（文件大小 32 KB）
+
 # 技能 Skills
 
 > [!TIP]
@@ -892,31 +894,65 @@ stateDiagram-v2
 
 # 记忆 Memory
 
-会话是有生命周期的，一旦关闭，那么前面所有的聊天历史都会消失，大模型对你的记忆回归为一张白纸。
+会话是有生命周期的，一旦关闭，前面所有的聊天历史都会消失，大模型对你的记忆回归为一张白纸。
 
-前面提到 OpenClaw 的 `IDENTITY.md`、`SOUL.md`、`USER.md` 等文件，可以理解为记忆的一部分。但他们是相对静态的，并不会随着你与大模型的交互而累积，大模型不会变得越来越懂你。
+前面提到 OpenClaw 的 `IDENTITY.md`、`SOUL.md`、`USER.md` 等文件，可以理解为记忆的一部分。
 
-**智能体的对人类的记忆、智能体的自我进化**，这种"类人"能力是个人智能体的核心能力。
+但他们是相对静态的，并不会随着你与大模型的交互而累积，大模型不会变得越来越懂你。
 
-常见的做法是，
+**记忆和自我进化**，是智能体的核心能力。
+
+常见的做法是：
 
 ```mermaid
 flowchart LR
-    A["🔤 <b>会话</b><br/>模型与人类、与工具的互动"]
-    B["📊 <b>记忆</b><br/>从会话中提取记忆"]
-    C["📝 <b>技能</b><br/>从会话中提取技能"]
+    A["💬 <b>会话</b><br/>模型与人类、与工具的互动"]
+    B["🧠 <b>记忆</b><br/>从会话中提取记忆"]
+    C["⚙️  <b>技能</b><br/>从会话中学习技能"]
 
     A --> B
-    B --> C
+    A --> C
 
-    style A fill:#e6f7ff,stroke:#1890ff,rounded:true
-    style B fill:#f0f8fb,stroke:#00b96b,rounded:true
-    style C fill:#fef0f0,stroke:#f5222d,rounded:true
+    style A fill:#f0f8ff,stroke:#1890ff,stroke-width:2px,rx:12
+    style B fill:#fff0f6,stroke:#eb2f96,stroke-width:2px,rx:12
+    style C fill:#f6ffed,stroke:#52c41a,stroke-width:2px,rx:12
+
+    linkStyle 0 stroke:#ccc,stroke-width:2px
+    linkStyle 1 stroke:#ccc,stroke-width:2px
+```
+> OpenClaw 当前前不支持自动从会话中提取技能，另外一款智能体 [Hermes Agent](https://github.com/NousResearch/hermes-agent) 以拥有自我提升机制闻名
+
+记忆的提出并传递到下一轮会话过程是这样的：
+
+```mermaid
+flowchart LR
+    A["💬 <b>老会话</b><br/>"]
+    B["🧠 <b>短期记忆</b><br/>每日笔记<br/>memory/YYYY-MM-DD.md"]
+    C["🧠 <b>长期记忆</b><br/>MEMORY.md"]
+    D["💬 <b>新会话</b><br/>"]
+
+    A e1@--会话结束/会话压缩--> B
+    B e2@--晚上做梦（Dreaming）--> C
+    A e3@--晚上做梦（Dreaming）--> C
+    C e4@-.注入.-> D
+    B e5@-.注入.-> D
+
+    style A fill:#f0f8ff,stroke:#1890ff,stroke-width:2px,rx:12
+    style B fill:#fff0f6,stroke:#eb2f96,stroke-width:2px,rx:12
+    style C fill:#fff0f6,stroke:#eb2f96,stroke-width:2px,rx:12
+    style D fill:#fff7e6,stroke:#1890ff,stroke-width:2px,rx:12
+
+    e1@{ animate: true }
+    e2@{ animate: true }
+    e3@{ animate: true }
+    e4@{ animate: true }
+    e5@{ animate: true }
 ```
 
-OpenClaw 当前使用做梦系统提取记忆。
-
-
+OpenClaw 当前使用做梦机制（Dreaming）提取记忆：
+1. 轻睡眠阶段（Light Phase）：去重、归类，生成候选行
+2. 快速眼动睡眠阶段（REM Phase）：提取模式，生成反思摘要
+3. 深度睡眠阶段（Deep Phase）：追加写入每日笔记和 `MEMORY.md`
 
 # 结语
 
@@ -931,18 +967,16 @@ OpenClaw 当前使用做梦系统提取记忆。
 # 后话
 
 1. 我是如何部署 OpenClaw 的
-
-- 一台专门的云服务器（2核8GB内存40GB硬盘，安装了各种编程语言的开发环境，同时作为我的个人开发机，预付费套餐，月均百元不到）
-- 购买了国内大模型厂商的 coding/token plan（小几十元每月）
-- 对接了QQ、微信和飞书，随时随地触手可达，24 小时待命，多渠道并行多会话
-- 建了 5 个 agent，多 agent 并行多会话，因为有些会话需要几天保留活跃状态，方便随时继续聊
+> - 一台专门的云服务器（2核8GB内存40GB硬盘，安装了各种编程语言的开发环境，同时作为我的个人开发机，预付费套餐，月均百元不到）
+> - 购买了国内大模型厂商的 coding/token plan（小几十元每月）
+> - 对接了QQ、微信和飞书，随时随地触手可达，24 小时待命，多渠道并行多会话
+> - 建了 5 个 agent，多 agent 并行多会话，因为有些会话需要几天保留活跃状态，方便随时继续聊
 
 2. 目前我用 OpenClaw 来干什么
-
-- 实时新闻推送：定时（每小时）在网络上搜寻重大新闻，如有发现，主动推送给我，让我随时了解世界宏观动态
-- 金融数据推送：每日定时（晚上）推送主要宽基指数估值信息，了解国内外经济行情变化
-- 调研好伙伴：深挖某一个课题或开源项目的技术原理，通过聊天层层推进，步步展开，并最终产出可运行的演示代码
-- 编写小工具：只要有了想法，只需简单的几句话，它就可以帮我变成现实，自动安装环境、编写代码、部署，相比之前的低效，现在的效率高的离谱，（仍需要 code review 与调整）
+> - 实时新闻推送：定时（每小时）在网络上搜寻重大新闻，如有发现，主动推送给我，让我随时了解世界宏观动态
+> - 金融数据推送：每日定时（晚上）推送主要宽基指数估值信息，了解国内外经济行情变化
+> - 调研好伙伴：深挖某一个课题或开源项目的技术原理，通过聊天层层推进，步步展开，并最终产出可运行的演示代码
+> - 编写小工具：只要有了想法，只需简单的几句话，它就可以帮我变成现实，自动安装环境、编写代码、部署，相比之前的低效，现在的效率高的离谱，（仍需要 code review 与调整）
 
 目前主要是研究它是如何工作的，几乎没有安装什么技能，没有对接 MCP，只是授权它使用 Linux 命令行和联网搜索，相对于给了 AI 一个工作台。
 
