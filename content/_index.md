@@ -15,7 +15,6 @@ bookToC: false
 - **技术文章**：按目录分类存放个人原创技术系列文章，是本站的主要内容。
 
 ## 📢 最近更新
-- [Agent，工程的起航](/docs/ai-agent/2-agent/)
 - [LLM，智力的源头](/docs/ai-agent/1-llm/)
 - [AI Agent 导读](/docs/ai-agent/)
 - [Embedding](/docs/embedding/)
