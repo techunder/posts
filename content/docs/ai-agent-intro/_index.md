@@ -63,7 +63,7 @@ stateDiagram-v2
 
     人工智能 → 深度学习 → 大语言模型 → 上下文 → 工具调用 → LLM 接口
 
-- [Agent，工程的起航](/docs/ai-agent-intro/2-agent/)
+- Agent，工程的起航
 
   OpenClaw 架构 → 分层架构 → 上下文实例 → 技能 → MCP → 记忆 → 会话
 
