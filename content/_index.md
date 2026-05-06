@@ -5,9 +5,13 @@ bookToC: false
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 
 # 👋 欢迎来到 Techunder 的技术知识库
-本网站为个人技术文章解读笔记，主要用于发表本人对编程技术、AI/CS 论文、网络技术相关文章的解读、分析与学习笔记，同时也会分享一些个人的技术思考、经验和生活随笔。
+
+本网站为个人技术文章解读笔记，主要发表本人对编程技术、AI/CS 论文、网络技术相关文章的解读、分析与学习笔记，同时也会分享一些个人的技术思考、经验和生活随笔。
+
+机器学习的底层是数学原理，**数学是宇宙最通用、最优雅、最简约的语言**，看懂了数学公式，就能彻底、精准地理解世界的本质。本站追求知识本质，会涉及数据公式推导。
 
 ## 🔒 隐私政策
+
 本网站不收集任何用户个人信息，也不使用任何第三方服务来分析用户行为。内容主要为个人原创，不涉及任何商业用途。
 
 ## 📢 最近更新
@@ -15,3 +19,4 @@ bookToC: false
 - [AI Agent 导读](/docs/ai-agent-intro/)
 - [Embedding](/docs/embedding/)
 - [Transformer：自注意力机制](/docs/transformer/1-self-attention/)
+
