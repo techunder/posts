@@ -7,6 +7,7 @@ This repository stores the Markdown source files for the Techunder posts, which 
 Copyright © Techunder (Guanhua Liu) | All rights reserved | [https://techunder.tech](https://techunder.tech)
 
 ## How to Build
+- Install hugo extended [Hugo Releases](https://github.com/gohugoio/hugo/releases)
 - Run `rm -rf themes/hugo-book/` to delete the hugo-book theme folder then `git submodule add -f https://github.com/alex-shpak/hugo-book.git themes/hugo-book` to add the hugo-book theme
 - Run `hugo server -D -N` to debug the site.
 - Run `hugo` to build the site to public/.
