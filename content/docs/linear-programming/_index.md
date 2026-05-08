@@ -216,6 +216,7 @@ draft: true
 
 ## 方法一：scipy
 ```python
+# pip install scipy
 from scipy.optimize import linprog
 import numpy as np
 
