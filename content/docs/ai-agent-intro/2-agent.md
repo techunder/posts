@@ -51,10 +51,10 @@ stateDiagram-v2
     state openclaw {
         direction LR
         ch      : 通道层<br/>（Channel Layer）
-        gw      : 核心网关<br/>（Core Gateway）
-        skill   : 技能引擎<br/>（Skill Engine）
-        session : 会话管理<br/>（Session Manager）
-        mem     : 记忆<br/>（Memory）
+        gw      : <b>核心网关</b><br/>（Core Gateway）
+        skill   : <b>技能引擎</b><br/>（Skill Engine）
+        session : <b>会话管理</b><br/>（Session Manager）
+        mem     : <b>记忆</b><br/>（Memory）
         plugin  : 插件系统<br/>（Plugin）
 
         ch      --> gw
@@ -92,7 +92,7 @@ stateDiagram-v2
     style node_app  fill:#d9f0e0,stroke:#5a9a6e
 
     style openclaw  fill:#f5f5f5,stroke:#999,stroke-width:2px
-    style gw        fill:#f0e8ff,stroke:#9a6ed4,stroke-width:2px
+    style gw        fill:#f0e8ff,stroke:#9a6ed4,stroke-width:3px
     style ch        fill:#f0e8ff,stroke:#9a6ed4
     style session   fill:#f0e8ff,stroke:#9a6ed4
     style mem       fill:#f0e8ff,stroke:#9a6ed4
@@ -137,7 +137,7 @@ OpenClaw 是运行在个人电脑或服务器上的 AI Agent 框架。
 
 # 架构抽象：分层架构
 
-一般化的 AI Agent，按个人理解，抽象成如下几层：
+对于一般的 AI Agent，按个人理解，我把它抽象成如下几层：
 
 <table>
   <tr><th>层级</th><th>名称</th><th>说明</th></tr>
@@ -145,7 +145,7 @@ OpenClaw 是运行在个人电脑或服务器上的 AI Agent 框架。
   <tr style="background:#F8F8F8"><td>7</td><td>📖 技能层</td><td>工具使用说明和技能手册（skill.md），AI 时代的 App</td></tr>
   <tr style="background:#F8F8F8"><td>6</td><td>🔧 工具层</td><td>命令·接口·MCP，智能体的武器装备库</td></tr>
   <tr style="background:#F0E8FF"><td>5</td><td>🤖 智能体层</td><td>LLM 驾驭系统，AI 时代的 OS（Claude Code, Codex, OpenClaw）</td></tr>
-  <tr style="background:#FFF3CD"><td>4</td><td>🧠 模型层</td><td>智能引擎，AI 时代的发动机（OpenAI, Anthropic, Google）</td></tr>
+  <tr style="background:#FFF3CD"><td>4</td><td>🧠 模型层</td><td>智能引擎，AI 时代的发动机/CPU（OpenAI, Anthropic, Google）</td></tr>
   <tr style="background:#F8F8F8"><td>3</td><td>🏗️ 基础设施层</td><td>服务器·存储·网络（AWS, Azure, 阿里云）</td></tr>
   <tr style="background:#F8F8F8"><td>2</td><td>🔲 芯片层</td><td>GPU·TPU（英伟达 Nvidia，Google）</td></tr>
   <tr style="background:#F8F8F8"><td>1</td><td>⚡ 能源层</td><td>超大型 AI 数据中心年耗电量相当于一座中等城市的居民年用电量</td></tr>
@@ -157,10 +157,10 @@ OpenClaw 是运行在个人电脑或服务器上的 AI Agent 框架。
 
 **模型训练出来后，知识的量就已经固定了**。
 
-> [!TIP]
-> 就好像在水快要放干的鱼塘里面捞鱼，虽然随意都能抓到，但若使用有效的工具，效果将大大提高。
-
 在模型推理阶段，**提示词**（prompt）的品质，将直接决定了大模型输出的质量。
+
+> [!TIP]
+> 就好像在水快要放干的鱼塘里面捞鱼，虽然随意都能抓到，但若使用有效的工具，效果将大大提升。
 
 > [!WARNING]
 > 大模型的核心是自注意力机制，所谓的提示词工程（Prompt Engineering），就是为了**管理 LLM 的注意力**
@@ -425,7 +425,7 @@ OpenClaw 的提示词由以下部分组成：
 # 技能 Skills
 
 > [!TIP]
-> 如果你给原始人一辆车，那大概率只能看到赤裸着上身的原始人趴在车顶上晒太阳或躺在车底避雨。但倘若你教会他们如何驾驶这辆车，那你或许只能看见汽车飞驰而过扬起的灰尘和听到远处传来的机车轰鸣声
+> 如果你给原始人一辆车，那大概率只能看到光着膀子的原始人趴在车顶上晒太阳或躺在车底避雨。但倘若你教会他们如何驾驶这辆车，那你或许只能看见汽车飞驰而过扬起的灰尘和听到远处传来的机车轰鸣声
 
 **技能**（skill）是 AI Agent 中一种**可复用、模块化的能力封装**，它将特定的工具、流程和指令打包成一个标准单元，让 agent 在面对相应任务时能快速调用。
 
@@ -498,12 +498,12 @@ metadata:
 ```
 {{% /details %}}
 
-**每个 Skill 解决某一类具体问题，agent 通过自然语言指令 + Skill 的描述匹配来决定调用哪个**。
+**每个 skill 解决某一类具体问题，agent 通过自然语言指令 + skill 的描述匹配来决定调用哪个 skill**。
 
 > [!WARNING]
 > **渐进式披露**（Progressive disclosure）是一种上下文管理技术，为了减少 token 消耗和上下文污染。先在给 LLM 的提示词中列出每个 skill 的名称（name）和描述（description），然后让 LLM 根据上下文决定是否进一步加载某一项技能的完整文件（`SKILL.md`）
 
-> 有时候也不是 skill 安装得越多越好的，太多 skills 的 name 和 description 也会把上下文塞满，分散 LLM 的注意力。更好的做法是，**建立不同的 agent，不同的 agent 启用不同的技能**，让 agent 各有所长
+> 有时候也不是 skill 安装得越多越好的，太多 skills 的 name 和 description 也会把上下文塞满，分散 LLM 的注意力。更好的做法是，**建立不同的 agent，不同的 agent 启用不同的技能**，让不同的 agent 各有所长
 
 列几个当下流行的 skills 市场：
 - [ClawHub](https://clawhub.ai)：OpenClaw 生态的官方 skills 市场 
@@ -523,7 +523,7 @@ Anthropic 在 2024 年底提出 MCP 并开源。
 **MCP**（Model Context Protocol，模型上下文协议）是一个[开放协议](https://modelcontextprotocol.io/)，旨在标准化 AI 助手与外部数据源、工具之间的通信方式。
 
 > [!TIP]
-> 类似于 HTTP 在 Web 中的角色 —— MCP 想要成为 AI 时代的数据与工具接入标准协议
+> 类似于 HTTP 在 Web 中的角色 —— MCP 想要成为 AI 时代的数据与工具接入的标准协议
 
 下面是简化版的 MCP 架构
 
@@ -837,8 +837,6 @@ MCP Server 的 Prompts、Resources、Tools 三种能力是开放给 AI 应用的
 
 它们描述的是谁有权触发/调用对应的能力，本质上是权限与控制权的分层。
 
-> MCP 已经是事实上的行业标准，是智能体与外部系统间的“通用语言”
-
 ```mermaid
 stateDiagram-v2
     direction LR
@@ -872,6 +870,8 @@ stateDiagram-v2
     style llm fill:#ffdd57,stroke:#333,stroke-width:2px
 ```
 
+> MCP 已经是事实上的行业标准，是智能体与外部系统间的“通用语言”
+
 # 会话 Sessions
 
 在上一篇文章的[上下文长度](/docs/ai-agent-intro/1-llm/#%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6)章节中，我们提到了每一个 LLM 都是有上下文长度限制。
@@ -890,9 +890,9 @@ stateDiagram-v2
 
 > 以 OpenClaw 来举例，每一个 agent 的每一个渠道（Channel），例如飞书、QQ、微信，都可以对应一个隔离的活跃会话。
 
-需要**关注会话当前的的上下文水位**，当一个会话的任务已结束，**随手打开一个新的会话而不是在原有会话继续聊是个好习惯**，即能减少 token 消耗，也可避免上下文信息污染。
+需要**关注会话当前的的上下文水位**，当一个会话的任务已结束，**随手打开一个新的会话而不是在原有会话继续聊是个好习惯**，既能减少 token 消耗，也可避免上下文信息污染。
 
-> 以 OpenClaw 来举例，可以通过 `/status` slash command 来查看当前会话的的上下文水位。如果超过 60% 了，可以通过 `/compact` 压缩，或 `/new` 另起一个新的会话
+> 以 OpenClaw 来举例，可以通过 `/status` 这个 slash command 来查看当前会话的的上下文水位。如果超过 60% 了，可以通过 `/compact` 压缩，或 `/new` 另起一个新的会话
 
 # 记忆 Memory
 
@@ -954,19 +954,19 @@ flowchart LR
 OpenClaw 当前使用做梦机制（Dreaming）提取记忆，它有三个阶段（类人设计）：
 1. 轻睡眠阶段（Light Phase）：去重、归类，生成候选行
 2. 快速眼动睡眠阶段（REM Phase）：提取模式，生成反思摘要
-3. 深度睡眠阶段（Deep Phase）：追加写入短期记忆和长期记忆
+3. 深度睡眠阶段（Deep Phase）：追加写入短期记忆和长期记忆文件
 
 # 结语
 
 包括 OpenClaw 在内的**所有 agent 本质上只是把大语言模型这个大脑关在笼子里面，然后去驾驭它**。所不同的是，有些智能体产品更加激进，敢于给 agent 授权，给它更多的空间，而有些相对节制，严格控制权限，如此而已。
 
-例如相比 Claude Code、Copilot、Codex、OpenCode 等AI coding agent，OpenClaw **释放给了更多的权限给智能体**，让它自由掌控一整个操作系统，调用任何命令。同时**打通了流行的 IM 软件**，让用户随时随地可以通过对话的方式指挥智能体执行任务，极大地降低了使用门槛。另外，它**支持后台运行，可配置心跳与定时任务**，实现了无人值守的自动化。其它方面与一般的 agent 无异。由于**大模型存在幻觉和随机特性**，这种做法其实存在安全隐患，也会有稳定性问题的。
+例如相比 Claude Code、Copilot、Codex、OpenCode 等 AI coding agent，OpenClaw **释放给了更多的权限给智能体**，让它自由掌控一整个操作系统，调用任何命令。同时**打通了流行的 IM 软件**，让用户随时随地可以通过对话的方式指挥智能体执行任务，极大地降低了使用门槛。另外，它**支持后台运行，可配置心跳与定时任务**，实现了无人值守的自动化。其它方面与一般的 agent 无异。由于**大模型存在幻觉和随机特性**，这种做法其实存在安全隐患，也会有稳定性问题的。
 
-OpenClaw 更像一个操作系统，它可以自我运行，随时访问。而 Claude Code、OpenCode 等更像是一个工具，但是它离变成操作系统也只有一步之遥，只需要变成后台运行服务、添加更多的访问入口即可（事实上它们已经开始这么做了）。
+OpenClaw 更像一个操作系统，它可以自我运行，随时访问。而 Claude Code、OpenCode 等更像是一个工具，但是它们离变成操作系统也只有一步之遥，只需要变成后台运行、添加更多的访问入口即可（事实上它们已经开始这么做了）。
 
-不过无论怎样，**智能体生态已经慢慢形成开放标准**，例如 MCP、skills、Agents.md。所有这些 agent 正在趋于同化。
+不过无论怎样，**智能体生态已经慢慢形成开放标准**，例如 [MCP](https://modelcontextprotocol.io/)、[Agent Skills](https://agentskills.io/specification)、[AGENTS.md](https://agents.md/)。所有这些 agent 正在趋于同化。
 
-其实大语言模型厂商也没闲着，它们除了在提高模型性能、扩充上下文长度之外，也在逐渐植入 agent 的能，比如工具调用、缓存上下文，所以**大语言模型平台和通用智能体之间的界限逐渐变得模糊**。
+其实大语言模型厂商也没闲着，它们除了在提高模型性能、扩充上下文长度之外，也在逐渐植入 agent 的能力，比如工具调用、缓存上下文，所以**大语言模型平台和通用智能体之间的界限也在逐渐变得模糊**。
 
 另一方面，**拥有行业数据的企业，其业务能力是这一波 AI 冲击的护城墙**，就看 AI 能不能强大到可以越过城墙，从高空俯视，直接实施降维打击。但倘若垂直行业能主动拥抱 AI，把业务结合 AI 重构起来，那会是另外一种结局。
 
