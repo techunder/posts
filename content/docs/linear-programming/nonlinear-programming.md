@@ -44,6 +44,8 @@ draft: true
 
 Scipy
 
+[minimize](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html)
+
 ```python
 from scipy.optimize import minimize
 import numpy as np
