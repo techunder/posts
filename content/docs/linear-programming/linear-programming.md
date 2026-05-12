@@ -2,7 +2,7 @@
 title: "线性规划"
 weight: 1
 bookCollapseSection: false
-draft: true
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">线性规划</div>
@@ -57,9 +57,9 @@ draft: true
 > [!TIP]
 > $\text{s.t.}$ 为 subject to 的缩写，意思为：约束于、受制于、满足于
 
-# 单纯形法（Simplex Method）
+# 单纯形法
 
-这个是 George Dantzig 在 1947 年发表的论文 "Maximization of a Linear Function of Variables Subject to Linear Inequalities" 表述的方法，这是线性规划的第一个通用算法。
+单纯形法（Simplex Method）是 George Dantzig 在 1947 年发表的论文 "Maximization of a Linear Function of Variables Subject to Linear Inequalities" 表述的方法，这是线性规划的第一个通用算法。
 
 下面给出通俗的解读。
 
