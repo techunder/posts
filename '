@@ -30,14 +30,12 @@ draft: true
 
 - **决策变量**：设长方形靠墙的一边为长，长为 $x$ 米，宽为 $y$ 米，因为面积为 $xy$，所以就是求 $argmax_{x,y}\left(xy\right)$
 
-- **目标函数**：求面积的最大值（max），即 $max(xy)$
+- **目标函数**：求面积的最大值（max）in），即 $max(xy)$
 
 - **约束条件**：$x+2y=8$，$x \gt 0$，$y \gt 0$
 
 > [!WARNING]
 > 完整的数学表达为：$argmax_{x,y} \left(xy\right) \quad s.t. \quad x+2y=8, x>0, y>0$
-
-> 因为目标函数为 $xy$，次数高于1，所以是非线性规划
 
 <svg width="400" height="320" viewBox="0 0 10 8" style="background:#FFFFFF;">
   <!-- wall -->
@@ -63,44 +61,16 @@ draft: true
   <line x1="3.6" y1="6.2" x2="3.8" y2="6" stroke="#333" stroke-width="0.03"/>
   <line x1="3.8" y1="6.2" x2="4.0" y2="6" stroke="#333" stroke-width="0.03"/>
   <line x1="4.0" y1="6.2" x2="4.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="4.2" y1="6.2" x2="4.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="4.4" y1="6.2" x2="4.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="4.6" y1="6.2" x2="4.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="4.8" y1="6.2" x2="5.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="5.0" y1="6.2" x2="5.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="5.2" y1="6.2" x2="5.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="5.4" y1="6.2" x2="5.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="5.6" y1="6.2" x2="5.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="5.8" y1="6.2" x2="6.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="6.0" y1="6.2" x2="6.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="6.2" y1="6.2" x2="6.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="6.4" y1="6.2" x2="6.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="6.6" y1="6.2" x2="6.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="6.8" y1="6.2" x2="7.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="7.0" y1="6.2" x2="7.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="7.2" y1="6.2" x2="7.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="7.4" y1="6.2" x2="7.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="7.6" y1="6.2" x2="7.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="7.8" y1="6.2" x2="8.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="8.0" y1="6.2" x2="8.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="8.2" y1="6.2" x2="8.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="8.4" y1="6.2" x2="8.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="8.6" y1="6.2" x2="8.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="8.8" y1="6.2" x2="9.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="9.0" y1="6.2" x2="9.2" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="9.2" y1="6.2" x2="9.4" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="9.4" y1="6.2" x2="9.6" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="9.6" y1="6.2" x2="9.8" y2="6" stroke="#333" stroke-width="0.03"/>
-  <line x1="9.8" y1="6.2" x2="10.0" y2="6" stroke="#333" stroke-width="0.03"/>
-  <text x="4.7" y="6.8" font-size="0.4" fill="#333">Wall</text>
-  <!-- length -->
-  <line x1="3" y1="3" x2="7" y2="3" stroke="#333" stroke-width="0.05"/>
-  <text x="4.9" y="2.8" font-size="0.4" fill="#333">x</text>
+  <line x1="4.2" y1="6.2" x2="4.2" y2="6" stroke="#333" stroke-width="0.03"/>
+  <line x1="4.4" y1="6.2" x2="4.2" y2="6" stroke="#333" stroke-width="0.03"/>
+  <line x1="4.6" y1="6.2" x2="4.2" y2="6" stroke="#333" stroke-width="0.03"/>
+  <line x1="4.8" y1="6.2" x2="4.2" y2="6" stroke="#333" stroke-width="0.03"/>
+  <text x="4.5" y="6.8" font-size="0.4" fill="#333">墙 (Wall)</text>
   <!-- width -->
+  <line x1="3" y1="3" x2="7" y2="3" stroke="#333" stroke-width="0.05"/>
+  <!-- length -->
   <line x1="3" y1="3" x2="3" y2="6" stroke="#333" stroke-width="0.05"/>
   <line x1="7" y1="3" x2="7" y2="6" stroke="#333" stroke-width="0.05"/>
-  <text x="2.6" y="4.5" font-size="0.4" fill="#333">y</text>
-  <text x="7.2" y="4.5" font-size="0.4" fill="#333">y</text>
   <!-- polygon filled -->
   <polygon 
     points="3,3 7,3 7,6 3,6" 
@@ -110,21 +80,12 @@ draft: true
   />
 </svg>
 
-# 数学求解
-
-设面积为 $z$，即目标函数为 $z=xy$，
-
-整理已知约束 $x+2y=8$ 得 $x=8-2y$
-
-代入目标函数 $z=xy=(8-2y)y=-2y^2+8y$，其图像如下图所示
 
 <svg width="100%" height="320" viewBox="-210 -60 420 320">
   <line x1="-200" y1="200" x2="200" y2="200" stroke="#aaa"/>
   <line x1="0" y1="-50" x2="0" y2="250" stroke="#aaa"/>
   <path d="M -150 225 Q 0 0 150 225" stroke="#f44" fill="none" stroke-width="2"/>
 </svg>
-
-# 程序求解
 
 Scipy
 

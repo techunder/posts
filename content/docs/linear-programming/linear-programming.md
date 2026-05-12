@@ -352,4 +352,4 @@ print(f"最大利润: {value(prob.objective):.2f} 万元")
 
 # 结语
 
-本文主要讲解了线性规划的数学原理和程序通用解法。现实生活中，有还有很多问题是非线性的，这就会用到下一篇的非线性规划（Nonlinear Programming）
+本文主要讲解了线性规划的数学原理和程序通用解法。现实生活中，有还有很多问题是非线性的，这就会用到下一篇的[非线性规划（Nonlinear Programming）](/docs/linear-programming/nonlinear-programming/)
