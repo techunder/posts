@@ -2,7 +2,7 @@
 title: "线性规划"
 weight: 101
 bookCollapseSection: true
-draft: false
+draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">线性规划</div>
