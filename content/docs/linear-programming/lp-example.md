@@ -1,14 +1,14 @@
 ---
-title: "家庭节能示例"
+title: "综合示例"
 weight: 3
 bookCollapseSection: false
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div class="page-title">家庭节能示例</div>
+<div class="page-title">综合示例</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-05-13 | 更新时间：2026-05-13
+  发布时间：2026-05-13 | 更新时间：2026-05-14
 </div>
 {{< katex />}}
 
@@ -96,7 +96,7 @@ flowchart LR
 
 # 参数变量
 
-以**每个时间步 $\Delta t$**（例如 15 分钟或 1 小时）为单位，定义各种参数变量。
+以**每个时间步 $\Delta t$**（例如 15 分钟或 1 小时）为单位，定义各种参数与变量。
 
 ## 参数
 
@@ -205,19 +205,10 @@ SOC_0 = SOC_{init}
 0 \leq P_{sell,t} \leq P_{grid,max} \quad \forall t \in \{1, \dots, T\}
 ```
 
+# 代码实现
 
-**一个具体例子：**
-假设某时刻：
-- $P_{pv} = 3 \text{ kW}$（富余光伏）
-- $P_{charge} = 2 \text{ kW}$，$P_{discharge} = 1 \text{ kW}$
-- $P_{rigid} = 2 \text{ kW}$
-功率平衡：**3 + 0 + 1 = 2 + 2 + 0** ✓ 等式成立
-SOC 变化：净充 $1 \text{ kW} \times \Delta t$
-表面上没问题，但这 1 kW 的放电同时对应 2 kW 的充电，是没有意义的内部循环——这 1 kW 的放电功率凭空产生了，却没有被真正使用。
-**所以：**
+我们选用 `CVXPY` 这个框架
 
-```katex
-\boxed{P_{charge,t} \cdot P_{discharge,t} = 0 \quad \forall t}
+```python
+
 ```
-这个约束要求每个时刻**两者至少有一个为 0**。但它是二次约束（非线性），需要用二元变量或分段线性松弛来处理——这是后话，先跑通 MVP 再加上。
-

@@ -9,4 +9,5 @@ draft: true
 
 1. [线性规划（Linear Programming）](/docs/linear-programming/linear-programming/)
 2. [非线性规划（Nonlinear Programming）](/docs/linear-programming/nonlinear-programming/)
+3. [综合示例](/docs/linear-programming/lp-example/)
 
