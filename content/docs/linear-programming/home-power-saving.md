@@ -110,9 +110,13 @@ flowchart LR
 | $\pi_{sell,t}$   | 峰/谷/平分时电价（卖）| 上网电价，单位：元/kWh   |
 | $C_{cycle}$      | 电池循环成本	       | 约 0.1-0.5，单位：元/kWh |
 | $P_{inv,max}$	   | 逆变器功率上限        | 约 5-10，单位：kW        |
+| $P_{grid,max}$   | 并网功率上限	       | 约 5-10，单位：kW        |
 | $C_{batt}$	   | 电池总容量            | 约10-20，单位：kWh       |
+| $SOC_{min}$	   | 电池荷电下限	       | 0.10（即 10% DOD（Depth of Discharge））|
+| $SOC_{max}$	   | 电池荷电上限	       | 0.90（即 90% DOD（Depth of Discharge））|
 | $\Delta t$	   | 时间步长	           | 0.25 h（15分钟）或 1 h   |
 | $T$	           | 优化时域的总时段数	   | 96（1 天，0.25 h 步长）或 24（1 天，1 h 步长）|
+| $SOC_{init}$     | 电池初始容量          | BMS 实时读取             |
 
 ## 决策变量
 
@@ -124,16 +128,7 @@ flowchart LR
 | $P_{sell,t}$      | 向电网售电功率       | kW   | $\ge 0$            |
 | $P_{charge,t}$    | 电池充电功率         | kW   | $[0, P_{inv,max}]$ |
 | $P_{discharge,t}$ | 电池放电功率         | kW   | $[0, P_{inv,max}]$ |
-| $SOC_t$           | 电池荷电状态         | kWh  | $[0.1 \cdot C_{batt}, 0.9 \cdot C_{batt}]$ |
-
-## 导出变量
-
-导出变量（Derived Variables）是根据参数和决策变量推算的量
-
-| 导出变量      | 含义           | 单位          | 计算方式           |
-| ------------- | -------------- | ------------- | ------------------ |
-| $C_t$         | 实际电费       | 元/$\Delta t$ | $P_{buy,t} \cdot \pi_{buy,t} - P_{sell,t} \cdot \pi_{sell,t}$ |
-| $P_{shift,t}$ | 可平移负荷功率 | kW            | 总负荷功率 - 刚性负荷功率 |
+| $SOC_t$           | 电池荷电状态         | kWh  | $[SOC_{min} \cdot C_{batt}, SOC_{max} \cdot C_{batt}]$ |
 
 # 目标函数
 
@@ -154,62 +149,75 @@ flowchart LR
 
 ## 功率平衡
 
-输入的功率必须等于输出的功率。
+输入的功率必须等于输出的功率
 
-输入的功率有：
-- 光伏发电功率（$P_{pv,t}$）
-- 从电网购电功率（$P_{buy,t}$）
-- 电池放电功率（$P_{discharge,t}$）
-
-输出的功率有：
-- 刚性负荷功率（$P_{rigid,t}$）
-- 可平移负荷功率（$P_{shift,t}$）
-- 电池充电功率（$P_{charge,t}$）
-- 向电网售电功率（$P_{sell,t}$）
-
-所以得到一些功率平衡的约束：
 ```katex
-P_{pv,t} + P_{buy,t} + P_{discharge,t} = P_{rigid,t} + P_{shift,t} + P_{charge,t} + P_{sell,t}
+P_{pv,t} + P_{buy,t} + P_{discharge,t} = P_{rigid,t} + P_{charge,t} + P_{sell,t} \quad \forall t \in \{1, \dots, T\}
 ```
 
-> 实际系统里还有**能量损耗**，但为了简化模型，忽略了损耗
+> 做了简化：无能量损耗
 
 ## 电池 SOC 动态
 
 ```katex
-SOC_t = SOC_{t-1} \cdot (1 - \sigma) + \eta_{charge} \cdot P_{charge,t} - \frac{P_{discharge,t}}{\eta_{discharge}} 
+SOC_t = SOC_{t-1} + (P_{charge,t} - P_{discharge,t}) \cdot \Delta t \quad \forall t \in \{1, \dots, T\}
 ```
-其中 $\sigma$ 是自放电率，$\eta$ 是充放电效率
 
-**3. 电池容量约束：** 
+> 做了简化：无自放电、无效率损耗
+
+## 电池 SOC 边界
+
 ```katex
-SOC_{min} \le SOC_t \le SOC_{max} \quad (\text{比如 } 10\% \sim 90\%)
+SOC_{min} \cdot C_{batt} \leq SOC_t \leq SOC_{max} \cdot C_{batt} \quad \forall t \in \{1, \dots, T\}
 ```
 
-**4. 逆变器功率约束：** 
+## 电池初始 SOC
+
 ```katex
-P_{charge,t} \le P_{inv,max}, \quad P_{discharge,t} \le P_{inv,max} 
+SOC_0 = SOC_{init}
 ```
 
-**5. 并网功率约束：** 
+## 逆变器功率限制
+
+电池充电功率不能高于逆变器功率上限
+
 ```katex
-P_{buy,t} \le P_{grid,max}, \quad P_{sell,t} \le P_{grid,max} 
+0 \leq P_{charge,t} \leq P_{inv,max} \quad \forall t \in \{1, \dots, T\}
 ```
 
-**6. 可平移负荷时间窗（可选）：** 
+电池放电功率不能高于逆变器功率上限
+
 ```katex
-\sum_{t \in \mathcal{W}_k} P_{shift,t} = E_k \quad \forall \text{ 设备 } k 
+0 \leq P_{discharge,t} \leq P_{inv,max} \quad \forall t \in \{1, \dots, T\}
 ```
 
-其中 $E_k$ 是设备总用电量，$\mathcal{W}_k$ 是允许运行的时间窗口
+## 并网功率限制
+
+购电功率不能高于并网功率上限
+
+```katex
+0 \leq P_{buy,t} \leq P_{grid,max} \quad \forall t \in \{1, \dots, T\}
+```
+
+售电功率不能高于并网功率上限
+
+```katex
+0 \leq P_{sell,t} \leq P_{grid,max} \quad \forall t \in \{1, \dots, T\}
+```
 
 
+**一个具体例子：**
+假设某时刻：
+- $P_{pv} = 3 \text{ kW}$（富余光伏）
+- $P_{charge} = 2 \text{ kW}$，$P_{discharge} = 1 \text{ kW}$
+- $P_{rigid} = 2 \text{ kW}$
+功率平衡：**3 + 0 + 1 = 2 + 2 + 0** ✓ 等式成立
+SOC 变化：净充 $1 \text{ kW} \times \Delta t$
+表面上没问题，但这 1 kW 的放电同时对应 2 kW 的充电，是没有意义的内部循环——这 1 kW 的放电功率凭空产生了，却没有被真正使用。
+**所以：**
 
-### 五、线性/非线性判定
-你的模型是**线性规划（LP）**还是**非线性规划（NLP）**？
-因素	判定
-所有变量一次方，$\pi$ 是常数	✅ LP
-电池效率 $\eta$ 是常数	✅ LP
-如果 $SOC_t$ 出现在乘积项（如 $\eta(SOC_t) \cdot P$）	❌ NLP
-如果目标函数有平方项（如温度惩罚 $(\Delta T)^2$）	❌ QP（二次规划）
-**好消息：** 大部分家庭节能模型都是 LP 或 QP，scipy/CVXPY 都能直接解。
+```katex
+\boxed{P_{charge,t} \cdot P_{discharge,t} = 0 \quad \forall t}
+```
+这个约束要求每个时刻**两者至少有一个为 0**。但它是二次约束（非线性），需要用二元变量或分段线性松弛来处理——这是后话，先跑通 MVP 再加上。
+
