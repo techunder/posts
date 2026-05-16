@@ -327,9 +327,10 @@ result = problem.solve(solver=cp.SCS, verbose=True)
 if problem.status in ["optimal", "optimal_inaccurate"]:
     print(f"\n求解状态：{problem.status}")
     print(f"最优电费：¥{problem.value:.2f}")
-    print(f"\n| {'时':>3} | {'PV':>6} | {'负荷':>4} | {'购电':>4} | {'售电':>4} | "
-f"{'充电':>4} | {'放电':>4} | {'SOC':>6} | {'成本':>5} |")
-    print("-" * 81)
+    print("+" + "-" * 87 + "+")
+    print(f"| {'时':>3} | {'PV':>6} | {'负荷':>4} | {'【购电】':>4} | {'【售电】':>4} | "
+f"{'【充电】':>4} | {'【放电】':>4} | {'SOC':>6} | {'成本':>5} |")
+    print("+" + "-" * 87 + "+")
 
     total_cost = 0.0
     for t in range(T):
@@ -346,22 +347,21 @@ f"{'充电':>4} | {'放电':>4} | {'SOC':>6} | {'成本':>5} |")
             f"{t:>3}  | "
             f"{P_pv[t]:6.2f} | "
             f"{P_rigid[t]:6.2f} | "
-            f"{P_buy.value[t]:6.2f} | "
-            f"{P_sell.value[t]:6.2f} | "
-            f"{P_charge.value[t]:6.2f} | "
-            f"{P_discharge.value[t]:6.2f} | "
+            f"{P_buy.value[t]:6.2f}   | "
+            f"{P_sell.value[t]:6.2f}   | "
+            f"{P_charge.value[t]:6.2f}   | "
+            f"{P_discharge.value[t]:6.2f}   | "
             f"{soc_pct:5.1f}% | "
             f"¥{step_cost:6.2f} |"
         )
 
-    print("-" * 81)
-    print(f"| {'合计':>2} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'¥':>1} {total_cost:.2f} |")
+    print("+" + "-" * 87 + "+")
+    print(f"| {'合计':>2} | {'':>6} | {'':>6} | {'':>8} | {'':>8} | {'':>8} | {'':>8} | {'':>6} | {'¥':>1} {total_cost:.2f} |")
     print(f"\n初始 SOC：{SOC_init*100:.0f}% → 最终 SOC：{SOC[T].value / C_batt * 100:.1f}%")
 
 else:
     print(f"求解失败：{problem.status}")
     if problem.status == "infeasible":
-        print("→ 约束无解。请检查：并网功率是否足够支撑峰值负荷？SOC 边界是否过窄？")
-
+        print("→ 约束无解")
 ```
 {{% /details %}}
