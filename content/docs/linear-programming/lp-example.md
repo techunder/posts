@@ -1,5 +1,5 @@
 ---
-title: "综合示例"
+title: "综合实例 - 家庭能源管理"
 weight: 3
 bookCollapseSection: false
 draft: true
@@ -12,7 +12,7 @@ draft: true
 </div>
 {{< katex />}}
 
-本文以一个有光伏发电设备和储能设备的家庭的经济用电为例子，讲一下线性规划的应用。
+本文以一个有光伏发电设备和储能设备的家庭能源管理为例子，讲一下线性规划的应用。
 
 # 系统架构
 
@@ -111,10 +111,10 @@ flowchart LR
 | $\pi_{buy,t}$    | 峰/谷/平分时电价（买）| 电网定价，单位：元/kWh   |
 | $\pi_{sell,t}$   | 峰/谷/平分时电价（卖）| 上网电价，单位：元/kWh   |
 | $C_{batt}$	   | 电池总容量            | 约 10-20，单位：kWh      |
-| $C_{init}$       | 电池初始容量          | BMS 实时读取，单位：kWh  |
+| $SOC_{init}$     | 电池初始容量          | BMS 实时读取，单位：kWh  |
 | $SOC_{min}$	   | 电池荷电下限	       | 0.10，即 10% DOD（Depth of Discharge）|
 | $SOC_{max}$	   | 电池荷电上限	       | 0.90，即 90% DOD（Depth of Discharge）|
-| $Cost_{cycle}$   | 电池循环成本	       | 约 0.1-0.5，单位：元/kWh |
+| $C_{cycle}$      | 电池循环成本	       | 约 0.1-0.5，单位：元/kWh |
 | $\Delta t$	   | 时间步长	           | 0.25 h（15分钟）或 1 h   |
 | $T$	           | 优化时域的总时段数	   | 96（1 天，0.25 h 步长）或 24（1 天，1 h 步长）|
 
@@ -142,10 +142,16 @@ flowchart LR
 最终得出如下目标函数（按T为单位计算电费，通常是1天）：
 
 ```katex
-\min \sum_{t=1}^{T} \left( P_{buy,t} \cdot \pi_{buy,t} - P_{sell,t} \cdot \pi_{sell,t} + Cost_{cycle} \cdot P_{discharge,t} \right) \cdot \Delta t
+\min \sum_{t=1}^{T} \left( P_{buy,t} \cdot \pi_{buy,t} - P_{sell,t} \cdot \pi_{sell,t} + C_{cycle} \cdot P_{discharge,t} \right) \cdot \Delta t
 ```
 
 # 约束条件
+
+## 电池初始 SOC
+
+```katex
+SOC_0 = SOC_{init}
+```
 
 ## 功率平衡
 
@@ -169,12 +175,6 @@ SOC_t = SOC_{t-1} + (P_{charge,t} - P_{discharge,t}) \cdot \Delta t \quad \foral
 
 ```katex
 SOC_{min} \cdot C_{batt} \leq SOC_t \leq SOC_{max} \cdot C_{batt} \quad \forall t \in \{1, \dots, T\}
-```
-
-## 电池初始 SOC
-
-```katex
-SOC_0 = C_{init}
 ```
 
 ## 逆变器功率限制
@@ -234,12 +234,12 @@ T = 24          # 优化时域总时段数
 dt = 1.0        # 时间步长 [h]（1 = 1小时，0.25 = 15分钟）
 
 # 预测数据（示例值，替换为你的预测模型输出）
-P_pv     = np.array([0, 0, 0, 0, 0, 0,  0.2, 0.8, 2.1, 3.5, 4.2, 4.8,
-                     4.5, 3.8, 2.5, 1.2, 0.3, 0,  0, 0, 0, 0, 0, 0])  # kW
+P_pv     = np.array([0, 0, 0, 0, 0, 0,              0.2, 0.8, 2.1, 3.5, 4.2, 4.8,
+                     4.5, 3.8, 2.5, 1.2, 0.3, 0,    0, 0, 0, 0, 0, 0])  # kW
 P_rigid  = np.array([0.8, 0.7, 0.6, 0.6, 0.5, 0.5,  0.6, 0.8, 1.2, 1.5, 1.8, 2.0,
                      2.2, 2.1, 2.0, 1.8, 1.5, 1.2,  1.0, 0.9, 0.8, 0.8, 0.7, 0.7])  # kW
 
-# 分时电价 [元/kWh]（示例广东电网TOU）
+# 分时电价 [元/kWh]（示例广东电网分时电价 TOU（Time of Use））
 pi_buy  = np.array([0.3, 0.3, 0.3, 0.3, 0.3, 0.3,  0.3, 0.5, 0.8, 0.8, 0.8, 0.8,
                     0.8, 0.8, 0.5, 0.5, 0.5, 0.8,  0.8, 0.5, 0.3, 0.3, 0.3, 0.3])
 pi_sell = pi_buy * 0.4   # 上网电价 ≈ 买价的 40%
@@ -247,7 +247,7 @@ pi_sell = pi_buy * 0.4   # 上网电价 ≈ 买价的 40%
 # 电池参数
 C_batt    = 13.5    # 电池总容量 [kWh]
 SOC_min   = 0.10    # 最低 SOC（10% DOD）
-SOC_max   = 0.90    # 最高 SOC（90%）
+SOC_max   = 0.90    # 最高 SOC（90% DOD）
 SOC_init  = 0.50    # 初始 SOC [比例]，来自 BMS 实时读取
 
 # 功率限制
@@ -261,11 +261,11 @@ C_cycle = 0.15      # 电池循环成本 [元/kWh]，仅惩罚放电
 # 2. 决策变量
 # ═══════════════════════════════════════════════════════════
 
-P_buy      = cp.Variable(T, nonneg=True)       # 从电网购电 [kW]
-P_sell     = cp.Variable(T, nonneg=True)       # 向电网售电 [kW]
-P_charge   = cp.Variable(T, nonneg=True)       # 电池充电功率 [kW]
-P_discharge = cp.Variable(T, nonneg=True)      # 电池放电功率 [kW]
-SOC        = cp.Variable(T + 1)                 # SOC[0] = 初始, SOC[1..T] = 优化结果
+P_buy       = cp.Variable(T, nonneg=True)       # 从电网购电 [kW]
+P_sell      = cp.Variable(T, nonneg=True)       # 向电网售电 [kW]
+P_charge    = cp.Variable(T, nonneg=True)       # 电池充电功率 [kW]
+P_discharge = cp.Variable(T, nonneg=True)       # 电池放电功率 [kW]
+SOC         = cp.Variable(T + 1)                # SOC[0] = 初始, SOC[1..T] = 优化结果
 
 # ═══════════════════════════════════════════════════════════
 # 3. 目标函数
@@ -327,9 +327,9 @@ result = problem.solve(solver=cp.SCS, verbose=True)
 if problem.status in ["optimal", "optimal_inaccurate"]:
     print(f"\n求解状态：{problem.status}")
     print(f"最优电费：¥{problem.value:.2f}")
-    print(f"\n{'时':>2} | {'PV':>6} | {'负荷':>6} | {'买电':>6} | {'售电':>6} | "
-f"{'充电':>6} | {'放电':>6} | {'SOC':>6} | {'成本':>7}")
-    print("-" * 85)
+    print(f"\n| {'时':>3} | {'PV':>6} | {'负荷':>4} | {'购电':>4} | {'售电':>4} | "
+f"{'充电':>4} | {'放电':>4} | {'SOC':>6} | {'成本':>5} |")
+    print("-" * 81)
 
     total_cost = 0.0
     for t in range(T):
@@ -342,7 +342,8 @@ f"{'充电':>6} | {'放电':>6} | {'SOC':>6} | {'成本':>7}")
         total_cost += step_cost
 
         print(
-            f"{t:>2}  | "
+            f"| "
+            f"{t:>3}  | "
             f"{P_pv[t]:6.2f} | "
             f"{P_rigid[t]:6.2f} | "
             f"{P_buy.value[t]:6.2f} | "
@@ -350,16 +351,17 @@ f"{'充电':>6} | {'放电':>6} | {'SOC':>6} | {'成本':>7}")
             f"{P_charge.value[t]:6.2f} | "
             f"{P_discharge.value[t]:6.2f} | "
             f"{soc_pct:5.1f}% | "
-            f"¥{step_cost:6.2f}"
+            f"¥{step_cost:6.2f} |"
         )
 
-    print("-" * 85)
-    print(f"{'合计':>33} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'¥':>1}{total_cost:.2f}")
+    print("-" * 81)
+    print(f"| {'合计':>2} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'':>6} | {'¥':>1} {total_cost:.2f} |")
     print(f"\n初始 SOC：{SOC_init*100:.0f}% → 最终 SOC：{SOC[T].value / C_batt * 100:.1f}%")
 
 else:
     print(f"求解失败：{problem.status}")
     if problem.status == "infeasible":
         print("→ 约束无解。请检查：并网功率是否足够支撑峰值负荷？SOC 边界是否过窄？")
+
 ```
 {{% /details %}}
