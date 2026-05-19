@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">Agent，工程的起航</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-19 | 更新时间：2026-04-26
+  发布时间：2026-04-19 | 更新时间：2026-05-19
 </div>
 {{< katex />}}
 
@@ -562,14 +562,54 @@ stateDiagram-v2
     style mcp_ser2   fill:#fff3cd,stroke:#d48806,stroke-width:2px
 ```
 
-MCP Server 可以与 Host 部署在同一台服务器上，也可以部署到远程服务器上，不同的部署方式，MCP Client 会使用不同的方式（transport mode）与 MCP Server交互。
+MCP Server 可以与 Host 部署在同一台服务器上，也可以部署到远程服务器上，不同的部署方式，MCP Client 会使用不同的传输方式（transport mode）与 MCP Server 交互。
 
-- STDIO（本地部署 MCP Server）
+- STDIO 本地进程通信（本地部署 MCP Server）
 - Streamable HTTP（远程部署 MCP Server）
 
-> **SSE (Server-Sent Events)** 和 **Streamable HTTP** 都是基于 HTTP/1.1 chunked transfer encoding 构建的流式应用层协议。chunked 负责传输层的分块机制，SSE 和 Streamable HTTP 在其上各自定义了应用层的协议格式和语义模型。SSE 有专门的 text/event-stream Content-Type，而 Streamable HTTP 是 MCP 自定义的 JSON-RPC 分块序列化方案，Content-Type 为 application/json。此外 Streamable HTTP 支持运行在 HTTP/2 stream 之上。
+MCP 协议是一个有状态（stateful）的通讯协议，MCP Client 通过 `initialize` method 主动请求 MCP Server 创建 MCP session，MCP Server 维护 MCP session 并返回 `MCP-Session-Id`。
 
-MCP 基于 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 构建，所有消息均为 JSON 格式，日常使用的主要几类原语有：
+{{% details title="以 Streamable HTTP 传输方式为例，典型的通信时序关系" open=false %}}
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+
+    Note over C,S: TCP 连接建立
+
+    C->>S: POST /mcp (method=initialize)
+    Note right of S: 创建 session state<br/>生成 session_id: abc
+
+    S-->>C: 200 OK<br/>Header: mcp-session-id: abc<br/>Body: JSON-RPC response (serverInfo, capabilities)
+
+    Note over C,S: TCP 连接保持 (Keep-Alive) 或已断开后重建
+
+    C->>S: POST /mcp (tools/list)<br/>Header: mcp-session-id: abc
+    Note right of S: 根据 abc 找到对应 session state
+
+    S-->>C: 200 OK<br/>Body: JSON-RPC response (tool list)
+
+    C->>S: POST /mcp (<font color=red>tools/call</font>)<br/>Header: mcp-session-id: abc
+    Note right of S: 根据 abc 找到对应 session state
+
+    S-->>C: 200 OK / SSE stream<br/>Body: JSON-RPC response (tool result)
+
+    Note over C,S: Session 结束 (explicit DELETE 或服务器超时)
+
+    C->>S: DELETE /mcp<br/>Header: mcp-session-id: abc
+    Note right of S: 验证 abc 存在<br/>清理 session state
+
+    S-->>C: 200 OK / 204 No Content<br/>
+
+    Note over C,S: 服务器清理 abc 对应的 session state
+```
+{{% /details %}}
+
+> **Streamable HTTP** = HTTP POST（客户端发请求）+ SSE（服务器流式推送），两者结合实现了远程 MCP 通信的请求响应 + 服务端实时推送能力
+
+MCP 基于 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 构建，通信来往的所有消息均为 JSON 格式。
+
+项目中常使用的主要几类原语有：
 
 {{% details title="初始化连接 **`initialize`**" open=false %}}
 请求（Request）：
@@ -827,6 +867,32 @@ MCP 基于 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 构建，所有
   }
 }
 ```
+{{% /details %}}
+
+{{% details title="MCP `2024-11-05` 版本的完整 Features 列表" open=false %}}
+Server 提供:
+- notifications/prompts/list_changed
+- notifications/resources/list_changed
+- notifications/resources/updated
+- notifications/tools/list_changed
+- notifications/message
+- notifications/progress
+- prompts/list
+- prompts/get
+- resources/list
+- resources/read
+- resources/templates/list
+- resources/subscribe
+- resources/unsubscribe
+- tools/list
+- tools/call
+- completion/complete
+- logging/setLevel
+
+Client 提供:
+- notifications/roots/list_changed
+- roots/list
+- sampling/createMessage
 {{% /details %}}
 
 MCP Server 的 Prompts、Resources、Tools 三种能力是开放给 AI 应用的不同**控制域**的
