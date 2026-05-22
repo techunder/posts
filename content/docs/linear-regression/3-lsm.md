@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">线性回归：最小二乘法</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-02-06 | 更新时间：2026-02-06
+  发布时间：2026-02-06 | 更新时间：2026-05-22
 </div>
 {{< katex />}}
 
@@ -317,7 +317,53 @@ print("偏置项:", b)
 print("权重系数:", w)
 ```
 
-现在可以回到[问题与建模](../2-model/)一章查看生成数据所用的权重系数$\boldsymbol{w}$和偏置项$b$，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。
+{{% details title="完整 Python 代码" open=false %}}
+```python
+# Using Least Squares Method (LSM) to Solve Linear Regression
 
-> [!TIP]
-> 关注网页底部公众号，发送"lr03"获取可直接运行的源代码。
+import numpy as np
+import pandas as pd
+
+# read the CSV file
+df = pd.read_csv('lifespan_data_full.csv')
+
+# show the first 5 rows of the dataframe
+print(df.head())
+
+# extract the features and target variable
+X0 = df[['parent_lifespan', 'gender', 'exercise_hours', \
+        'smoking', 'diet_health', 'sleep_hours', 'stress_level']].values
+y0 = df['actual_lifespan'].values
+
+# use the first 900 samples for training (100 samples are left for model evaluation)
+X = X0[0:900]
+y = y0[0:900]
+
+# append bias (1 column of ones)
+X_with_bias = np.column_stack([X, np.ones(len(X))])
+
+# calculate X^T
+X_T = X_with_bias.T
+
+# calculate X^T X
+X_T_X = X_T @ X_with_bias
+
+# check if X^T X is invertible
+if np.linalg.matrix_rank(X_T_X) != X_T_X.shape[0]:
+    raise ValueError("X^TX matrix is not invertible!")
+
+# calculate (X^T X)^{-1}
+theta = np.linalg.inv(X_T_X) @ X_T @ y
+
+# extract the weights and intercept
+w = theta[:-1]  # weights
+b = theta[-1]  # intercept (bias)
+
+# print the weights and intercept
+print("\n===== Linear Regression Solution =====")
+print(f"Intercept (bias): {b:.4f}")
+print(f"Weights: {np.round(w, 4)}")
+```
+{{% /details %}}
+
+现在可以回到[问题与建模](../2-model/)一章查看生成数据所用的权重系数$\boldsymbol{w}$和偏置项$b$，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。

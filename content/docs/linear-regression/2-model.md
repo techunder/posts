@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">线性回归：问题与建模</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-02-04 | 更新时间：2026-02-04
+  发布时间：2026-02-04 | 更新时间：2026-05-22
 </div>
 {{< katex />}}
 
@@ -21,7 +21,6 @@ draft: false
 {{< button href="/attachments/docs/linear-regression/lifespan_data_full.csv" >}}点击下载数据集 (.csv){{< /button >}}
 
 {{% details title="点我查看标准答案" %}}
-
 上面的数据是通过以下权重系数生成的，它们是这份数据隐藏的底层规律。线性回归的目标就是通过数据集学习到权重系数。请阅完后面的章节后，再回到这里对比自己计算的结果是否与本标准答案一致。
 
 ### 标准答案
@@ -29,6 +28,75 @@ draft: false
 $b=10$
 
 $w_1=0.4, w_2=6, w_3=0.8, w_4=-15, w_5=9, w_6=1.3, w_7=7$
+{{% /details %}}
+
+
+{{% details title="生成测试数据集的 Python 代码" open=false %}}
+```python
+# Generate a Test Dataset for Linear Regression Model
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# == 1. Generate sample size (1000 samples, balance between efficiency and representativeness)
+n_samples = 1000
+
+# == 2. Generate 7 independent variables (simulate according to authoritative ranges)
+parent_lifespan = np.random.normal(75, 5, n_samples)  # Parent average lifespan: 75±5 years
+gender = np.random.randint(0, 2, n_samples)           # Gender: 0=male, 1=female
+exercise_hours = np.random.uniform(0, 10, n_samples)  # Weekly exercise duration: 0-10 hours
+smoking = np.random.randint(0, 2, n_samples)          # Smoking: 0=non-smoker, 1=smoker
+diet_health = np.random.randint(0, 2, n_samples)      # Diet health: 0=unhealthy, 1=healthy
+sleep_hours = np.random.uniform(5, 9, n_samples)      # Daily sleep duration: 5-9 hours
+stress_level = np.random.randint(0, 3, n_samples)     # Stress level: 0=high, 1=moderate, 2=low
+
+# == 3. Set true weights (core parameters)
+true_b = 10  # Base lifespan value
+true_w = np.array([
+    0.4,    # Parent average lifespan weight
+    6,      # Gender weight
+    0.8,    # Weekly exercise duration weight
+    -15,    # Smoking weight (negative, largest absolute value)
+    9,      # Diet health weight
+    1.3,    # Daily sleep duration weight
+    7       # Stress/mental health weight
+])
+
+# == 4. Construct feature matrix X and dependent variable y (add random noise to simulate real-world differences)
+X = np.column_stack([
+    parent_lifespan, gender, exercise_hours, 
+    smoking, diet_health, sleep_hours, stress_level
+])
+
+# == 5. Calculate actual lifespan: y = b + X·w + random noise (std=3, simulate individual differences)
+y = true_b + np.dot(X, true_w)
+#y = true_b + np.dot(X, true_w) + np.random.normal(0, 3, n_samples)
+
+# == 6. Wrap into DataFrame and save
+data = pd.DataFrame({
+    'parent_lifespan': parent_lifespan,
+    'gender': gender,
+    'exercise_hours': exercise_hours,
+    'smoking': smoking,
+    'diet_health': diet_health,
+    'sleep_hours': sleep_hours,
+    'stress_level': stress_level,
+    'actual_lifespan': y
+})
+data.to_csv('./lifespan_data_full.csv', index=False)
+
+# == 7. View dataset basic information
+print("===== Dataset Basic Information =====")
+print(f"Dataset Shape: {data.shape}")
+print("\nFirst 5 Rows of the Dataset:")
+print(data.head())
+print("\nDataset Descriptive Statistics:")
+print(data.describe())
+```
 {{% /details %}}
 
 数据集的前5行如下：
@@ -79,6 +147,3 @@ $}
 接下来可以开始求解模型的权重系数了。
 
 求解有两种方法，一种是**最小二乘法**求解，是以纯数学的方式求解答案；另一种是**梯度下降**法求解，以工程化的方式通过迭代来不断逼近最优解。
-
-> [!TIP]
-> 关注网页底部公众号，发送"lr02"获取生成以上测试数据集的源代码。
