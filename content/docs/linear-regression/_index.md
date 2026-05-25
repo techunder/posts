@@ -17,4 +17,5 @@ bookCollapseSection: true
 1. [基本概念](/docs/linear-regression/1-concept/)
 2. [问题与建模](/docs/linear-regression/2-model/)
 3. [最小二乘法](/docs/linear-regression/3-lsm/)
+4. [梯度下降](/docs/linear-regression/4-gd/)
 

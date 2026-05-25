@@ -17,9 +17,5 @@ bookToC: false
 本网站不收集任何用户个人信息，也不使用任何第三方服务来分析用户行为。内容主要为个人原创，不涉及任何商业用途。
 
 ## 📢 最近更新
-- [Agent，工程的起航](/docs/ai-agent-intro/2-agent/)
-- [LLM，智力的源头](/docs/ai-agent-intro/1-llm/)
+- [梯度下降](/docs/linear-regression/4-gd/)
 - [AI Agent 导读](/docs/ai-agent-intro/)
-- [Embedding](/docs/embedding/)
-- [Transformer：自注意力机制](/docs/transformer/1-self-attention/)
-
