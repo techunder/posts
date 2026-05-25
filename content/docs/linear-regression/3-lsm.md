@@ -8,13 +8,15 @@ draft: false
 <div class="page-title">线性回归：最小二乘法</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-02-06 | 更新时间：2026-05-22
+  发布时间：2026-02-06 | 更新时间：2026-05-25
 </div>
 {{< katex />}}
 
 在[上一篇文章](../2-model/)，我们建立了线性回归模型，接下来我们要当一回数学家了。
 
-本文计划使用**最小二乘法** (Least Squares Method) 的解析解求权重系数，最小二乘法是通过计算误差的平方和最小值来求解模型参数的方法。
+本文计划使用**最小二乘法** (Least Squares Method) 的解析解求权重系数。
+
+最小二乘法是通过**计算误差平方和的最小值**来求解模型参数的方法。
 
 这是线性回归模型最烧脑的地方，需要做一些矩阵的运算，一旦弄懂了，将会受益无穷。
 
@@ -24,17 +26,17 @@ draft: false
 
 # 变量定义
 
-[训练数据](../2-model/)的每一行可以表示为向量$[x_1, x_2, x_3, x_4, x_5, x_6, x_7]$的形式，其中$x_1$到$x_7$是样本的特征值，我们在后面添加一个固定的系数$x_8=1$作为与截距项相乘的系数（后面会看到这样做的好处），
-得到$\boldsymbol{x}_i := [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1] = [x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8]$
+[训练数据](../2-model/)的每一行可以表示为向量$[x_1, x_2, x_3, x_4, x_5, x_6, x_7]$的形式，其中$x_1$ ~ $x_7$是样本的特征值，我们在后面添加一个固定的$x_8=1$作为与截距项相乘的系数（后面会看到这样做的好处），
+得到$\boldsymbol{x}_i := [x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8] = [x_1, x_2, x_3, x_4, x_5, x_6, x_7, 1]$
 
-为了后面表示的方便，我把$d$定义为特征维度（包括截距项系数$x_8=1$），即$d=8$。
+为了表示的方便，我把$d$定义为特征维度（包括截距项系数$x_8=1$），即$d=8$。
 
-我把样本数量定义为$N$，即$N=1000$。
+我把样本数量定义为$N$，本训练数据集$N=1000$。
 
-把上面每一行的向量按行堆叠起来，就得到了特征矩阵$\boldsymbol{X}$（$N \times d = 1000 \times 8$），
+把上面每一行的向量按行堆叠起来，就得到了特征矩阵$\boldsymbol{X}$（shape $N \times d = 1000 \times 8$），
 ```katex
-\boldsymbol{X} := \begin{bmatrix} \boldsymbol{x}_1 \\\\ \boldsymbol{x}_2 \\\\ \vdots \\\\ \boldsymbol{x}_N \end{bmatrix} 
-= \begin{bmatrix} 
+\boldsymbol{X} 
+:= \begin{bmatrix} 
 x_{11} & x_{12} & \cdots & 1 \\\\ 
 x_{21} & x_{22} & \cdots & 1 \\\\ 
 \vdots & \vdots & \vdots & \vdots \\\\ 
@@ -46,16 +48,21 @@ x_{21} & x_{22} & \cdots & x_{2d} \\\\
 \vdots & \vdots & \vdots & \vdots \\\\ 
 x_{N1} & x_{N2} & \cdots & x_{Nd} 
 \end{bmatrix}
+= \begin{bmatrix} \boldsymbol{x}_1 \\\\ 
+\boldsymbol{x}_2 \\\\ 
+\vdots \\\\ 
+\boldsymbol{x}_N 
+\end{bmatrix} 
 ```
 
-我们定义$\boldsymbol{\theta}$为要学习的权重系数向量（$d \times 1$），包含$w_1$到$w_7$以及截距项 $w_d=b$ 一共8个系数，
+我们定义$\boldsymbol{\theta}$为要学习的权重系数向量（shape $d \times 1$），包含$w_1$ ~ $w_7$以及截距项 $w_d=b$ 一共8个系数，
 ```katex
 \boldsymbol{\theta}
 :=\begin{bmatrix} w_1 \\\\ w_2 \\\\ \vdots \\\\ b \end{bmatrix}
 =\begin{bmatrix} w_1 \\\\ w_2 \\\\ \vdots \\\\ w_d \end{bmatrix}
 ```
 
-假设我们已经知道模型的参数$\boldsymbol{\theta}$，那么通过参数$\boldsymbol{\theta}$可以计算出数据集的预测值$\hat{\boldsymbol{y}}$（$N \times 1 = 1000 \times 1$），
+假设我们已经知道模型的参数$\boldsymbol{\theta}$，那么通过参数$\boldsymbol{\theta}$可以计算出数据集的预测值$\hat{\boldsymbol{y}}$（shape $N \times 1 = 1000 \times 1$），
 ```katex
 \hat{\boldsymbol{y}}
 := \begin{bmatrix} 
@@ -69,7 +76,7 @@ x_{N1} & x_{N2} & \cdots & x_{Nd}
 = \boldsymbol{X} \boldsymbol{\theta}
 ```
 
-把每一行的$y$实际寿命值（称为 ground truth）组合起来也可以表示为一个向量的形式（$N \times 1 = 1000 \times 1$），
+把每一行的$y$实际寿命值（称为 ground truth）组合起来也可以表示为一个向量的形式（shape $N \times 1 = 1000 \times 1$），
 ```katex
 \boldsymbol{y} 
 := \begin{bmatrix} y_1 \\\\ y_2 \\\\ \vdots \\\\ y_N \end{bmatrix}
@@ -77,31 +84,34 @@ x_{N1} & x_{N2} & \cdots & x_{Nd}
 
 # 最小化误差
 
-当我们直接使用胡乱猜测的$\boldsymbol{\theta}$去计算预测寿命，效果当然是很不理想的，我们的目标是让计算机学习数据集的规律，得到符合数据规律的$\boldsymbol{\theta}$值。
+当我们直接使用胡乱猜测的$\boldsymbol{\theta}$去计算预测寿命，效果当然是不理想的，我们的目标是让计算机学习数据集的规律，得到符合数据规律的$\boldsymbol{\theta}$值。
 
 计算机的自我学习过程是这样的，一开始我们胡乱地给$\boldsymbol{\theta}$赋予一个初始值，根据上面的公式计算出的预测值$\hat{\boldsymbol{y}} = \boldsymbol{X} \boldsymbol{\theta}$，然后和实际数据的目标值$\boldsymbol{y}$（即寿命）相比较，得到误差（这个误差也叫经验风险 empirical risk）。
 
 我们的目标是最小化这个误差。所以接下来我们把这个误差以数学公式的方式表达出来，然后求其最小值就搞定了。
 
-我们计划使用**均方误差**（Mean Squared Error）来作为经验风险的指标，公式为：
+我们使用**均方误差**（Mean Squared Error）来作为经验风险的指标，公式为：
 
 ```katex
 J(\boldsymbol{\theta}) := \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
 ```
 
-> 实际值$y_i$减去预测值$\hat{y}_i$得到误差，取其平方得到一个为正的误差的平方，再把所有记录的误差值的平方平均一下就得到平均误差，均方误差就因此而得名，代表平均平方误差。
+> 实际值$y_i$减去预测值$\hat{y}_i$得到误差，取其平方得到一个为正的误差的平方，再把所有记录的误差值的平方平均一下就得到平均误差，均方误差由此得名，代表平均平方误差。
 
-$J(\boldsymbol{\theta})$就是我们的目标函数（也叫损失函数 loss function），接下来我们的目标是去想参数$\boldsymbol{\theta}$取什么值时函数$J(\boldsymbol{\theta})$的值最小，用数学表达就是：
+$J(\boldsymbol{\theta})$就是我们的目标函数（也叫损失函数 loss function），接下来我们是去想，当参数$\boldsymbol{\theta}$取什么值时函数$J(\boldsymbol{\theta})$的值最小，用数学表达就是：
 ```katex
 \min_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) := \min_{\boldsymbol{\theta}} \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
 ```
 
 # L2范数
-上面我们得到的目标函数$J(\boldsymbol{\theta})$固然是好，但它是以循环历遍的方式求值，表达不够简洁，计算效率也不高，如果能用矩阵运算的方式来表示就更好了，于是我们想到了**L2范数**（欧几里得范数， L2 norm)，因为$\sum_{i=1}^{N} (y_i - \hat{y}_i)^2$这部分和L2范数的平方很像。
+上面我们得到的目标函数$J(\boldsymbol{\theta})$是以循环历遍的方式求值的，表达不简洁，计算效率不高，如果能用矩阵运算的方式来表示就好了。
 
-L2范数的定义是这样的：
+> [!TIP]
+> 在机器学习领域，如果能够以矩阵形式表达，通常可以大大提升计算效率，且公式会很简约
 
-假设有一个向量$\boldsymbol{z} := \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_N \end{bmatrix}$，它的L2范数被定义为：
+于是我们想到了**L2范数**（欧几里得范数 L2 norm)，因为$\sum_{i=1}^{N} (y_i - \hat{y}_i)^2$这部分和L2范数的平方很像。
+
+向量$\boldsymbol{z} := \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_N \end{bmatrix}$的L2范数被定义为：
 ```katex
 ||\boldsymbol{z}||_2 := \sqrt{\sum_{i=1}^{d} z_i^2}
 ```
@@ -189,17 +199,17 @@ J(\boldsymbol{\theta})
 $}
 ```
 
-至此，大功告成，如果你一直跟到这里，那么恭喜你，你已经掌握了线性回归的最小二乘法解析解的完整数学推理过程。如果还没有完全理解，请多花点时间重新仔细阅读前面的内容，如还是不能明白，请关注页面底部公众号给我留言。
+至此，大功告成，如果你一直跟到这里，那么恭喜你，你已经掌握了线性回归的最小二乘法解析解的完整数学推理过程。如果还没有完全理解，请多花点时间重新仔细阅读上面的内容。
 
-现在请静下心来，欣赏一下最后这个优美的方框中的公式。
+现在请静下心来，欣赏一下最后这个优美的方框内的公式。
 
-后面的路就简单了，只需要编写代码实现这个公式即可。
+后面的路就简单了，只需要编写代码，代入公式就可以实现了。
 
 # 代码实现
 
 在[问题与建模](../2-model/)一篇中，我们提供了[数据集](/attachments/docs/linear-regression/lifespan_data_full.csv)，现在请把它下载到本地。
 
-我们的思路是，读取数据集，将其转换为NumPy数组，然后代入前面推导的最小二乘法公式求解最优解。
+我们的思路是，读取数据集，将其转换为NumPy数组，然后代入前面推导的最小二乘法最优解公式。
 
 1. 导入依赖包。
 我们使用到了NumPy和Pandas这两个Python库。
@@ -274,7 +284,7 @@ X_T_X = X_T @ X_with_bias
 ```
 
 6. 求 $\boldsymbol{X}^T \boldsymbol{X}$ 的逆矩阵。
-这是最小二乘法解析解最关键的部分，好在NumPy提供了`linalg.inv`函数可以直接使用。
+这是最小二乘法解析解最关键的部分，NumPy提供了`linalg.inv`函数可以直接使用。
 对应公式中红色的部分：
 $\color{red}
 \left( 
@@ -293,7 +303,7 @@ if np.linalg.matrix_rank(X_T_X) != X_T_X.shape[0]:
 INV = np.linalg.inv(X_T_X)
 ```
 
-> 矩阵只有秩等于其阶数时才可逆。这里我们使用了NumPy的`linalg.matrix_rank`函数来计算矩阵的秩。
+> 矩阵只有秩等于其阶数时才可逆。这里我们使用了NumPy的`linalg.matrix_rank`函数来计算矩阵的秩，来判断矩阵是否可逆。
 
 7. 计算出最优解。
 $\boldsymbol{\theta}^* = 
@@ -367,3 +377,14 @@ print(f"Weights: {np.round(w, 4)}")
 {{% /details %}}
 
 现在可以回到[问题与建模](../2-model/)一章查看生成数据所用的权重系数$\boldsymbol{w}$和偏置项$b$，看看你计算出来的结果是否和[标准答案](../2-model/#标准答案)一致。
+
+上面代码的输出为
+```text
+===== Linear Regression Solution =====
+Intercept (bias): 10.0000
+Weights: [  0.4   6.    0.8 -15.    9.    1.3   7. ]
+```
+
+与标准答案一致的。
+
+上面的计算过程是否非常精准而优雅？但现实中，由于采样误差，矩阵$\boldsymbol{X}^T \boldsymbol{X}$可能不可逆，无法直接计算，且由于高维多特征数据的最小二乘法的计算复杂度非常高 - $O(d^3)$，这就要用到下一篇介绍的**梯度下降**方法 - 算法复杂度仅为 $O(nd)$。

@@ -73,10 +73,6 @@ let $\boldsymbol{z} = \begin{bmatrix} z_1 \\\\ z_2 \\\\ \vdots \\\\ z_d \end{bma
 &= \sqrt{\boldsymbol{z}^T \boldsymbol{z}}
 \end{aligned}
 ```
-<span style="color:orange;">没写下标默认就是 $L_2$</span>，即
-```katex
-\| \boldsymbol{z} \| = \| \boldsymbol{z} \|_2
-```
 
 ## Squared $L_2$ Norm
 ```katex
@@ -98,6 +94,11 @@ $\mathbf{a}^T \mathbf{b}$ is scalar, so $\mathbf{a}^T \mathbf{b} = (\mathbf{a}^T
 &= \mathbf{a}^T \mathbf{a} - 2\mathbf{a}^T \mathbf{b} + \mathbf{b}^T \mathbf{b} \\
 &= \| \mathbf{b} - \mathbf{a} \|_2^2
 \end{aligned}
+```
+
+<span style="color:orange;">没写下标默认就是 $L_2$</span>，即
+```katex
+\| \boldsymbol{z} \| = \| \boldsymbol{z} \|_2
 ```
 
 ## $L_\infty$ Norm
