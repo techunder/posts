@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">线性回归：梯度下降</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-02-25 | 更新时间：2026-02-25
+  发布时间：2026-05-25 | 更新时间：2026-05-25
 </div>
 
 计算机学习数据中隐藏的规律的方法，是通过最小化预测值与实际值之间的误差来实现的。
