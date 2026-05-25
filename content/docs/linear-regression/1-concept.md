@@ -87,9 +87,9 @@ plt.legend(loc='lower right')
 
 # Show plot
 plt.tight_layout()
-plt.savefig('lr-1-concept.png', dpi=150, bbox_inches='tight')
+plt.savefig('exercise_hours_and_lifespan.png', dpi=150, bbox_inches='tight')
 plt.show()
-print("Image was save as 'lr-1-concept.png'")
+print("Image was saved as 'exercise_hours_and_lifespan.png'")
 
 # Output core statistics
 corr = np.corrcoef(exercise_hours, lifespan)[0, 1]
