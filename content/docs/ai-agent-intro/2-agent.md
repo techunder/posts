@@ -589,7 +589,7 @@ sequenceDiagram
 
     S-->>C: 200 OK<br/>Body: JSON-RPC response (tool list)
 
-    C->>S: POST /mcp (<font color=red>tools/call</font>)<br/>Header: mcp-session-id: abc
+    C->>S: POST /mcp (tools/call)<br/>Header: mcp-session-id: abc
     Note right of S: 根据 abc 找到对应 session state
 
     S-->>C: 200 OK / SSE stream<br/>Body: JSON-RPC response (tool result)
