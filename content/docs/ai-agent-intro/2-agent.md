@@ -605,7 +605,7 @@ sequenceDiagram
 ```
 {{% /details %}}
 
-> **Streamable HTTP** = HTTP POST（客户端发请求）+ SSE（服务器流式推送），两者结合实现了远程 MCP 通信的请求响应 + 服务端实时推送能力
+> **Streamable HTTP** = HTTP POST（客户端发请求）+ SSE（Server-Sent Events 服务器流式推送），两者结合实现了远程 MCP 通信的请求响应 + 服务端实时推送能力
 
 MCP 基于 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 构建，通信来往的所有消息均为 JSON 格式。
 
