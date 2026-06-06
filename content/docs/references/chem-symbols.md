@@ -1,0 +1,53 @@
+---
+title: "化学符号 (Chemical)"
+weight: 20
+bookToC: true
+draft: false
+---
+<!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
+<div class="page-title">化学符号 (Chemical Symbols)</div>
+{{< katex />}}
+
+# 元素周期表
+
+![元素周期表](/images/docs/references/chem-symbols/table_of_elements_cn.jpg)
+![Table of Elements](/images/docs/references/chem-symbols/table_of_elements_en.png)
+
+# 化学分子结构表达
+
+## 分子式
+
+Molecular Formula
+
+有些分子式相同，但却是不同的分子（同分异构），e.g. $C_6H_{12}O_6$，可以是葡萄糖，也可以是果糖
+
+e.g. 水 $H_2O$，$Fe_2(SO_4)_3$
+
+## SMILES 线性结构式
+- [] 组合表达
+- () 支链（挂在旁边的基团）
+- = 双键
+
+e.g. 葡萄糖的开链（直链）结构 `OCC(O)C(O)C(O)C(O)C=O`
+
+## SMILES 立体结构式
+
+- 第一个 1：开始环
+- 第二个 1：结束环
+- @ 朝某一边
+- @@ 朝另一边
+
+e.g. 葡萄糖的闭链（六元环）结构 `OC[C@H]1OC(O)[C@H](O)[C@@H](O)[C@@H]1O`
+
+e.g. 果糖的闭链（五元环）结构 `C([C@@H]1[C@H]([C@@H]([C@](O1)(CO)O)O)O)O`
+
+# 反应方程式
+
+```katex
+2H_2 + O_2 \stackrel{点燃}{=\!=\!=} 2H_2O
+```
+
+# 基团
+
+- 羟基 OH （去氧与氢的合体字，读 qiang3）
+- 醛基 C=O（读 quan2）

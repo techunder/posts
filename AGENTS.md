@@ -35,7 +35,7 @@ hugo --environment production
 
 ### CI/CD
 
-The site uses GitHub Actions for CI (defined in theme, not project root). On push to main, Hugo builds and deploys.
+GitHub Actions workflows live in `themes/hugo-book/.github/` (submodule). On push to main, CI builds and deploys automatically.
 
 ## Content Structure
 
@@ -151,41 +151,9 @@ theme = 'hugo-book'
 3. Preview locally with `hugo server`
 4. Commit changes - CI will build and deploy on push to main
 
-## Common Tasks
-
-### Creating a New Article
-
-1. Create file in appropriate section under `content/docs/`
-2. Copy archetype template from `archetypes/default.md`
-3. Add frontmatter and content
-4. Set appropriate `weight` for ordering
-
-### Adding Math Content
-
-Use KaTeX fenced code blocks with `katex` language:
-
-```
-```katex
-E = mc^2
-```
-```
-
-### Adding Code Blocks
-
-Specify language after opening fence:
-
-```
-```python
-def hello():
-    print("Hello")
-```
-```
-
 ## Notes for AI Agents
 
-- This is a static site - no runtime dependencies or testing framework
-- Content is primarily Chinese - maintain Chinese language in content
-- Math-heavy content requires proper KaTeX syntax
-- No JavaScript/Node.js build steps required
-- Theme is a git submodule at `themes/hugo-book`
+- Theme is a git submodule at `themes/hugo-book`; CI workflows are there too
 - Do NOT commit `/public/`, `/resources/`, or `hugo_stats.json`
+- This is a static site - no testing framework, no JS/Node build steps
+- Archetype template available at `archetypes/default.md`
