@@ -1,6 +1,6 @@
 ---
 title: "化学符号 (Chemical)"
-weight: 20
+weight: 50
 bookToC: true
 draft: false
 ---

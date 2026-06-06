@@ -1,6 +1,6 @@
 ---
 title: "线性代数 (Linear Algebra)"
-weight: 20
+weight: 30
 bookToC: true
 draft: false
 ---
