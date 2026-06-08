@@ -41,6 +41,17 @@ e.g. 葡萄糖的闭链（六元环）结构 `OC[C@H]1OC(O)[C@H](O)[C@@H](O)[C@@
 
 e.g. 果糖的闭链（五元环）结构 `C([C@@H]1[C@H]([C@@H]([C@](O1)(CO)O)O)O)O`
 
+## SMILES -> 图片
+```python
+# pip install rdkit
+from rdkit import Chem
+from rdkit.Chem import Draw
+
+mol = Chem.MolFromSmiles("OC[C@H]1OC(O)[C@H](O)[C@@H](O)[C@@H]1O")
+Draw.MolToImage(mol, size=(500, 300)).save("./chem.png")
+print("saved: chem.png")
+```
+
 # 反应方程式
 
 ```katex
