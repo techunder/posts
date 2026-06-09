@@ -291,7 +291,6 @@ bounds = [(0, None), (0, None)]
 ```python
 # pip install scipy
 from scipy.optimize import linprog
-import numpy as np
 
 # 目标函数系数（scipy是最小化，所以利润取负）
 c = [-3, -5]
