@@ -13,15 +13,20 @@ draft: false
 ![元素周期表](/images/docs/references/chem-symbols/table_of_elements_cn.jpg)
 ![Table of Elements](/images/docs/references/chem-symbols/table_of_elements_en.png)
 
+# 数字上标与下标
+
+- 上标：⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻
+- 下标：₀₁₂₃₄₅₆₇₈₉₊₋
+
 # 化学分子结构表达
 
 ## 分子式
 
 Molecular Formula
 
-有些分子式相同，但却是不同的分子（同分异构），e.g. $C_6H_{12}O_6$，可以是葡萄糖，也可以是果糖
+有些分子式相同，但却是不同的分子（同分异构），e.g. C₆H₁₂O₆，可以是葡萄糖，也可以是果糖。
 
-e.g. 水 $H_2O$，$Fe_2(SO_4)_3$
+e.g. 水 H₂O，Fe₂(SO₄)₃
 
 ## SMILES 线性结构式
 - [] 组合表达
