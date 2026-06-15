@@ -17,6 +17,7 @@ bookToC: false
 本网站不收集任何用户个人信息，也不使用任何第三方服务来分析用户行为。内容主要为个人原创，不涉及任何商业用途。
 
 ## 📢 最近更新
+- [非线性规划（Nonlinear Programming）](/docs/linear-programming/nonlinear-programming/)
 - [线性规划（Linear Programming）](/docs/linear-programming/linear-programming/)
 - [森林里的歌唱者](/docs/essays/forest-singers/)
 - [梯度下降](/docs/linear-regression/4-gd/)
