@@ -32,8 +32,11 @@ e.g. 水 H₂O，Fe₂(SO₄)₃
 - [] 组合表达
 - () 支链（挂在旁边的基团）
 - = 双键
+- 一般大写字母表示原子，但**芳环碳**上的碳用小写c
 
 e.g. 葡萄糖的开链（直链）结构 `OCC(O)C(O)C(O)C(O)C=O`
+
+e.g. 酪氨酸 `N[C@@H](Cc1ccc(O)cc1)C(O)=O`
 
 ## SMILES 立体结构式
 
@@ -61,6 +64,10 @@ print("saved: chem.png")
 
 ```katex
 2H_2 + O_2 \stackrel{点燃}{=\!=\!=} 2H_2O
+```
+
+```katex
+2H_2 + O_2 \stackrel{点燃}{\implies} 2H_2O
 ```
 
 # 基团
