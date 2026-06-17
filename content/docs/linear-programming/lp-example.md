@@ -122,12 +122,12 @@ flowchart LR
 
 决策变量（Decision Variables）是模型需要求解的变量
 
-| 决策变量          | 含义                 | 单位 | 取值范围           |
-| ----------------- | -------------------- | ---- | ------------------ |
-| $P_{buy,t}$       | 从电网购电功率       | kW   | $\ge 0$            |
-| $P_{sell,t}$      | 向电网售电功率       | kW   | $\ge 0$            |
-| $P_{charge,t}$    | 电池充电功率         | kW   | $[0, P_{inv,max}]$ |
-| $P_{discharge,t}$ | 电池放电功率         | kW   | $[0, P_{inv,max}]$ |
+| 决策变量          | 含义                 | 单位 | 取值范围            |
+| ----------------- | -------------------- | ---- | ------------------- |
+| $P_{buy,t}$       | 从电网购电功率       | kW   | $[0, P_{grid,max}]$ |
+| $P_{sell,t}$      | 向电网售电功率       | kW   | $[0, P_{grid,max}]$ |
+| $P_{charge,t}$    | 电池充电功率         | kW   | $[0, P_{inv,max}]$  |
+| $P_{discharge,t}$ | 电池放电功率         | kW   | $[0, P_{inv,max}]$  |
 | $SOC_t$           | 电池荷电状态         | kWh  | $[SOC_{min} \cdot C_{batt}, SOC_{max} \cdot C_{batt}]$ |
 
 # 目标函数
@@ -147,12 +147,6 @@ flowchart LR
 
 # 约束条件
 
-## 电池初始 SOC
-
-```katex
-SOC_0 = SOC_{init}
-```
-
 ## 功率平衡
 
 输入的功率必须等于输出的功率
@@ -162,6 +156,12 @@ P_{pv,t} + P_{buy,t} + P_{discharge,t} = P_{rigid,t} + P_{charge,t} + P_{sell,t}
 ```
 
 > 做了简化：无能量损耗、用电全部计为刚需负荷
+
+## 电池初始 SOC
+
+```katex
+SOC_0 = SOC_{init}
+```
 
 ## 电池 SOC 动态
 
@@ -222,6 +222,10 @@ Home Energy Optimization — Simplified LP Model (CVXPY)
 约束：
     功率平衡 / SOC 动态 / SOC 边界 / 初始 SOC / 逆变器限制 / 并网限制
 """
+
+# pip install numpy
+# pip install matplotlib
+# pip install cvxpy
 
 import cvxpy as cp
 import numpy as np
@@ -286,10 +290,7 @@ objective = cp.Minimize(cost)
 
 constraints = []
 
-# ── 4.1 初始 SOC ──────────────────────────────────────────
-constraints.append(SOC[0] == SOC_init * C_batt)
-
-# ── 4.2 功率平衡 & SOC 动态 ───────────────────────────────
+# ── 4.1 功率平衡 ───────────────────────────────────────────
 for t in range(T):
     # 功率平衡：光伏 + 购电 + 放电 = 刚性负荷 + 充电 + 售电
     constraints.append(
@@ -302,15 +303,25 @@ for t in range(T):
         SOC[t + 1] == SOC[t] + (P_charge[t] - P_discharge[t]) * dt
     )
 
-# ── 4.3 SOC 边界 ──────────────────────────────────────────
+# ── 4.2 初始 SOC ──────────────────────────────────────────
+constraints.append(SOC[0] == SOC_init * C_batt)
+
+# ── 4.3 SOC 动态 ──────────────────────────────────────────
+for t in range(T):
+    # SOC 动态：SOC_t = SOC_{t-1} + (P_charge - P_discharge) * dt
+    constraints.append(
+        SOC[t + 1] == SOC[t] + (P_charge[t] - P_discharge[t]) * dt
+    )
+
+# ── 4.4 SOC 边界 ──────────────────────────────────────────
 constraints.append(SOC >= SOC_min * C_batt)
 constraints.append(SOC <= SOC_max * C_batt)
 
-# ── 4.4 逆变器功率限制 ────────────────────────────────────
+# ── 4.5 逆变器功率限制 ────────────────────────────────────
 constraints.append(P_charge   <= P_inv_max)
 constraints.append(P_discharge <= P_inv_max)
 
-# ── 4.5 并网功率限制 ──────────────────────────────────────
+# ── 4.6 并网功率限制 ──────────────────────────────────────
 constraints.append(P_buy  <= P_grid_max)
 constraints.append(P_sell <= P_grid_max)
 
@@ -423,7 +434,6 @@ if problem.status in ["optimal", "optimal_inaccurate"]:
     ax3.axhline(0, color='black', linewidth=0.8)
     ax3.set_ylim(0, max(pi_buy) * 1.3)
     ax3.set_xticks(range(T))
-
 
     plt.tight_layout()
     plt.savefig('home_energy_optimization.png', dpi=150, bbox_inches='tight')
