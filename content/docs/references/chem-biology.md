@@ -72,7 +72,7 @@ draft: false
 
 ![Ethanol](/images/docs/references/chem-biology/C2H5OH.png)
 
-另外一方面，会避开水的物质具有**疏水性**。例如**甲烷分子CH₄**是非极性的，像这种电子对称地分布在周围的分子是不能够溶于水的，例如油。
+另外一方面，会避开水的物质具有**疏水性**。例如**甲烷CH₄**（也叫**沼气**）是非极性的，像这种电子对称地分布在周围的分子是不能够溶于水的，例如油。
 
 还有一类是**两亲性**分子，它们通常是带有许多亲水区和疏水区的巨大分子。
 
@@ -94,7 +94,42 @@ draft: false
 
 **骨头**中占比最大元素是钙（Ca）和磷（P）。
 
+
 # 生命的核心构成
+
+## 碳
+
+有一种主宰着生命的元素，那就是碳（C）元素。碳的原子序号是6，它有4个外层电子，需再来4个电子到达稳定态。
+
+**碳氢化合物**就是除了碳和氢之外没有其他元素的化合物。强有力的碳碳键能够形成稳定的长链，氢可以在其他空余的位置成键。碳原子与碳原子之间可以形成单键、双键或三键。碳氢链可以是链状的、环状的、树状的。
+
+石油就是由碳氢化合物组成的。
+
+**甲烷CH₄**（也叫**沼气**）是最简单的碳氢化合物。
+
+**乙烷C₂H₆**（yǐ wán），碳碳单键（烷），饱和，SMILES：`CC`。
+
+**乙烯C₂H₄**（yǐ xī），碳碳双键（烯），SMILES：`C=C`。
+
+**乙炔C₂H₂**（yǐ quē），碳碳三键（炔），SMILES：`C#C`，也叫**电石气**，最简单的**炔烃**（quē tīng）。
+
+**己烷C₆H₁₄**（jǐ wán），烷烃，碳碳单键，SMILES：`CCCCCC`。
+
+![C6H14](/images/docs/references/chem-biology/C6H14.png)
+
+**己烯C₆H₁₂**（jǐ xī），烯烃，碳碳双键，SMILES：`C=CCCCC`。
+
+![C6H12](/images/docs/references/chem-biology/C6H12.png)
+
+**己炔C₆H₁₀**（jǐ quē），炔烃，碳碳三键，SMILES：`C#CCCCC`。
+
+![C6H10](/images/docs/references/chem-biology/C6H10.png)
+
+**苯C₆H₆**（běn），芳香环，SMILES：`c1ccccc1`。
+
+![C6H6](/images/docs/references/chem-biology/C6H6.png)
+
+**有机化合物**是一类至少包含一个碳氢键的化合物。
 
 ## 氨基酸（20）
 
@@ -144,6 +179,7 @@ Phenylalanine 苯丙氨酸
 SMILES：O=C(O)[C@H](N)Cc1ccccc1
 
 - 酪氨酸 Tyrosine（SMILES: `O=C(O)[C@H](N)Cc1ccc(O)cc1`）
+
 ![Tyrosine](/images/docs/references/chem-biology/Tyrosine.png)
 
 Tryptophan 色氨酸
