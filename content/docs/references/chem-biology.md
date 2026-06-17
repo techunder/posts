@@ -68,11 +68,13 @@ draft: false
 
 异性电荷相吸，水分子的正极吸引着另外一个水分子的负极，形成**氢键**，让水分子在常温下变成黏糊的液体。
 
-当食盐晶体遇到水时，钠离子Na⁺与氯离子Cl⁻间的**离子键**会被冲破，最终离子会溶（被困）于水中。
+任何能与水分子混合的离子或分子被称为亲水的，具有**亲水性**。当食盐晶体遇到水时，钠离子Na⁺与氯离子Cl⁻间的**离子键**会被冲破，最终离子会溶（被困）于水中。像**乙醇C2H5OH**这类分子，虽然只有一个亲水端（靠OH的一端），但足以让它溶于水。
 
-任何能与水分子混合的离子或分子被称为亲水的，具有**亲水性**。另外一方面，会避开水的物质具有**疏水性**。
+![Ethanol](/images/docs/references/chem-biology/C2H5OH.png)
 
-例如**甲烷分子CH₄**是非极性的。像这种电子对称地分布在周围的分子是不能够溶于水的，例如油。
+另外一方面，会避开水的物质具有**疏水性**。例如**甲烷分子CH₄**是非极性的，像这种电子对称地分布在周围的分子是不能够溶于水的，例如油。
+
+还有一类是**两亲性**分子，它们通常是带有许多亲水区和疏水区的巨大分子。
 
 ## 人体的组成元素
 
@@ -96,9 +98,73 @@ draft: false
 
 ## 氨基酸（20）
 
-- 酪氨酸（SMILES: `N[C@@H](Cc1ccc(O)cc1)C(O)=O`）
+### 脂肪族非极性氨基酸
 
+- 甘氨酸 Glycine（SMILES：`NCC(=O)O`）
+
+![Glycine](/images/docs/references/chem-biology/Glycine.png)
+
+- 丙氨酸 Alanine（SMILES：`C[C@H](N)C(=O)O`）
+
+![Alanine](/images/docs/references/chem-biology/Alanine.png)
+
+- 缬氨酸 Valine（SMILES：`CC(C)[C@H](N)C(=O)O`）
+
+![Valine](/images/docs/references/chem-biology/Valine.png)
+
+- 亮氨酸 Leucine（SMILES：`CC(C)C[C@H](N)C(=O)O`）
+
+![Leucine](/images/docs/references/chem-biology/Leucine.png)
+
+- 异亮氨酸 Isoleucine（SMILES：`CC[C@H](C)[C@H](N)C(=O)O`）
+
+![Isoleucine](/images/docs/references/chem-biology/Isoleucine.png)
+
+- 脯氨酸 Proline（SMILES：`OC(=O)[C@@H]1CCC[NH+]1`）
+
+![Proline](/images/docs/references/chem-biology/Proline.png)
+
+
+### 极性中性氨基酸
+Serine 丝氨酸 Ser S
+SMILES：O=C(O)[C@H](N)CO
+Threonine 苏氨酸 Thr T
+SMILES：C[C@H](O)[C@H](N)C(=O)O
+Cysteine 半胱氨酸 Cys C（含硫）
+SMILES：O=C(O)[C@H](N)CS
+Methionine 甲硫氨酸 Met M（含硫）
+SMILES：CSCC[C@H](N)C(=O)O
+Asparagine 天冬酰胺 Asn N
+SMILES：NC(=O)C[C@H](N)C(=O)O
+Glutamine 谷氨酰胺 Gln Q
+SMILES：NC(=O)CC[C@H](N)C(=O)O
+
+### 芳香族氨基酸
+Phenylalanine 苯丙氨酸
+SMILES：O=C(O)[C@H](N)Cc1ccccc1
+
+- 酪氨酸 Tyrosine（SMILES: `O=C(O)[C@H](N)Cc1ccc(O)cc1`）
 ![Tyrosine](/images/docs/references/chem-biology/Tyrosine.png)
+
+Tryptophan 色氨酸
+SMILES：O=C(O)[C@H](N)Cc1c[nH]c2ccccc12
+Histidine 组氨酸 His H（杂环芳香）
+SMILES：O=C(O)[C@H](N)Cc1c[nH]cn1
+
+
+### 酸性氨基酸
+Aspartic acid 天冬氨酸 Asp D
+SMILES：O=C(O)C[C@H](N)C(=O)O
+Glutamic acid 谷氨酸 Glu E
+SMILES：O=C(O)CC[C@H](N)C(=O)O
+
+### 碱性氨基酸
+Lysine 赖氨酸 Lys K
+SMILES：NCCCC[C@H](N)C(=O)O
+Arginine 精氨酸 Arg R
+SMILES：NC(=N)NCCCC[C@H](N)C(=O)O
+
+# 其他有机物
 
 ## 多巴胺
 
@@ -121,3 +187,4 @@ SMILES: `NCCc1ccc(O)c(O)c1`
 > 但现代社会中，高碳水、动作视频、电子游戏、新奇事物等变相地引起了多巴胺刺激，并导致了需求量越来越大的才能引起刺激的的上瘾机制。
 > 我们对**简单的事物**、**天然的食材**、**经典的文学作品**、以及缓慢但实用的**学习本身**变得多巴胺免疫。
 > **要防范非学习性、成瘾性的多巴胺刺激，回归朴素，保持多巴胺的敏感**。
+
