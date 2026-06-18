@@ -99,11 +99,16 @@ draft: false
 
 ## 碳
 
-有一种主宰着生命的元素，那就是碳（C）元素。碳的原子序号是6，它有4个外层电子，需再来4个电子到达稳定态。
+有一种主宰着生命的元素，那就是碳（C）元素，它是生命的“骨架”。
+
+碳的原子序号是6，它有4个外层电子，需再来4个电子到达稳定态。
 
 **碳氢化合物**就是除了碳和氢之外没有其他元素的化合物。强有力的碳碳键能够形成稳定的长链，氢可以在其他空余的位置成键。碳原子与碳原子之间可以形成单键、双键或三键。碳氢链可以是链状的、环状的、树状的。
 
 石油就是由碳氢化合物组成的。
+
+> [!NOTE]
+> 含有碳碳单键的饱和碳氢化合物叫做**烷**（wán）；含有碳碳双键的碳氢化合物叫做**烯**（xī）；含有碳碳三键的碳氢化合物叫做**炔**（quē）（**炔烃** quē tīng）。
 
 **甲烷CH₄**（也叫**沼气**）是最简单的碳氢化合物。
 
@@ -130,6 +135,53 @@ draft: false
 ![C6H6](/images/docs/references/chem-biology/C6H6.png)
 
 **有机化合物**是一类至少包含一个碳氢键的化合物。
+
+## 氧
+
+氧的原子序号是8，它有2个外层电子，需再来2个电子到达稳定态。
+
+在碳和氢的组合中，加上氧元素，就形成了很多极性或两亲性分子。
+
+典型的物质有**醇**、**酸**、**脂类**和**糖**。
+
+> [!NOTE]
+> 有OH离子的叫**醇**。例如乙醇C2H5OH、丙三醇C3H7OH。
+
+> [!NOTE]
+> 有COOH的叫**酸**。例如癸酸C10H19COOH（脂肪酸）。
+
+> [!NOTE]
+> 通常以碳的个数来用天干命名。
+> 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
+> 例如甲烷CH4、乙醇C2H5OH、丙三醇C3H7OH、癸酸C10H19COOH（脂肪酸）。
+
+**醇类**的比如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
+
+![Glycerol](/images/docs/references/chem-biology/Glycerol.png)
+
+**酸类**的比如**乙酸CH₃COOH**（就是**醋酸**，SMILES：`CC(=O)O`）
+
+![AceticAcid](/images/docs/references/chem-biology/AceticAcid.png)
+
+**酸类**的比如**癸酸C₁₀H₂₀O₂**（SMILES：`CCCCCCCCCC(=O)O`）
+
+![DecanoicAcid](/images/docs/references/chem-biology/DecanoicAcid.png)
+
+**脂类**的比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+甘油三酯是一类化合物，由一个丙三醇分子连接三个脂肪酸分子组成。
+骨架固定（SMILES：`OCC(CO)CO`），
+
+![Triglyceride](/images/docs/references/chem-biology/Triglyceride.png)
+
+三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCCC)COC(=O)CCCCCCCCCC`）
+
+![Tridecanoin](/images/docs/references/chem-biology/Tridecanoin.png)
+
+脂质能够形成防水膜，并用脂肪的形式存储能量。
+
+**脂类**的比如**胆固醇C₂₇H₄₆O**，分子量为 387 Da （SMILES: `CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C`）
+
+![Cholesterol](/images/docs/references/chem-biology/Cholesterol.png)
 
 ## 氨基酸（20）
 
@@ -158,7 +210,6 @@ draft: false
 - 脯氨酸 Proline（SMILES：`OC(=O)[C@@H]1CCC[NH+]1`）
 
 ![Proline](/images/docs/references/chem-biology/Proline.png)
-
 
 ### 极性中性氨基酸
 Serine 丝氨酸 Ser S
@@ -223,4 +274,3 @@ SMILES: `NCCc1ccc(O)c(O)c1`
 > 但现代社会中，高碳水、动作视频、电子游戏、新奇事物等变相地引起了多巴胺刺激，并导致了需求量越来越大的才能引起刺激的的上瘾机制。
 > 我们对**简单的事物**、**天然的食材**、**经典的文学作品**、以及缓慢但实用的**学习本身**变得多巴胺免疫。
 > **要防范非学习性、成瘾性的多巴胺刺激，回归朴素，保持多巴胺的敏感**。
-
