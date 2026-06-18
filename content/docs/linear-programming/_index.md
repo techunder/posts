@@ -9,3 +9,4 @@ draft: false
 
 1. [线性规划（Linear Programming）](/docs/linear-programming/linear-programming/)
 2. [非线性规划（Nonlinear Programming）](/docs/linear-programming/nonlinear-programming/)
+2. [家庭能源优化](/docs/linear-programming/lp-example/)
