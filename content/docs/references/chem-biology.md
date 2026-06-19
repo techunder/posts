@@ -140,48 +140,55 @@ draft: false
 
 氧的原子序号是8，它有2个外层电子，需再来2个电子到达稳定态。
 
-在碳和氢的组合中，加上氧元素，就形成了很多极性或两亲性分子。
+在碳和氢的组合里加上氧元素，就形成了很多极性或两亲性分子。
 
-典型的物质有**醇**、**酸**、**脂类**和**糖**。
-
-> [!NOTE]
-> 有OH离子的叫**醇**。例如乙醇C2H5OH、丙三醇C3H7OH。
+典型的物质有**酸**、**醇**、**脂类**和**糖**。
 
 > [!NOTE]
 > 有COOH的叫**酸**。例如癸酸C10H19COOH（脂肪酸）。
+
+> [!NOTE]
+> 有OH离子的叫**醇**。例如乙醇C2H5OH、丙三醇C3H7OH。
 
 > [!NOTE]
 > 通常以碳的个数来用天干命名。
 > 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
 > 例如甲烷CH4、乙醇C2H5OH、丙三醇C3H7OH、癸酸C10H19COOH（脂肪酸）。
 
-**醇类**的比如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
+### 酸类
 
-![Glycerol](/images/docs/references/chem-biology/Glycerol.png)
-
-**酸类**的比如**乙酸CH₃COOH**（就是**醋酸**，SMILES：`CC(=O)O`）
+**乙酸CH₃COOH**就是一种酸类，就是常说的**醋酸**（SMILES：`CC(=O)O`）
 
 ![AceticAcid](/images/docs/references/chem-biology/AceticAcid.png)
 
-**酸类**的比如**癸酸C₁₀H₂₀O₂**（SMILES：`CCCCCCCCCC(=O)O`）
+**癸酸C₁₀H₂₀O₂**也是一种酸类（SMILES：`CCCCCCCCCC(=O)O`）
 
 ![DecanoicAcid](/images/docs/references/chem-biology/DecanoicAcid.png)
 
-**脂类**的比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+### 醇类
+
+醇类如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
+
+![Glycerol](/images/docs/references/chem-biology/Glycerol.png)
+
+### 脂类
+
+脂类比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+
 甘油三酯是一类化合物，由一个丙三醇分子连接三个脂肪酸分子组成。
-骨架固定（SMILES：`OCC(CO)CO`），
 
-![Triglyceride](/images/docs/references/chem-biology/Triglyceride.png)
+> [!TIP]
+> 丙三醇分子像一顶帽子一样，盖在了三个脂肪酸分子上面。
 
-三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCCC)COC(=O)CCCCCCCCCC`）
+三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`）
 
 ![Tridecanoin](/images/docs/references/chem-biology/Tridecanoin.png)
 
-脂质能够形成防水膜，并用脂肪的形式存储能量。
-
-**脂类**的比如**胆固醇C₂₇H₄₆O**，分子量为 387 Da （SMILES: `CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C`）
+**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C`）
 
 ![Cholesterol](/images/docs/references/chem-biology/Cholesterol.png)
+
+脂质能够形成防水膜，并用脂肪的形式存储能量。
 
 ## 氨基酸（20）
 
