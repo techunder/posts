@@ -82,7 +82,9 @@ graph LR
 - **回归任务**：无激活函数，直接输出线性结果
 
 {{% details title="推理过程的数学表达式" open=false %}}
-### 加权求和激活
+
+**加权求和激活**
+
 ```katex
 \boldsymbol{a}_{next} = \sigma(\boldsymbol{a}^T \boldsymbol{W} + \boldsymbol{b})
 ```
@@ -95,7 +97,8 @@ graph LR
     - $sigmoid(x) = \frac{1}{(1+e^{-x})}$，输出 0~1
     - $tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}$，输出 -1~1
 ---
-### Softmax
+**Softmax**
+
 ```katex
 \text{softmax}(\boldsymbol{x}) = 
 \begin{bmatrix} 
