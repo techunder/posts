@@ -44,11 +44,11 @@ draft: false
 
 例如**氮N**，原子序数为 7，电子层只到 n=2，电子排布：1s²2s²2p³。最多可形成 3 个**共价键**，例如**氮气NH₃**或**硝酸根NO₃⁻**（SMILES: `O=[N+]([O-])[O-]`）
 
-![NO₃⁻](/images/docs/references/chem-biology/NO3_.png)
+![NO₃⁻](/images/docs/references/chem-biology/NO3_200x100.png)
 
 又如**磷P**，原子序数为 15，电子层只到 n=3，电子排布：1s²2s²2p³3s²3p⁶。虽然磷在**基态**时 3d 亚层是空的，没有电子，但轨道本身存在，必要时可成键组成更多的共价键，例如**白磷P₄**或**磷酸根PO₄³⁻**（SMILES: `[O-]P(=O)([O-])[O-]`）。
 
-![PO₄³⁻](/images/docs/references/chem-biology/PO4_3_.png)
+![PO₄³⁻](/images/docs/references/chem-biology/PO4_3_100x100.png)
 
 ## 分子
 
@@ -68,9 +68,9 @@ draft: false
 
 异性电荷相吸，水分子的正极吸引着另外一个水分子的负极，形成**氢键**，让水分子在常温下变成黏糊的液体。
 
-任何能与水分子混合的离子或分子被称为亲水的，具有**亲水性**。当食盐晶体遇到水时，钠离子Na⁺与氯离子Cl⁻间的**离子键**会被冲破，最终离子会溶（被困）于水中。像**乙醇C2H5OH**这类分子，虽然只有一个亲水端（靠OH的一端），但足以让它溶于水。
+任何能与水分子混合的离子或分子被称为亲水的，具有**亲水性**。当食盐晶体遇到水时，钠离子Na⁺与氯离子Cl⁻间的**离子键**会被冲破，最终离子会溶（被困）于水中。像**乙醇C2H5OH**这类分子（SMILES：`CCO`），虽然只有一个亲水端（靠OH的一端），但足以让它溶于水。
 
-![Ethanol](/images/docs/references/chem-biology/C2H5OH.png)
+![Ethanol](/images/docs/references/chem-biology/C2H5OH_100x50.png)
 
 另外一方面，会避开水的物质具有**疏水性**。例如**甲烷CH₄**（也叫**沼气**）是非极性的，像这种电子对称地分布在周围的分子是不能够溶于水的，例如油。
 
@@ -120,19 +120,19 @@ draft: false
 
 **己烷C₆H₁₄**（jǐ wán），烷烃，碳碳单键，SMILES：`CCCCCC`。
 
-![C6H14](/images/docs/references/chem-biology/C6H14.png)
+![C6H14](/images/docs/references/chem-biology/C6H14_200x100.png)
 
 **己烯C₆H₁₂**（jǐ xī），烯烃，碳碳双键，SMILES：`C=CCCCC`。
 
-![C6H12](/images/docs/references/chem-biology/C6H12.png)
+![C6H12](/images/docs/references/chem-biology/C6H12_200x100.png)
 
 **己炔C₆H₁₀**（jǐ quē），炔烃，碳碳三键，SMILES：`C#CCCCC`。
 
-![C6H10](/images/docs/references/chem-biology/C6H10.png)
+![C6H10](/images/docs/references/chem-biology/C6H10_200x100.png)
 
 **苯C₆H₆**（běn），芳香环，SMILES：`c1ccccc1`。
 
-![C6H6](/images/docs/references/chem-biology/C6H6.png)
+![C6H6](/images/docs/references/chem-biology/C6H6_200x100.png)
 
 **有机化合物**是一类至少包含一个碳氢键的化合物。
 
@@ -159,17 +159,17 @@ draft: false
 
 **乙酸CH₃COOH**就是一种酸类，就是常说的**醋酸**（SMILES：`CC(=O)O`）
 
-![AceticAcid](/images/docs/references/chem-biology/AceticAcid.png)
+![AceticAcid](/images/docs/references/chem-biology/AceticAcid_200x100.png)
 
 **癸酸C₁₀H₂₀O₂**也是一种酸类（SMILES：`CCCCCCCCCC(=O)O`）
 
-![DecanoicAcid](/images/docs/references/chem-biology/DecanoicAcid.png)
+![DecanoicAcid](/images/docs/references/chem-biology/DecanoicAcid_400x100.png)
 
 ### 醇类
 
 醇类如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
 
-![Glycerol](/images/docs/references/chem-biology/Glycerol.png)
+![Glycerol](/images/docs/references/chem-biology/Glycerol_200x100.png)
 
 ### 脂类
 
@@ -182,11 +182,11 @@ draft: false
 
 三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`）
 
-![Tridecanoin](/images/docs/references/chem-biology/Tridecanoin.png)
+![Tridecanoin](/images/docs/references/chem-biology/Tridecanoin_1300x500.png)
 
-**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C`）
+**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`）
 
-![Cholesterol](/images/docs/references/chem-biology/Cholesterol.png)
+![Cholesterol](/images/docs/references/chem-biology/Cholesterol_400x200.png)
 
 脂质能够形成防水膜，并用脂肪的形式存储能量。
 
@@ -196,11 +196,11 @@ draft: false
 
 - 甘氨酸 Glycine（SMILES：`NCC(=O)O`）
 
-![Glycine](/images/docs/references/chem-biology/Glycine.png)
+![Glycine](/images/docs/references/chem-biology/Glycine_150x75.png)
 
-- 丙氨酸 Alanine（SMILES：`C[C@H](N)C(=O)O`）
+- 丙氨酸 Alanine（SMILES：`CC(N)C(=O)O`）
 
-![Alanine](/images/docs/references/chem-biology/Alanine.png)
+![Alanine](/images/docs/references/chem-biology/Alanine_200x100.png)
 
 - 缬氨酸 Valine（SMILES：`CC(C)[C@H](N)C(=O)O`）
 
@@ -236,9 +236,9 @@ SMILES：NC(=O)CC[C@H](N)C(=O)O
 Phenylalanine 苯丙氨酸
 SMILES：O=C(O)[C@H](N)Cc1ccccc1
 
-- 酪氨酸 Tyrosine（SMILES: `O=C(O)[C@H](N)Cc1ccc(O)cc1`）
+- 酪氨酸 Tyrosine（SMILES: `O=C(O)C(N)Cc1ccc(O)cc1`）
 
-![Tyrosine](/images/docs/references/chem-biology/Tyrosine.png)
+![Tyrosine](/images/docs/references/chem-biology/Tyrosine_300x150.png)
 
 Tryptophan 色氨酸
 SMILES：O=C(O)[C@H](N)Cc1c[nH]c2ccccc12
@@ -264,7 +264,7 @@ SMILES：NC(=N)NCCCC[C@H](N)C(=O)O
 
 SMILES: `NCCc1ccc(O)c(O)c1`
 
-![Dopamine](/images/docs/references/chem-biology/Dopamine.png)
+![Dopamine](/images/docs/references/chem-biology/Dopamine_300x150.png)
 
 多巴胺是一种小分子**神经递质**，代谢过程如下：
 
