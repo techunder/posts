@@ -270,7 +270,7 @@ draft: false
 
 - 色氨酸 Tryptophan（SMILES：`O=C(O)C(N)Cc1c[nH]c2ccccc12`）
 
-![Tryptophan](/images/docs/references/chem-biology/Tryptophan_250x150.png)
+![Tryptophan](/images/docs/references/chem-biology/Tryptophan_300x150.png)
 
 - 组氨酸 Histidine（杂环芳香，SMILES：`O=C(O)C(N)Cc1c[nH]cn1`）
 
