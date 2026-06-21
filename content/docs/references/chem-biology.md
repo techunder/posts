@@ -110,6 +110,8 @@ draft: false
 > [!NOTE]
 > 含有碳碳单键的饱和碳氢化合物叫做**烷**（wán）；含有碳碳双键的碳氢化合物叫做**烯**（xī）；含有碳碳三键的碳氢化合物叫做**炔**（quē）（**炔烃** quē tīng）。
 
+{{% details title="常见的几类碳氢化合物" open=false %}}
+
 **甲烷CH₄**（也叫**沼气**）是最简单的碳氢化合物。
 
 **乙烷C₂H₆**（yǐ wán），碳碳单键（烷），饱和，SMILES：`CC`。
@@ -134,6 +136,8 @@ draft: false
 
 ![C6H6](/images/docs/references/chem-biology/C6H6_200x100.png)
 
+{{% /details %}}
+
 **有机化合物**是一类至少包含一个碳氢键的化合物。
 
 ## 氧
@@ -155,7 +159,7 @@ draft: false
 > 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
 > 例如甲烷CH4、乙醇C2H5OH、丙三醇C3H7OH、癸酸C10H19COOH（脂肪酸）。
 
-### 酸类
+{{% details title="酸类" open=false %}}
 
 **乙酸CH₃COOH**就是一种酸类，就是常说的**醋酸**（SMILES：`CC(=O)O`）
 
@@ -165,13 +169,17 @@ draft: false
 
 ![DecanoicAcid](/images/docs/references/chem-biology/DecanoicAcid_400x100.png)
 
-### 醇类
+{{% /details %}}
+
+{{% details title="醇类" open=false %}}
 
 醇类如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
 
 ![Glycerol](/images/docs/references/chem-biology/Glycerol_200x100.png)
 
-### 脂类
+{{% /details %}}
+
+{{% details title="脂类" open=false %}}
 
 脂类比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
 
@@ -190,9 +198,15 @@ draft: false
 
 脂质能够形成防水膜，并用脂肪的形式存储能量。
 
-## 氨基酸（20）
+{{% /details %}}
 
-### 脂肪族非极性氨基酸
+## 氨基酸
+
+氨基酸（ān jī suān）是组成蛋白质的原料，人类所必须的氨基酸有20种。
+
+{{% details title="氨基酸（20）" open=false %}}
+
+**脂肪族非极性氨基酸**
 
 - 甘氨酸 Glycine（SMILES：`NCC(=O)O`）
 
@@ -202,61 +216,88 @@ draft: false
 
 ![Alanine](/images/docs/references/chem-biology/Alanine_200x100.png)
 
-- 缬氨酸 Valine（SMILES：`CC(C)[C@H](N)C(=O)O`）
+- 缬氨酸 Valine（xié, SMILES：`CC(C)C(N)C(=O)O`）
 
-![Valine](/images/docs/references/chem-biology/Valine.png)
+![Valine](/images/docs/references/chem-biology/Valine_150x150.png)
 
-- 亮氨酸 Leucine（SMILES：`CC(C)C[C@H](N)C(=O)O`）
+- 亮氨酸 Leucine（SMILES：`CC(C)CC(N)C(=O)O`）
 
-![Leucine](/images/docs/references/chem-biology/Leucine.png)
+![Leucine](/images/docs/references/chem-biology/Leucine_200x150.png)
 
-- 异亮氨酸 Isoleucine（SMILES：`CC[C@H](C)[C@H](N)C(=O)O`）
+- 异亮氨酸 Isoleucine（SMILES：`CCC(C)C(N)C(=O)O`）
 
-![Isoleucine](/images/docs/references/chem-biology/Isoleucine.png)
+![Isoleucine](/images/docs/references/chem-biology/Isoleucine_150x150.png)
 
-- 脯氨酸 Proline（SMILES：`OC(=O)[C@@H]1CCC[NH+]1`）
+- 脯氨酸 Proline（SMILES：`OC(=O)C1CCC[NH+]1`）
 
-![Proline](/images/docs/references/chem-biology/Proline.png)
+![Proline](/images/docs/references/chem-biology/Proline_150x150.png)
 
-### 极性中性氨基酸
-Serine 丝氨酸 Ser S
-SMILES：O=C(O)[C@H](N)CO
-Threonine 苏氨酸 Thr T
-SMILES：C[C@H](O)[C@H](N)C(=O)O
-Cysteine 半胱氨酸 Cys C（含硫）
-SMILES：O=C(O)[C@H](N)CS
-Methionine 甲硫氨酸 Met M（含硫）
-SMILES：CSCC[C@H](N)C(=O)O
-Asparagine 天冬酰胺 Asn N
-SMILES：NC(=O)C[C@H](N)C(=O)O
-Glutamine 谷氨酰胺 Gln Q
-SMILES：NC(=O)CC[C@H](N)C(=O)O
+**极性中性氨基酸**
 
-### 芳香族氨基酸
-Phenylalanine 苯丙氨酸
-SMILES：O=C(O)[C@H](N)Cc1ccccc1
+- 丝氨酸 Serine（SMILES：`O=C(O)C(N)CO`）
+
+![Serine](/images/docs/references/chem-biology/Serine_200x100.png)
+
+- 苏氨酸 Threonine（SMILES：`CC(O)C(N)C(=O)O`）
+
+![Threonine](/images/docs/references/chem-biology/Threonine_200x100.png)
+
+- 半胱氨酸 Cysteine（含硫，SMILES：`O=C(O)C(N)CS`）
+
+![Cysteine](/images/docs/references/chem-biology/Cysteine_200x100.png)
+
+- 甲硫氨酸 Methionine（含硫，SMILES：`CSCCC(N)C(=O)O`）
+
+![Methionine](/images/docs/references/chem-biology/Methionine_200x100.png)
+
+- 天冬酰胺 Asparagine（tiān dōng xiān àn，SMILES：`NC(=O)CC(N)C(=O)O`）
+
+![Asparagine](/images/docs/references/chem-biology/Asparagine_200x100.png)
+
+- 谷氨酰胺 Glutamine（gǔ ān xiān àn，SMILES：`NC(=O)CCC(N)C(=O)O`）
+
+![Glutamine](/images/docs/references/chem-biology/Glutamine_200x100.png)
+
+**芳香族氨基酸**
+
+- 苯丙氨酸 Phenylalanine（SMILES：`O=C(O)C(N)Cc1ccccc1`）
+
+![Phenylalanine](/images/docs/references/chem-biology/Phenylalanine_250x150.png)
 
 - 酪氨酸 Tyrosine（SMILES: `O=C(O)C(N)Cc1ccc(O)cc1`）
 
 ![Tyrosine](/images/docs/references/chem-biology/Tyrosine_300x150.png)
 
-Tryptophan 色氨酸
-SMILES：O=C(O)[C@H](N)Cc1c[nH]c2ccccc12
-Histidine 组氨酸 His H（杂环芳香）
-SMILES：O=C(O)[C@H](N)Cc1c[nH]cn1
+- 色氨酸 Tryptophan（SMILES：`O=C(O)C(N)Cc1c[nH]c2ccccc12`）
+
+![Tryptophan](/images/docs/references/chem-biology/Tryptophan_250x150.png)
+
+- 组氨酸 Histidine（杂环芳香，SMILES：`O=C(O)C(N)Cc1c[nH]cn1`）
+
+![Histidine](/images/docs/references/chem-biology/Histidine_250x150.png)
 
 
-### 酸性氨基酸
-Aspartic acid 天冬氨酸 Asp D
-SMILES：O=C(O)C[C@H](N)C(=O)O
-Glutamic acid 谷氨酸 Glu E
-SMILES：O=C(O)CC[C@H](N)C(=O)O
+**酸性氨基酸**
 
-### 碱性氨基酸
-Lysine 赖氨酸 Lys K
-SMILES：NCCCC[C@H](N)C(=O)O
-Arginine 精氨酸 Arg R
-SMILES：NC(=N)NCCCC[C@H](N)C(=O)O
+- 天冬氨酸 Aspartic（SMILES：`O=C(O)CC(N)C(=O)O`）
+
+![Aspartic](/images/docs/references/chem-biology/Aspartic_200x100.png)
+
+- 谷氨酸 Glutamic（SMILES：`O=C(O)CCC(N)C(=O)O`）
+
+![Glutamic](/images/docs/references/chem-biology/Glutamic_200x100.png)
+
+**碱性氨基酸**
+
+- 赖氨酸 Lysine（SMILES：`NCCCCC(N)C(=O)O`）
+
+![Lysine](/images/docs/references/chem-biology/Lysine_300x150.png)
+
+- 精氨酸 Arginine（SMILES：`NC(=N)NCCCCC(N)C(=O)O`）
+
+![Arginine](/images/docs/references/chem-biology/Arginine_300x150.png)
+
+{{% /details %}}
 
 # 其他有机物
 
