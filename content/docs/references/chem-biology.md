@@ -94,10 +94,9 @@ draft: false
 
 **骨头**中占比最大元素是钙（Ca）和磷（P）。
 
-
 # 生命的核心构成
 
-## 碳
+## 碳（C）
 
 有一种主宰着生命的元素，那就是碳（C）元素，它是生命的“骨架”。
 
@@ -140,7 +139,7 @@ draft: false
 
 **有机化合物**是一类至少包含一个碳氢键的化合物。
 
-## 氧
+## 碳+氧（C+O）
 
 氧的原子序号是8，它有2个外层电子，需再来2个电子到达稳定态。
 
@@ -159,6 +158,8 @@ draft: false
 > 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
 > 例如甲烷CH4、乙醇C2H5OH、丙三醇C3H7OH、癸酸C10H19COOH（脂肪酸）。
 
+### 酸类（-COOH）
+
 {{% details title="酸类" open=false %}}
 
 **乙酸CH₃COOH**就是一种酸类，就是常说的**醋酸**（SMILES：`CC(=O)O`）
@@ -171,6 +172,8 @@ draft: false
 
 {{% /details %}}
 
+### 醇类（-OH）
+
 {{% details title="醇类" open=false %}}
 
 醇类如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
@@ -178,6 +181,8 @@ draft: false
 ![Glycerol](/images/docs/references/chem-biology/Glycerol_200x100.png)
 
 {{% /details %}}
+
+### 脂类
 
 {{% details title="脂类" open=false %}}
 
@@ -200,7 +205,41 @@ draft: false
 
 {{% /details %}}
 
-## 氨基酸
+### 糖类
+
+{{% details title="糖类" open=false %}}
+
+糖的环形分子中氢的数量通常是氧的两倍，所以常称为**碳水化合物**。
+
+**葡萄糖C₆H₁₂O₆**，Glucose（SMILES: `OCC1OC(O)C(O)C(O)C1O`）
+
+![Glucose](/images/docs/references/chem-biology/Glucose_300x150.png)
+
+**果糖C₆H₁₂O₆**，Fructose，分子式和葡萄糖是一样的（SMILES: `O1C(CO)C(C(C1(CO)O)O)O`）
+
+![Fructose](/images/docs/references/chem-biology/Fructose_300x150.png)
+
+**蔗糖C₁₂H₂₂O₁₁**，Sucrose，相当于由一个葡萄糖分子+果糖分子组成（zhè táng，SMILES: `OCC1OC(OC2(CO)OC(CO)C(O)C2O)C(O)C(O)C1O`）
+
+![Sucrose](/images/docs/references/chem-biology/Sucrose_400x200.png)
+
+**乳糖C₁₂H₂₂O₁₁**，Lactose，相当于由两个葡萄糖分子组成（SMILES: `OCC1OC(O)C(O)C(O)C1OC1OC(CO)C(O)C(O)C1O`）
+
+![Lactose](/images/docs/references/chem-biology/Lactose_400x200.png)
+
+**核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
+
+![Ribose](/images/docs/references/chem-biology/Ribose_300x150.png)
+
+**脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
+
+![Deoxyribose](/images/docs/references/chem-biology/Deoxyribose_300x150.png)
+
+{{% /details %}}
+
+## 碳+氮+氧（C+N+O）
+
+### 氨基酸
 
 氨基酸（ān jī suān）是组成蛋白质的原料，人类所必须的氨基酸有20种。
 
@@ -298,6 +337,8 @@ draft: false
 ![Arginine](/images/docs/references/chem-biology/Arginine_300x150.png)
 
 {{% /details %}}
+
+## 碳+氮+氧+磷（C+N+O+P）
 
 # 其他有机物
 
