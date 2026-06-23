@@ -1,20 +1,41 @@
 ---
-title: "BLE 协议"
+title: "蓝牙规范"
 weight: 202
 bookCollapseSection: false
 draft: true
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div class="page-title">BLE 协议</div>
+<div class="page-title">蓝牙规范</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-06-18 | 更新时间：2026-06-18
 </div>
 {{< katex />}}
 
-**BLE**（Bluetooth Low Energy）低功耗蓝牙，协议由**蓝牙技术联盟**（Bluetooth Special Interest Group，简称 Bluetooth SIG / SIG）维护。
+蓝牙规范由**蓝牙技术联盟**（Bluetooth Special Interest Group，简称 Bluetooth SIG / SIG）维护。
 
-蓝牙 4.0 首次加入 BLE，后续在 5.0/5.1/5.2/5.3/5.4/6.0 添加新特性。
+**核心规范**是 [Bluetooth Core Specification](https://www.bluetooth.com/specifications/specs/core-specification-6-3/)，有多个版本。
+
+**BLE**（Bluetooth Low Energy）是蓝牙核心规范里的低功耗子集，从 4.0 开始引入，向下兼容。
+
+# 蓝牙版本
+
+| 蓝牙版本 | 官方发布日期 | 核心标志性 |
+|---|---|---|
+| Bluetooth 4.0 | 2010-06-30 | BLE 诞生，双模 / 单模，AES 加密、GATT 协议 |
+| Bluetooth 4.1 | 2013-12-03 | 兼容 LTE 无干扰、主从角色互换、基础 IP 通道 |
+| Bluetooth 4.2 | 2014-12-04 | 数据包扩容、LE 安全连接、6LoWPAN、隐私增强 |
+| Bluetooth 5.0 | 2016-12-06 | 2Mbps 高速 PHY、4 倍距离、8 倍广播包、BLE Mesh 基础 |
+| Bluetooth 5.1 | 2019-01-29 | AoA/AoD 厘米级空间定位、方向查找 |
+| Bluetooth 5.2 | 2019-12-31 | LE Audio 低功耗音频、LC3 编码、同步音频通道 EATT |
+| Bluetooth 5.3 | 2021-07-13 | 连接子分级、抗干扰优化、更低延迟、功耗优化 |
+| Bluetooth 5.4 | 2023-01-31 | PAwR 响应式周期性广播、无连接双向数据、穿戴低功耗优化 |
+| Bluetooth Core 6.0 | 2024-08-27 | Channel Sounding 高精度测距、车钥匙 / 防丢器专用标准 |
+| Bluetooth Core 6.1 | 2025 上半年 | 协议层小幅优化、广播过滤升级 |
+| Bluetooth Core 6.2 | 2025 下半年 | 射频双模统一、工业场景可靠性增强 |
+| Bluetooth Core 6.3 | 2026-05 | 厘米测距精度提升、信道探测扩容、低延迟广播优化 |
+
+> 蓝牙 5.x 为目前消费物联网量产主力
 
 # BLE 协议栈架构
 BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**，中间通过 **HCI**（Host Controller Interface）通信。
@@ -234,3 +255,9 @@ SIG（蓝牙技术联盟）定义了大量标准 Service/Characteristic UUID：
 | 0xFFE0 | 自定义私有服务常用前缀 |
 
 私有服务用自定义 16-bit 或 32-bit UUID。
+
+# 参考资料
+
+- [Bluetooth Core Specification](https://www.bluetooth.com/specifications/specs/core-specification-6-3/)
+- [Assigned Numbers](https://www.bluetooth.com/specifications/assigned-numbers/)
+- [GATT Specification Supplement](https://www.bluetooth.com/specifications/specs/gatt-specification-supplement/)
