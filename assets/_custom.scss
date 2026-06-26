@@ -32,14 +32,18 @@
 .markdown.book-article h5,
 .markdown.book-article h6 {
   font-family: "SimHei", "Microsoft YaHei", sans-serif; // 字体
-  font-size: 20px !important; // 字体大小
+  font-size: 22px !important; // 字体大小
   line-height: 1.5 !important; // 行高
   font-weight: 700 !important; // 加粗
   margin: 1.2em 0 0.6em 0 !important; // 上下间距
 }
 
 // 次级标题文字稍小稍淡
-.markdown.book-article h2,
+.markdown.book-article h2 {
+  color: #333 !important; // 字体颜色（灰）
+  font-size: 20px !important; // 字体大小
+}
+
 .markdown.book-article h3 {
   color: #333 !important; // 字体颜色（灰）
   font-size: 18px !important; // 字体大小
