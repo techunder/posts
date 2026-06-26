@@ -226,7 +226,7 @@ draft: false
 
 ![Deoxyribose](/images/docs/references/chem-biology/Deoxyribose_300x150.png)
 
-以上为**单糖**，单糖可以通过**糖苷键**串在一起形成重复长链或多聚体，称为**多糖**。
+葡萄糖、果糖、核糖、脱氧核糖为**单糖**，蔗糖和乳糖为**双糖**。单糖可以通过**糖苷键**串在一起形成重复长链或多聚体，称为**多糖**。
 
 植物会制造**淀粉**和**纤维素**（xiān wéi sù）。它们都是葡萄糖多聚体（多糖）。只是几何构型上的微小差异，导致纤维素比淀粉更坚韧牢固。纤维素经常被当成建筑材料，例如木头、芹菜纤维和马铃薯皮。
 
@@ -240,7 +240,7 @@ draft: false
 在动物体内，葡萄糖以枝状和球状多聚体的形式累积起来。这种多聚体被称为**糖原**。由肝脏的肝细胞合成的糖元叫**肝糖原**，可以在日后分解为葡萄糖，释放到血液供身体使用，容量约 80～100g 碳水。由肌肉中的肌细胞合成的糖元叫**肌糖原**，只能为肌肉自己所用，容量约 300～400g 碳水。
 
 > [!TIP]
-> 燃料的三级存储结构：血液中的葡萄糖 >> 糖原（肝糖原、肌糖原）>> 脂肪
+> 燃料的三级存储结构：血液中的葡萄糖 → 糖原（肝糖原、肌糖原）→ 脂肪
 
 > [!TIP]
 > 碳水化合物转化成脂肪的过程：葡萄糖 → 丙酮酸 → 乙酰 CoA，乙酰 CoA 在肝脏组装成**甘油三酯**，打包成**极低密度脂蛋白VLDL**，释放进血液，流往**脂肪细胞**储存。一餐高糖高碳水（奶茶、蛋糕、精米白面吃到撑），几小时内肝脏就启动造脂肪，并非要等好几天。
@@ -274,7 +274,7 @@ draft: false
 
     任意两个氨基酸可以首尾相连，脱掉一个水分子形成**肽键**。这称为蛋白质的一级结构。遗传物质 **DNA** 编码的数据里就有什么样的氨基酸以什么样的顺序连接在一起的信息。带有两个氨基酸的基团叫**二肽**。
 
-- **蛋白质的二级结构：α螺旋、β片层**
+- **蛋白质的二级结构：电荷折叠**
 
     多肽链上的许多点位带有微量电荷，它们的相互吸引或排斥会把多肽链拧成线圈，称为**α螺旋**。其他部分反复折叠，形成平整度不一的**β片层**。这称为多肽的二级结构。
 
@@ -307,15 +307,15 @@ draft: false
 
 ![Alanine](/images/docs/references/chem-biology/Alanine_200x100.png)
 
-- 缬氨酸 Valine（xié, SMILES：`CC(C)C(N)C(=O)O`）
+- **缬氨酸** Valine，人体不能合成（xié, SMILES：`CC(C)C(N)C(=O)O`）
 
 ![Valine](/images/docs/references/chem-biology/Valine_150x150.png)
 
-- 亮氨酸 Leucine（SMILES：`CC(C)CC(N)C(=O)O`）
+- **亮氨酸** Leucine，人体不能合成（SMILES：`CC(C)CC(N)C(=O)O`）
 
 ![Leucine](/images/docs/references/chem-biology/Leucine_200x150.png)
 
-- 异亮氨酸 Isoleucine（SMILES：`CCC(C)C(N)C(=O)O`）
+- **异亮氨酸** Isoleucine，人体不能合成（SMILES：`CCC(C)C(N)C(=O)O`）
 
 ![Isoleucine](/images/docs/references/chem-biology/Isoleucine_150x150.png)
 
@@ -329,7 +329,7 @@ draft: false
 
 ![Serine](/images/docs/references/chem-biology/Serine_200x100.png)
 
-- 苏氨酸 Threonine（SMILES：`CC(O)C(N)C(=O)O`）
+- **苏氨酸** Threonine，人体不能合成（SMILES：`CC(O)C(N)C(=O)O`）
 
 ![Threonine](/images/docs/references/chem-biology/Threonine_200x100.png)
 
@@ -337,7 +337,7 @@ draft: false
 
 ![Cysteine](/images/docs/references/chem-biology/Cysteine_200x100.png)
 
-- 甲硫氨酸 Methionine（含硫，SMILES：`CSCCC(N)C(=O)O`）
+- **甲硫氨酸** Methionine，人体不能合成（含硫，也称为蛋氨酸，SMILES：`CSCCC(N)C(=O)O`）
 
 ![Methionine](/images/docs/references/chem-biology/Methionine_200x100.png)
 
@@ -351,7 +351,7 @@ draft: false
 
 **芳香族氨基酸**
 
-- 苯丙氨酸 Phenylalanine（SMILES：`O=C(O)C(N)Cc1ccccc1`）
+- **苯丙氨酸** Phenylalanine，人体不能合成（SMILES：`O=C(O)C(N)Cc1ccccc1`）
 
 ![Phenylalanine](/images/docs/references/chem-biology/Phenylalanine_250x150.png)
 
@@ -359,7 +359,7 @@ draft: false
 
 ![Tyrosine](/images/docs/references/chem-biology/Tyrosine_300x150.png)
 
-- 色氨酸 Tryptophan（SMILES：`O=C(O)C(N)Cc1c[nH]c2ccccc12`）
+- **色氨酸** Tryptophan，人体不能合成（SMILES：`O=C(O)C(N)Cc1c[nH]c2ccccc12`）
 
 ![Tryptophan](/images/docs/references/chem-biology/Tryptophan_300x150.png)
 
@@ -380,13 +380,17 @@ draft: false
 
 **碱性氨基酸**
 
-- 赖氨酸 Lysine（SMILES：`NCCCCC(N)C(=O)O`）
+- **赖氨酸** Lysine，人体不能合成（SMILES：`NCCCCC(N)C(=O)O`）
 
 ![Lysine](/images/docs/references/chem-biology/Lysine_300x150.png)
 
 - 精氨酸 Arginine（SMILES：`NC(=N)NCCCCC(N)C(=O)O`）
 
 ![Arginine](/images/docs/references/chem-biology/Arginine_300x150.png)
+
+> [!TIP]
+> 人体不能合成氨基酸记忆口诀：**甲携来一本亮色书**。
+> 甲（甲硫氨酸）、携（缬氨酸）、来（赖氨酸）、一（异亮氨酸）、本（苯丙氨酸）、亮（亮氨酸）、色（色氨酸）、书（苏氨酸）
 
 {{% /details %}}
 
