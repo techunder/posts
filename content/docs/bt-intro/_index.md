@@ -1,6 +1,6 @@
 ---
 title: "蓝牙规范"
-weight: 202
+weight: 1001
 bookCollapseSection: false
 draft: true
 ---
