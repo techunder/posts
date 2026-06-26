@@ -85,6 +85,8 @@ stateDiagram-v2
 
 # SFU 网络
 
+用户**就近接入** RTC 网络，即连接到地理/网络最近的 SFU 边缘节点（通常 < 50ms），而不同地区的媒体流通过 RTC 服务商的**专用传输网**互转。
+
 ```mermaid
 flowchart TB
     subgraph 中国["🇨🇳 中国"]
@@ -109,8 +111,6 @@ flowchart TB
     style NY fill:#9e,stroke:#333,stroke-width:2px
     style LDN fill:#9e,stroke:#333,stroke-width:2px
 ```
-
-用户**就近接入** RTC 网络，即连接到地理/网络最近的 SFU 边缘节点（通常 < 50ms），而不同地区的媒体流通过 RTC 服务商的**专用传输网**互转。
 
 这里的"就近接入"，远不止地理就近，实际的接入调度要考虑三个层面：
 
