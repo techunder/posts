@@ -394,6 +394,38 @@ draft: false
 
 {{% /details %}}
 
+### 碱基
+
+生命中有一类含氮物质，对遗传信息的表达异常重要，那就是嘌呤与嘧啶，它们被称为**碱基**。
+
+- **腺嘌呤A**，Adenine，C₅H₅N₅（SMILES：Nc1ncnc2[nH]cnc12）
+
+![Adenine](/images/docs/references/chem-biology/Adenine_300x150.png)
+
+- **鸟嘌呤G**，Guanine，C₅H₅N₅O（SMILES：O=c1[nH]c2ncnc(N)c2[nH]1）
+
+![Guanine](/images/docs/references/chem-biology/Guanine_300x150.png)
+
+- **胞嘧啶C**，Cytosine，C₄H₅N₃O（SMILES：Nc1cc[nH]c(=O)n1）
+
+![Cytosine](/images/docs/references/chem-biology/Cytosine_200x100.png)
+
+- **胸腺嘧啶T**，Thymine，C₅H₆N₂O₂（SMILES：Cc1c[nH]c(=O)[nH]c1=O）
+
+![Thymine](/images/docs/references/chem-biology/Thymine_300x150.png)
+
+- **尿嘧啶U**，Uracil，C₄H₄N₂O₂（SMILES：O=c1[nH]cc[nH]c1=O）
+
+![Uracil](/images/docs/references/chem-biology/Uracil_300x150.png)
+
+### 腺苷
+
+其中的四种**碱基**A、C、G、U与**核糖**之间存在吸引力。当碱基A与核糖结合时，就会得到一种叫做**腺苷**（xiàn gān）的物质。
+
+- **腺苷**，Adenosine，C₁₀H₁₃N₅O₄（SMILES：Nc1ncnc2ncnc12C1OC(CO)C(O)C1O）
+
+![Adenosine](/images/docs/references/chem-biology/Adenosine_300x150.png)
+
 ## 碳+氮+氧+磷（C+N+O+P）
 
 磷的原子序号是15，也是生命的常见元素，代表形式是**磷酸根离子** PO₄³⁻。
@@ -403,6 +435,47 @@ draft: false
 
 > [!TIP]
 > 送电子的为**碱**，往里抢正电荷H⁺（抢氢离子）。
+
+### ATP
+
+一个磷酸根离子可以轻易地和ATP中的核糖5号碳结合，形成AMP。
+
+- **腺苷一磷酸AMP**，Adenosine monophosphate，C₁₀H₁₄N₅O₇P（SMILES：Nc1ncnc2ncnc12C1OC(COP(=O)(O)O)C(O)C1O）
+
+![AMP](/images/docs/references/chem-biology/AMP_300x150.png)
+
+第二个磷酸根离子可以拼接在第一个磷酸根离子后面，形成ADP。
+
+- **腺苷二磷酸ADP**，Adenosine diphosphate，C₁₀H₁₅N₅O₁₀P₂（SMILES：Nc1ncnc2ncnc12C1OC(COP(=O)(O)OP(=O)(O)O)C(O)C1O）
+
+![ADP](/images/docs/references/chem-biology/ADP_300x150.png)
+
+第三个磷酸根离子可以继续拼接，形成ATP。
+
+ATP的一个磷酸根离子可以弹出并粘到目标上，目标充满能量被激活，开始工作。ATP是生命**能量货币**。
+
+每个细胞都有一个分子工厂 — **线粒体**，用来制造ATP。
+
+- **腺苷三磷酸ATP**，Adenosine triphosphate，C₁₀H₁₆N₅O₁₃P₃（SMILES：Nc1ncnc2ncnc12C1OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C1O）
+
+![ATP](/images/docs/references/chem-biology/ATP_300x150.png)
+
+
+生命系统还携带着少量由其他碱基构成的**核糖磷酸盐**。
+
+- **ATP** 腺苷三磷酸 Adenosine triphosphate
+- **CTP** 胞苷三磷酸 Cytidine triphosphate
+- **GTP** 鸟苷三磷酸 Guanosine triphosphate
+- **UTP** 尿苷三磷酸 Uridine triphosphate
+
+用脱氧核糖取代核糖，也可以制造出类似的分子 — **脱氧核糖磷酸盐**。
+
+- **dATP** 脱氧腺苷三磷酸 Deoxyadenosine triphosphate
+- **dCTP** 脱氧胞苷三磷酸 Deoxycytidine triphosphate
+- **dGTP** 脱氧鸟苷三磷酸 Deoxyguanosine triphosphate
+- **dTTP** 脱氧胸苷三磷酸 Deoxythymidine triphosphate
+
+请注意，核糖与碱基U结合，而脱氧核糖与碱基T结合。
 
 # 其他有机物
 
