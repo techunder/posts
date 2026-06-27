@@ -200,31 +200,33 @@ draft: false
 
 ### 糖类
 
-糖的环形分子中氢的数量通常是氧的两倍，所以常称为**碳水化合物**。
+糖的环形分子中，氢的数量通常是氧的两倍，所以糖被称为**碳水化合物**。
 
-**葡萄糖C₆H₁₂O₆**，Glucose（SMILES: `OCC1OC(O)C(O)C(O)C1O`）
+- **葡萄糖C₆H₁₂O₆**，Glucose（SMILES: `OCC1OC(O)C(O)C(O)C1O`）
 
 ![Glucose](/images/docs/references/chem-biology/Glucose_300x150.png)
 
-**果糖C₆H₁₂O₆**，Fructose，分子式和葡萄糖是一样的（SMILES: `O1C(CO)C(C(C1(CO)O)O)O`）
+- **果糖C₆H₁₂O₆**，Fructose，分子式和葡萄糖是一样的（SMILES: `O1C(CO)C(C(C1(CO)O)O)O`）
 
 ![Fructose](/images/docs/references/chem-biology/Fructose_300x150.png)
 
-**蔗糖C₁₂H₂₂O₁₁**，Sucrose（zhè táng，SMILES: `OCC1OC(OC2(CO)OC(CO)C(O)C2O)C(O)C(O)C1O`）
+- **蔗糖C₁₂H₂₂O₁₁**，Sucrose（zhè táng，SMILES: `OCC1OC(OC2(CO)OC(CO)C(O)C2O)C(O)C(O)C1O`）
 
 ![Sucrose](/images/docs/references/chem-biology/Sucrose_400x200.png)
 
 蔗糖也称为**食用糖**，由一个葡萄糖分子+果糖分子组成。蔗糖的存在可以使植物储存更多的能量。
 
-**乳糖C₁₂H₂₂O₁₁**，Lactose，相当于由两个葡萄糖分子组成（SMILES: `OCC1OC(O)C(O)C(O)C1OC1OC(CO)C(O)C(O)C1O`）
+- **乳糖C₁₂H₂₂O₁₁**，Lactose（SMILES: `OCC1OC(O)C(O)C(O)C1OC1OC(CO)C(O)C(O)C1O`）
 
 ![Lactose](/images/docs/references/chem-biology/Lactose_400x200.png)
 
-**核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
+乳糖相当于由两个葡萄糖分子组成。
+
+- **核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
 
 ![Ribose](/images/docs/references/chem-biology/Ribose_300x150.png)
 
-**脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
+- **脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
 
 ![Deoxyribose](/images/docs/references/chem-biology/Deoxyribose_300x150.png)
 
@@ -233,10 +235,10 @@ draft: false
 > [!TIP]
 > 对于甜度：果糖 > 蔗糖 > 葡萄糖。果糖的甜度大约是葡萄糖的2.3倍。
 
-葡萄糖是我们身体所需要的燃料，但果糖不是。
-蔗糖会被分解成葡萄糖和果糖（有一种酶可以1纳秒就可以完成蔗糖的分解）。
-我们吃下果糖后，其中一部分会在小肠被再次转化成葡萄糖，另一部分则继续以果糖的形式存在。
-果糖和葡萄糖都能够通过肠壁细胞进入我们的血液。
+**葡萄糖**是我们身体所需要的燃料，但**果糖**不是。
+**蔗糖**会被分解成**葡萄糖**和**果糖**（有一种酶1纳秒就可以分解**蔗糖**）。
+我们吃下**果糖**后，其中一部分会在小肠被再次转化成**葡萄糖**，另一部分则继续以**果糖**的形式存在。
+**果糖**和**葡萄糖**都能够通过肠壁细胞进入我们的血液。
 
 植物会通过**光合作用**，利用光能将二氧化碳和水转化成葡萄糖。并进一步合成**淀粉**和**纤维素**（xiān wéi sù）。它们都是葡萄糖多聚体（多糖）。只是几何构型上的微小差异，导致纤维素比淀粉更坚韧牢固。纤维素经常被当成建筑材料，例如木头、芹菜纤维和马铃薯皮。
 
@@ -510,3 +512,7 @@ SMILES: `NCCc1ccc(O)c(O)c1`
 > 但现代社会中，高碳水、动作视频、电子游戏、新奇事物等变相地引起了多巴胺刺激，并导致了需求量越来越大的才能引起刺激的的上瘾机制。
 > 我们对**简单的事物**、**天然的食材**、**经典的文学作品**、以及缓慢但实用的**学习本身**变得多巴胺免疫。
 > **要防范非学习性、成瘾性的多巴胺刺激，回归朴素，保持多巴胺的敏感**。
+
+# 参考资料
+- 《漫画生物学》拉里·戈尼克，戴维·威斯纳
+- 《控糖革命》杰西·安佐斯佩
