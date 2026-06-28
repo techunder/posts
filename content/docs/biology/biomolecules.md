@@ -117,67 +117,28 @@ draft: false
 
 **有机化合物**是一类至少包含一个碳氢键的化合物。
 
-
-
-
-
 ## 碳+氧（C+O）
 
-氧的原子序号是8，它有6个外层电子，需再来2个电子到达稳定态。
+氧的原子序号是 8，它有 6 个外层电子，需再来 2 个电子到达稳定态。
 
 在碳和氢的组合里加上氧元素，就形成了很多极性或两亲性分子。
 
 > [!NOTE]
-> 有OH离子的叫**醇**。例如乙醇C2H5OH、丙三醇C3H7OH。
-
-如常在化妆品里面出现的**丙三醇C₃H₈O₃**（SMILES：`OCC(O)CO`）。
-
-![Glycerol](/images/docs/biology/biomolecules/Glycerol_200x100.png)
+> 有OH离子的叫**醇**。如[**乙醇**](/docs/biology/biomolecules/#%e4%b9%99%e9%86%87) C₂H₅OH，和常在化妆品里面出现的[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87) C₃H₈O₃。
 
 > [!NOTE]
-> 有COOH的叫**酸**。例如癸酸C10H19COOH（脂肪酸）。
-
-**乙酸CH₃COOH**就是一种酸，就是常说的**醋酸**（SMILES：`CC(=O)O`）
-
-![AceticAcid](/images/docs/biology/biomolecules/AceticAcid_200x100.png)
-
-**癸酸C₁₀H₂₀O₂**也是一种酸，也就是**脂肪酸**（SMILES：`CCCCCCCCCC(=O)O`）
-
-![DecanoicAcid](/images/docs/biology/biomolecules/DecanoicAcid_400x100.png)
+> 有COOH的叫**酸**。例如[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂（**脂肪酸**）。
 
 > [!NOTE]
-> 通常以碳的个数来用天干命名。
+> 通常以碳的个数用十天干来命名。
 > 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
-> 例如甲烷CH4、乙醇C2H5OH、丙三醇C3H7OH、癸酸C10H19COOH（脂肪酸）。
+> 例如甲烷CH4、[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87) C₃H₈O₃、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂（**脂肪酸**）、。
 
-碳+氧的典型生命物质是**脂类**和**糖**。
+碳+氧的典型生命物质是**碳水化合物**，即由碳化合物和水合物结合而成，简称碳水。
 
-{{% details title="脂类" open=false %}}
+碳水化合物包括**糖类**、**淀粉**和**纤维**。糖类又包括**葡萄糖**、**果糖**、**蔗糖**、**乳糖**等。
 
-### 脂类
-
-脂类比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
-
-甘油三酯是一类化合物，由一个丙三醇分子连接三个**脂肪酸**分子组成。
-
-> [!TIP]
-> 丙三醇分子像一顶帽子一样，盖在了三个脂肪酸分子上面。
-
-三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`）
-
-![Tridecanoin](/images/docs/biology/biomolecules/Tridecanoin_1300x500.png)
-
-**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`）
-
-![Cholesterol](/images/docs/biology/biomolecules/Cholesterol_400x200.png)
-
-脂质能够形成防水膜，并用脂肪的形式存储能量。
-
-{{% /details %}}
-
-{{% details title="糖类" open=false %}}
-
-### 糖类
+### 糖
 
 糖的环形分子中，氢的数量通常是氧的两倍，所以糖被称为**碳水化合物**。
 
@@ -201,13 +162,6 @@ draft: false
 
 乳糖相当于由两个葡萄糖分子组成。
 
-- **核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
-
-![Ribose](/images/docs/biology/biomolecules/Ribose_300x150.png)
-
-- **脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
-
-![Deoxyribose](/images/docs/biology/biomolecules/Deoxyribose_300x150.png)
 
 葡萄糖、果糖、核糖、脱氧核糖为**单糖**，蔗糖和乳糖为**双糖**。单糖可以通过**糖苷键**串在一起形成重复长链或多聚体，称为**多糖**。
 
@@ -236,7 +190,53 @@ draft: false
 > [!TIP]
 > 碳水化合物转化成脂肪的过程：葡萄糖 → 丙酮酸 → 乙酰 CoA，乙酰 CoA 在肝脏组装成**甘油三酯**，打包成**极低密度脂蛋白VLDL**，释放进血液，流往**脂肪细胞**储存。一餐高糖高碳水（奶茶、蛋糕、精米白面吃到撑），几小时内肝脏就启动造脂肪，并非要等好几天。
 
-{{% /details %}}
+
+碳水分 3 大类（包含所有常见食物）
+1. 简单碳水（快碳，升糖快）
+结构简单，一吃很快吸收，饱腹感差、容易饿
+各类添加糖：白糖、红糖、冰糖、蜂蜜、糖浆、奶茶 / 可乐果葡糖浆
+甜食零食：蛋糕、饼干、糖果、巧克力、冰淇淋
+高糖水果：荔枝、芒果、榴莲、葡萄、冬枣
+精制米面制品：白粥、白馒头、白面包、糯米、年糕
+2. 复合碳水（慢碳，优质主食，推荐日常吃）
+结构复杂，消化慢、饱腹感强、血糖平稳
+全谷物：糙米、燕麦、藜麦、黑米、荞麦、全麦
+杂粮杂豆：玉米、红薯、紫薯、山药、芋头、南瓜、红豆、绿豆、鹰嘴豆
+日常粗粮主食：小米饭、杂粮饭
+3. 膳食纤维（不可消化碳水，不算热量、促排便）
+人体没法分解吸收，属于碳水家族，助消化、控血糖
+蔬菜：芹菜、菠菜、西兰花、各种绿叶菜
+菌菇、海带、魔芋
+果皮、粗粮麸皮、奇亚籽、火龙果、猕猴桃
+
+### 脂类
+
+脂类比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+
+甘油三酯是一类化合物，由一个丙三醇分子连接三个**脂肪酸**分子组成。
+
+> [!TIP]
+> 丙三醇分子像一顶帽子一样，盖在了三个脂肪酸分子上面。
+
+三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`）
+
+![Tridecanoin](/images/docs/biology/biomolecules/Tridecanoin_1300x500.png)
+
+**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`）
+
+![Cholesterol](/images/docs/biology/biomolecules/Cholesterol_400x200.png)
+
+脂质能够形成
+
+### 核糖
+
+- **核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
+
+![Ribose](/images/docs/biology/biomolecules/Ribose_300x150.png)
+
+- **脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
+
+![Deoxyribose](/images/docs/biology/biomolecules/Deoxyribose_300x150.png)防水膜，并用脂肪的形式存储能量。
 
 ## 碳+氮+氧（C+N+O）
 
@@ -430,23 +430,43 @@ jǐ wán，分子式：C₆H₁₄，碳碳单键，SMILES：`CCCCCC`
 
 #### 己烯
 
-jǐ xī，C₆H₁₂，碳碳双键，SMILES：`C=CCCCC`。
+jǐ xī，分子式：C₆H₁₂，碳碳双键，SMILES：`C=CCCCC`。
 
 ![C6H12](/images/docs/biology/biomolecules/C6H12_200x100.png)
 
 #### 己炔
 
-jǐ quē，C₆H₁₀，碳碳三键，SMILES：`C#CCCCC`。
+jǐ quē，分子式：C₆H₁₀，碳碳三键，SMILES：`C#CCCCC`。
 
 ![C6H10](/images/docs/biology/biomolecules/C6H10_200x100.png)
 
 #### 苯
 
-běn，C₆H₆，芳香环，SMILES：`c1ccccc1`。
+běn，分子式：C₆H₆，芳香环，SMILES：`c1ccccc1`。
 
 ![C6H6](/images/docs/biology/biomolecules/C6H6_200x100.png)
 
-## 糖类
+#### 丙三醇
+
+分子式：C₃H₈O₃，SMILES：`OCC(O)CO`。
+
+![Glycerol](/images/docs/biology/biomolecules/Glycerol_200x100.png)
+
+#### 乙酸
+
+分子式：CH₃COOH，日常中被称为**醋酸**，SMILES：`CC(=O)O`。
+
+![AceticAcid](/images/docs/biology/biomolecules/AceticAcid_200x100.png)
+
+#### 癸酸
+
+分子式：C₁₀H₂₀O₂，也叫**脂肪酸**，SMILES：`CCCCCCCCCC(=O)O`。
+
+![DecanoicAcid](/images/docs/biology/biomolecules/DecanoicAcid_400x100.png)
+
+## 糖
+
+## 脂类
 
 ## 氨基酸
 
