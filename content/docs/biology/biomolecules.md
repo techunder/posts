@@ -102,6 +102,9 @@ draft: false
 
 **碳氢化合物**就是除了碳和氢之外没有其他元素的化合物，称为**烃**（tīng）。强有力的碳碳键能够形成稳定的长链，氢可以在其他空余的位置成键。碳原子与碳原子之间可以形成单键、双键或三键。碳氢链可以是链状、环状、树状。
 
+> [!NOTE]
+> 烃去掉一个氢原子，剩下的基团就叫**烃基**。
+
 > [!TIP]
 > 石油就是由碳氢化合物组成的。
 
@@ -131,12 +134,15 @@ draft: false
 > 有OH离子的叫**醇**。如[**乙醇**](/docs/biology/biomolecules/#%e4%b9%99%e9%86%87) C₂H₅OH，和常在化妆品里面出现的[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87) C₃H₈O₃。
 
 > [!NOTE]
-> 有COOH的叫**酸**。例如[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂（**脂肪酸**）。
+> 有COOH的叫**酸**。例如[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂。
 
 > [!NOTE]
 > 通常以碳的个数用十天干来命名。
 > 1 甲 (jiǎ) 2 乙 (yǐ) 3 丙 (bǐng) 4 丁 (dīng) 5 戊 (wù) 6 己 (jǐ) 7 庚 (gēng) 8 辛 (xīn) 9 壬 (rén) 10 癸 (guǐ)。
-> 例如甲烷CH4、[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87) C₃H₈O₃、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂（**脂肪酸**）、。
+> 例如甲烷CH4、[**乙酸**](https://ai.techunder.tech:11313/docs/biology/biomolecules/#%e4%b9%99%e9%85%b8) CH₃COOH（**醋酸**）、[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87) C₃H₈O₃、[**癸酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8) C₁₀H₂₀O₂。
+
+> [!NOTE]
+> 凡是长链烃基（tīng jī） + 羧基（-COOH，suō jī）的有机物，都叫**脂肪酸**。
 
 ### 碳水
 
@@ -212,38 +218,39 @@ draft: false
     - 菌菇、海带、魔芋
     - 果皮、粗粮麸皮、奇亚籽、火龙果、猕猴桃
 
-todo
+与血糖相关的两个食物指数：
+
+- **升糖指数 GI**：Glycemic Index，衡量同量碳水化合物，吃下后让血糖上升快慢的指标。以纯葡萄糖 GI=100 作为基准，低 GI：＜55，中 GI：55～70，高 GI：＞70。
+
+> [!TIP]
+> 碳水化合物的形式 — 单糖、多糖、是否煮得糊烂、是否与其他物质混合，决定了其吸收的快慢，决定了升糖指数 GI。
+
+- **升糖负荷 GL**：Glycemic Load，衡量同量食物重量，吃下后让血糖上升快慢的指标。$GL=\frac{GI \times 碳水含量 (g)}{100}$。低负荷：＜10，中负荷：10～19，高负荷：＞19。
+
+> [!TIP]
+> 升糖负荷 GL 考虑了每 100g 食物中含有的有效碳水化合物对 GI 的贡献，即综合衡量了升糖速度和碳水含量。
 
 ### 脂类
 
-脂类比如**甘油三酯**，就是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+**甘油三酯**是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
 
-甘油三酯是一类化合物，由一个丙三醇分子连接三个**脂肪酸**分子组成。
+甘油三酯其实是一类化合物，由一个[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87)分子连接三个[**脂肪酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8)分子组成。
 
 > [!TIP]
 > 丙三醇分子像一顶帽子一样，盖在了三个脂肪酸分子上面。
 
-三条脂肪酸链可变，例如**三癸酸甘油酯C₃₃H₆₂O₆**，分子量为 555 Da（SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`）
+三条脂肪酸链可变，例如[**三癸酸甘油酯**](/docs/biology/biomolecules/#%e4%b8%89%e7%99%b8%e9%85%b8%e7%94%98%e6%b2%b9%e9%85%af) C₃₃H₆₂O₆，分子量为 555 Da
 
-![Tridecanoin](/images/docs/biology/biomolecules/Tridecanoin_1300x500.png)
+[**胆固醇**](/docs/biology/biomolecules/#%e8%83%86%e5%9b%ba%e9%86%87) C₂₇H₄₆O 也是一种脂类，分子量为 387 Da
 
-**胆固醇C₂₇H₄₆O**也是一种脂类，分子量为 387 Da （SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`）
+脂质既不能溶于水，能够形成一个与水隔开的化学反应容器，也可以脂肪的形式存储能量。
 
-![Cholesterol](/images/docs/biology/biomolecules/Cholesterol_400x200.png)
+### 核糖类
 
-脂质能够形成
-
-### 核糖
-
-- **核糖C₅H₁₀O₅**，Ribose，与果糖类似，少了一个碳原子和一个氧原子（SMILES: `OCC1OC(O)C(O)C1O`）
-
-![Ribose](/images/docs/biology/biomolecules/Ribose_300x150.png)
-
-- **脱氧核糖C₅H₁₀O₄**，Deoxyribose，与核糖相比，少了一个氧原子（SMILES: `C1C(C(OC1O)CO)O`）
-
-![Deoxyribose](/images/docs/biology/biomolecules/Deoxyribose_300x150.png)防水膜，并用脂肪的形式存储能量。
+[**核糖**](/docs/biology/biomolecules/#%e6%a0%b8%e7%b3%96)与[**脱氧核糖**](/docs/biology/biomolecules/#%e8%84%b1%e6%b0%a7%e6%a0%b8%e7%b3%96)是生命遗传物质 RNA 和 DNA 的重要组成物质。
 
 ## 碳+氮+氧（C+N+O）
+todo
 
 氮的原子序号是7，它有5个外层电子，需再来3个电子到达稳定态，代表物质为**氨NH3**（ān）。
 
@@ -451,23 +458,11 @@ běn，分子式：C₆H₆，芳香环，SMILES：`c1ccccc1`。
 
 ![C6H6](/images/docs/biology/biomolecules/C6H6_200x100.png)
 
-#### 丙三醇
-
-分子式：C₃H₈O₃，SMILES：`OCC(O)CO`。
-
-![Glycerol](/images/docs/biology/biomolecules/Glycerol_200x100.png)
-
 #### 乙酸
 
 分子式：CH₃COOH，日常中被称为**醋酸**，SMILES：`CC(=O)O`。
 
 ![AceticAcid](/images/docs/biology/biomolecules/AceticAcid_200x100.png)
-
-#### 癸酸
-
-分子式：C₁₀H₂₀O₂，也叫**脂肪酸**，SMILES：`CCCCCCCCCC(=O)O`。
-
-![DecanoicAcid](/images/docs/biology/biomolecules/DecanoicAcid_400x100.png)
 
 ## 糖类
 
@@ -512,6 +507,30 @@ Deoxyribose，分子式：C₅H₁₀O₄，与核糖相比少了一个氧原子
 ![Deoxyribose](/images/docs/biology/biomolecules/Deoxyribose_300x150.png)防水膜，并用脂肪的形式存储能量。
 
 ## 脂类
+
+#### 丙三醇
+
+分子式：C₃H₈O₃，又名**甘油**，SMILES：`OCC(O)CO`。
+
+![Glycerol](/images/docs/biology/biomolecules/Glycerol_200x100.png)
+
+#### 癸酸
+
+分子式：C₁₀H₂₀O₂，SMILES：`CCCCCCCCCC(=O)O`。
+
+![DecanoicAcid](/images/docs/biology/biomolecules/DecanoicAcid_400x100.png)
+
+#### 三癸酸甘油酯
+
+分子式：C₃₃H₆₂O₆，分子量：555 Da，SMILES：`CCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCC)OC(=O)CCCCCCCCC`。
+
+![Tridecanoin](/images/docs/biology/biomolecules/Tridecanoin_1300x500.png)
+
+#### 胆固醇
+
+分子式：C₂₇H₄₆O，分子量：387 Da，SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`。
+
+![Cholesterol](/images/docs/biology/biomolecules/Cholesterol_400x200.png)
 
 ## 氨基酸
 
