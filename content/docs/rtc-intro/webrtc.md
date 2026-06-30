@@ -1,0 +1,128 @@
+---
+title: "WebRTC"
+weight: 2
+bookCollapseSection: false
+draft: false
+---
+<!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
+<div class="page-title">WebRTC</div>
+<div class="page-info">
+   <span class="original-tag">整理</span>
+  发布时间：2026-06-30 | 更新时间：2026-06-30
+</div>
+{{< katex />}}
+
+# 概述
+
+## 名词
+
+- **SDP**: Session Description Protocol（会话描述协议）
+- **ICE**: Interactive Connectivity Establishment（交互式连接建立）
+- **STUN**: Session Traversal Utilities for NAT（NAT 穿透服务）
+- **TURN**: Traversal Using Relays around NAT（中继服务）
+- **SFU**: Selective Forwarding Unit（媒体分发服务）
+- **MCU**: Multipoint Control Unit（多点控制单元）
+
+## 分层结构 
+
+客户端三层：
+- 媒体采集层：MediaStream
+- 连接管理层：RTCPeerConnection
+- 数据通道层：RTCDataChannel
+
+服务端四层：
+- 信令层：WebSocket **信令服务**（交换 SDP+ICE）
+- ICE 穿透层：**STUN**（公网探测）+ **TURN**（流量中继）
+- 媒体分发层：**SFU**（MediaSoup/Janus，多人会议）
+- 业务层：房间管理、账号、权限、录制、旁路推流
+
+## 流程
+1. A 打开摄像头，创建 RTCPeerConnection，生成 Offer SDP
+2. A 通过 WebSocket **信令服务**把 Offer 发给 B
+3. B 收到 Offer，生成 Answer SDP，再回传给 A
+4. 两端同时向 **STUN 服务**请求公网地址，收集 ICE 候选，互相交换地址
+5. RTCPeerConnection 尝试按照 ICE 优先级建立 UDP P2P 直连
+6. 直连失败，自动切换到 **TURN 中继**模式
+7. 连通后，音视频以 RTP 包直接传输（P2P / TURN）
+8. 多人会议场景：所有流统一上报到 **SFU**，由 SFU 分发
+
+# 客户端
+
+浏览器原生支持的三大模块：
+
+## 媒体采集
+
+MediaStream
+
+  - getUserMedia（摄像头+麦克风）
+  - getDisplayMedia（屏幕共享）
+
+输出 MediaStreamTrack（音视频轨道）
+
+## 连接管理
+
+RTCPeerConnection
+
+  负责端到端建立连接、传输音视频数据流，是最核心对象。
+
+  主要职责：
+  - 生成 SDP 会话描述（Offer / Answer）
+  - 收集 ICE 候选地址
+  - 协商编解码器（H.264、VP8、VP9、AV1、OPUS）
+  - 收发 RTP/RTCP 媒体包
+  - 处理网络抖动、丢包、拥塞控制
+
+## 数据通道
+
+RTCDataChannel
+
+在同一个 P2P 链路上传输非媒体数据：文字、文件、二进制消息，基于 UDP，低延迟。
+
+# 服务端
+
+- 信令服务
+- ICE 服务（STUN + TURN）
+- SFU（可选）
+
+## 信令服务
+
+Signaling Server（必备）
+
+WebRTC 本身不内置信令通道，必须自建服务交换协商信息。
+
+交换内容：
+- SDP（Offer/Answer）
+- ICE 网络候选地址
+
+信令服务只交换控制信令，不转发音视频流量。
+
+## STUN
+
+NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
+
+客户端向 STUN 服务器发送请求，拿到自身外网地址（IP + 端口），生成 ICE 候选。
+
+正常网络环境下，拿到公网地址后两端可以直接 P2P，不走流量中转。
+
+## TURN
+
+中继服务 TURN（Traversal Using Relays around NAT，备用必备）
+
+当多层 NAT、对称 NAT、防火墙严格拦截，两端无法直连 P2P 时，自动降级为所有音视频流量全部经过 TURN 服务器中转。
+
+常见的协议有 TURN over UDP / TCP / TLS。
+
+要承载媒体流量，带宽消耗大，成本高。
+
+> [!NOTE]
+> 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
+
+## SFU
+
+多人视频会议（3 人及以上）的场景下，P2P 会形成网状连接，带宽爆炸，需要使用引入 **SFU**（Selective Forwarding Unit）。
+
+SFU 工作机制：
+- 每个客户端只向上行发送一路视频流给 SFU
+- SFU 只做流量分发，把流分发给其他所有参会者
+
+MCU（Multipoint Control Unit）是把多路上行画面混合成一路画面再下发的机制，其 CPU 开销高，常见于老旧视频会议系统。
