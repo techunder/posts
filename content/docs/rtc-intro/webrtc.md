@@ -37,10 +37,10 @@ draft: false
 - 业务层：房间管理、账号、权限、录制、旁路推流
 
 ## 流程
-1. A 打开摄像头，创建 RTCPeerConnection，生成 Offer SDP
+1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
 2. A 通过 WebSocket **信令服务**把 Offer 发给 B
-3. B 收到 Offer，生成 Answer SDP，再回传给 A
-4. 两端同时向 **STUN 服务**请求公网地址，收集 ICE 候选，互相交换地址
+3. B 收到 Offer，生成 **Answer SDP**，再回传给 A
+4. 两端同时向 **STUN 服务**请求公网地址，收集 **ICE 候选**，互相交换地址
 5. RTCPeerConnection 尝试按照 ICE 优先级建立 UDP P2P 直连
 6. 直连失败，自动切换到 **TURN 中继**模式
 7. 连通后，音视频以 RTP 包直接传输（P2P / TURN）
