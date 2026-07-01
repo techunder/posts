@@ -44,7 +44,7 @@ draft: false
 5. RTCPeerConnection 尝试按照 ICE 优先级建立 UDP P2P 直连
 6. 直连失败，自动切换到 **TURN 中继**模式
 7. 连通后，音视频以 RTP 包直接传输（P2P / TURN）
-8. 多人会议场景：所有流统一上报到 **SFU**，由 SFU 分发
+8. 多人会议场景：所有流统一上报到 **SFU**，由 SFU 分发（可选）
 
 # 客户端
 
@@ -126,3 +126,30 @@ SFU 工作机制：
 - SFU 只做流量分发，把流分发给其他所有参会者
 
 MCU（Multipoint Control Unit）是把多路上行画面混合成一路画面再下发的机制，其 CPU 开销高，常见于老旧视频会议系统。
+
+# References
+
+- [W3C WebRTC API](https://www.w3.org/TR/webrtc/)
+- IETF RTCWEB (RFC)
+    - ICE
+        - [RFC 8445: Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal](https://www.rfc-editor.org/info/rfc8445/)
+        - [RFC 8863: Interactive Connectivity Establishment Patiently Awaiting Connectivity (ICE PAC)](https://www.rfc-editor.org/info/rfc8863/)
+        - [RFC 8866: SDP: Session Description Protocol](https://www.rfc-editor.org/info/rfc8866/)
+    - STUN
+        - [RFC 8489: Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc8489/)
+        - [RFC 7350: Datagram Transport Layer Security (DTLS) as Transport for Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc7350/)
+        - [RFC 7064: URI Scheme for the Session Traversal Utilities for NAT (STUN) Protocol](https://www.rfc-editor.org/info/rfc7064/)
+    - STUN
+        - [RFC 8656: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc8656/)
+        - [RFC 8155: Traversal Using Relays around NAT (TURN) Server Auto Discovery](https://www.rfc-editor.org/info/rfc8155/)
+        - [RFC 6062: Traversal Using Relays around NAT (TURN) Extensions for TCP Allocations](https://www.rfc-editor.org/info/rfc6062/)
+        - [RFC 7065: Traversal Using Relays around NAT (TURN) Uniform Resource Identifiers](https://www.rfc-editor.org/info/rfc7065/)
+    - RTP
+        - [RFC 3550: STD 64: RTP: A Transport Protocol for Real-Time Applications](https://www.rfc-editor.org/info/rfc3550/)
+        - [RFC 7728: RTP Stream Pause and Resume](https://www.rfc-editor.org/info/rfc7728/)
+        - [RFC 3711: The Secure Real-time Transport Protocol (SRTP)](https://www.rfc-editor.org/info/rfc3711/)
+        - [RFC 9147: The Datagram Transport Layer Security (DTLS) Protocol Version 1.3](https://www.rfc-editor.org/info/rfc9147/)
+    - other
+        - [RFC 8827: WebRTC Security Architecture](https://www.rfc-editor.org/info/rfc8827/)
+        - [RFC 8828: WebRTC IP Address Handling Requirements](https://www.rfc-editor.org/info/rfc8828/)
+
