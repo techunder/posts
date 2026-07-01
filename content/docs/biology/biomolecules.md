@@ -719,6 +719,8 @@ Uracil，分子式：C₄H₄N₂O₂，SMILES：O=c1[nH]cc[nH]c1=O。
 
 Adenosine，分子式：C₁₀H₁₃N₅O₄，SMILES：Nc1ncnc2ncnc12C1OC(CO)C(O)C1O。
 
+腺苷由一个[**腺嘌呤A**](/docs/biology/biomolecules/#%e8%85%ba%e5%98%8c%e5%91%a4a)和一个[**核糖**](/docs/biology/biomolecules/#%e6%a0%b8%e7%b3%96)组成。
+
 ![Adenosine](/images/docs/biology/biomolecules/Adenosine_300x150.png)
 
 #### 腺苷一磷酸AMP
