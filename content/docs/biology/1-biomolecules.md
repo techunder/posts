@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">生命物质</div>
 <div class="page-info">
    <span class="original-tag">整理</span>
-  发布时间：2026-06-18 | 更新时间：2026-06-29
+  发布时间：2026-06-18 | 更新时间：2026-07-04
 </div>
 {{< katex />}}
 
