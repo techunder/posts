@@ -40,11 +40,57 @@ draft: false
 1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
 2. A 通过 WebSocket **信令服务**把 Offer 发给 B
 3. B 收到 Offer，生成 **Answer SDP**，再回传给 A
-4. 两端同时向 **STUN 服务**请求公网地址，收集 **ICE 候选**，互相交换地址
+4. 两端同时向 **STUN 服务**请求公网地址，收集 **ICE 候选**（**Candidate**），互相交换地址
 5. RTCPeerConnection 尝试按照 ICE 优先级建立 UDP P2P 直连
 6. 直连失败，自动切换到 **TURN 中继**模式
 7. 连通后，音视频以 RTP 包直接传输（P2P / TURN）
 8. 多人会议场景：所有流统一上报到 **SFU**，由 SFU 分发（可选）
+
+```mermaid
+sequenceDiagram
+    actor A as 🖥️ A
+    actor B as 🖥️ B
+    participant Sig as 📨 Signaling
+    participant STUN as 🔍 STUN
+    participant TURN as 🚚 TURN
+    participant SFU as 🎛️ SFU
+
+    Note over A,SFU: SDP (Session Description Protocol)
+    autonumber 1
+    A->>A: Generate Offer SDP
+    A->>Sig: Offer SDP
+    Sig->>B: Offer SDP
+    B->>B: Generate Answer SDP
+    B->>Sig: Answer SDP
+    Sig->>A: Answer SDP
+
+    Note over A,SFU: ICE (Interactive Connectivity Establishment)
+    autonumber 1
+    A->>STUN: ICE request
+    B->>STUN: ICE request
+    STUN-->>A: Candidate
+    STUN-->>B: Candidate
+    A->>Sig: Candidate
+    Sig->>B: Candidate
+    B->>Sig: Candidate
+    Sig->>A: Candidate
+
+    Note over A,SFU: Data Travesal
+    autonumber off
+    alt NAT Traversal
+        A<<->>B: Media
+        B<<->>A: Media
+    else Traversal Using Relays
+        A<<->>TURN: Media
+        TURN<<->>B: Media
+    end
+    opt Multi Peers
+        A->>SFU: Push
+        B->>SFU: Push
+        SFU->>A: Pull
+        SFU->>B: Pull
+    end
+```
 
 # 客户端
 
