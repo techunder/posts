@@ -207,7 +207,7 @@ draft: false
 
 ### 脂类
 
-**甘油三酯**是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。
+**甘油三酯**是日常所说的**脂肪**，包括肥肉、食用油、体内储能组织。英文名称为 Triglyceride (缩写 TG)。
 
 甘油三酯其实是一类化合物，由一个[**丙三醇**](/docs/biology/biomolecules/#%e4%b8%99%e4%b8%89%e9%86%87)分子连接三个[**脂肪酸**](/docs/biology/biomolecules/#%e7%99%b8%e9%85%b8)分子组成。
 
@@ -219,6 +219,14 @@ draft: false
 [**胆固醇**](/docs/biology/biomolecules/#%e8%83%86%e5%9b%ba%e9%86%87) C₂₇H₄₆O 也是一种脂类，分子量为 387 Da
 
 脂质既不能溶于水，能够形成一个与水隔开的化学反应容器，也可以脂肪的形式存储能量。
+
+身体内的胆固醇水平可以通过以下方式测定：
+- 甘油三酯（TG）
+- 高密度脂蛋白胆固醇 High-Density Lipoprotein Cholesterol (HDL-C)
+- 低密度脂蛋白胆固醇 Low-Density Lipoprotein Cholesterol (LDL-C) ，分**α型**和**β型**，β型是小颗粒，很容易沉淀到血管壁。
+
+> [!NOTE]
+> 将**甘油三酯**的含量除以**高密度脂蛋白胆固醇**的含量，得到的比率可以预测**β型低密度脂蛋白**的含量。通常该比率小于 2 比较理想。
 
 ### 核糖类
 
@@ -452,6 +460,9 @@ draft: false
 - **糖化反应**：血液里多余游离葡萄糖，不用酶催化，自发黏附在皮肤、血管、器官的蛋白质、胶原蛋白上，发生不可逆粘连、变质，产物叫**AGEs**。
 - **氧化应激**：熬夜、高糖、压力、日晒、肥胖、烟酒、油炸食品 → **自由基**过多 → **氧化应激**反应（自由基到处搞破坏 - 抢电子）→ 炎症（免疫细胞救场）。
 
+> [!NOTE]
+> 身体的炎症程度可以通过**C-反应蛋白**的含量测定。
+
 > [!TIP]
 > **糖化反应**和**氧化应激**是身体衰老的核心推手。
 
@@ -613,7 +624,7 @@ Deoxyribose，分子式：C₅H₁₀O₄，与核糖相比少了一个氧原子
 
 #### 胆固醇
 
-分子式：C₂₇H₄₆O，分子量：387 Da，SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`。
+Cholesterol，分子式：C₂₇H₄₆O，分子量：387 Da，SMILES: `CC(C)CCCC(C)C1CCC2C3CC=C4CC(O)CCC4(C)C3CCC12C`。
 
 ![Cholesterol](/images/docs/biology/biomolecules/Cholesterol_400x200.png)
 
