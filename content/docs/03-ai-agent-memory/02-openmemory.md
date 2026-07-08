@@ -2,7 +2,7 @@
 title: "AI Agent OpenMemory"
 weight: 202
 bookCollapseSection: true
-draft: true
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">AI Agent MemGPT</div>
