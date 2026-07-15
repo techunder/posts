@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">Agent，工程的起航</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-19 | 更新时间：2026-05-19
+  发布时间：2026-04-19 | 更新时间：2026-07-15
 </div>
 {{< katex />}}
 
@@ -864,6 +864,52 @@ MCP 基于 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 构建，通信
       }
     ],
     "isError": false
+  }
+}
+```
+{{% /details %}}
+
+{{% details title="Common URI Schemes" open=false %}}
+- **https://** - Used to represent a resource available on the web
+- **file://** - The resources do not need to map to an actual physical filesystem
+- **git://** - Git version control integration
+{{% /details %}}
+
+{{% details title="Content Formats" open=false %}}
+Text Content:
+```json
+{
+  "type": "text",
+  "text": "Tool result text"
+}
+```
+
+Image Content:
+```json
+{
+  "type": "image",
+  "data": "base64-encoded-data",
+  "mimeType": "image/png"
+}
+```
+
+Audio Content:
+```json
+{
+  "type": "audio",
+  "data": "base64-encoded-audio-data",
+  "mimeType": "audio/wav"
+}
+```
+
+Resource Content:
+```json
+{
+  "type": "resource",
+  "resource": {
+    "uri": "resource://example",
+    "mimeType": "text/plain",
+    "text": "Resource content"
   }
 }
 ```
