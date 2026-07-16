@@ -178,7 +178,12 @@ simhash_bits[i] = 1 if vec[i]>0 else 0
 ```
 > 其中 hash64() 可以是 MD5 的前 64-bit 或 后 64-bit（性能较差），也可以是 MurmurHash64 / CityHash64 / XXHash64
 
-相似度判断：**汉明距离**（Hamming distance）：  
+相似度判断：**汉明距离**（Hamming distance）。
+
+**定义**：两个等长二进制串对应位置上不同比特的数量
+
+> 例：1011 vs 1001 → Hamming distance = 1
+
 两个 simhash 指纹对比，统计相同位置 bit 值不相等的数量 = 汉明距离。
 
 以 64 位 simhash 经验阈值为例：
