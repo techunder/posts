@@ -57,6 +57,7 @@ sequenceDiagram
 
     Note over A,SFU: SDP (Session Description Protocol)
     autonumber 1
+    Note over A,B: WebSocket(url)
     A->>A: Generate Offer SDP
     A->>Sig: Offer SDP
     Sig->>B: Offer SDP
@@ -66,6 +67,7 @@ sequenceDiagram
 
     Note over A,SFU: ICE (Interactive Connectivity Establishment)
     autonumber 1
+    Note over A,B: RTCPeerConnection({iceServers})
     A->>STUN: ICE request
     B->>STUN: ICE request
     STUN-->>A: Candidate
@@ -77,6 +79,7 @@ sequenceDiagram
 
     Note over A,SFU: Data Travesal
     autonumber off
+    Note over A,B: navigator.mediaDevices.getUserMedia(constraint)
     alt NAT Traversal
         A<<->>B: Media
         B<<->>A: Media
