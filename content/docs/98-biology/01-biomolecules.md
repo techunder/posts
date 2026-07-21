@@ -301,7 +301,7 @@ draft: false
 
 ## 碳+氮+氧+磷（C+N+O+P）
 
-磷的原子序号是15，也是生命的常见元素，代表形式是**磷酸根离子** PO₄³⁻。
+磷的原子序号是15，也是生命的常见元素，代表形式是[**磷酸根离子** PO₄³⁻](/docs/98-biology/01-biomolecules/#%e7%a1%9d%e9%85%b8%e6%a0%b9)。
 
 > [!TIP]
 > 抢电子的为**酸**，往外送正电荷H⁺（送氢离子），
@@ -311,7 +311,7 @@ draft: false
 
 ### ATP
 
-一个**磷酸根离子**可以轻易地和[**腺苷**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7)中的核糖5号碳结合，形成[**腺苷一磷酸AMP**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7%e4%b8%80%e7%a3%b7%e9%85%b8amp)。
+一个[**磷酸根离子** PO₄³⁻](/docs/98-biology/01-biomolecules/#%e7%a1%9d%e9%85%b8%e6%a0%b9) 可以轻易地和[**腺苷**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7)中的核糖5号碳结合，形成[**腺苷一磷酸AMP**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7%e4%b8%80%e7%a3%b7%e9%85%b8amp)。
 
 第二个磷酸根离子可以拼接在第一个磷酸根离子后面，形成[**腺苷二磷酸ADP**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7%e4%ba%8c%e7%a3%b7%e9%85%b8adp)。
 
