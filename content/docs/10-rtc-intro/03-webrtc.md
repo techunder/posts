@@ -1,13 +1,13 @@
 ---
 title: "WebRTC"
-weight: 2
+weight: 3
 bookCollapseSection: false
 draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">WebRTC</div>
 <div class="page-info">
-   <span class="original-tag">整理</span>
+   <span class="organized-tag">整理</span>
   发布时间：2026-06-30 | 更新时间：2026-06-30
 </div>
 {{< katex />}}
@@ -30,11 +30,10 @@ draft: false
 - 连接管理层：RTCPeerConnection
 - 数据通道层：RTCDataChannel
 
-服务端四层：
+服务端三层：
 - 信令层：WebSocket **信令服务**（交换 SDP+ICE）
 - ICE 穿透层：**STUN**（公网探测）+ **TURN**（流量中继）
 - 媒体分发层：**SFU**（MediaSoup/Janus，多人会议）
-- 业务层：房间管理、账号、权限、录制、旁路推流
 
 ## 流程
 1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
