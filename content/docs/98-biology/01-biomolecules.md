@@ -297,7 +297,17 @@ draft: false
 
 其中的四种**碱基** A C G U 与**核糖**之间存在吸引力。
 
-当碱基A与核糖结合时，就会得到一种叫做[**腺苷**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7)（xiàn gān）的物质。
+- 当碱基A与核糖结合时，就会得到[**腺苷**](/docs/98-biology/01-biomolecules/#%e8%85%ba%e8%8b%b7) Adenosine（xiàn gān）
+- 当碱基C与核糖结合时，就会得到**胞苷** Cytidine
+- 当碱基G与核糖结合时，就会得到**鸟苷** Guanosine
+- 当碱基U与核糖结合时，就会得到**尿苷** Uridine
+- 当碱基A与脱氧核糖结合时，就会得到**脱氧腺苷** Deoxyadenosine
+- 当碱基C与脱氧核糖结合时，就会得到**脱氧胞苷** Deoxycytidine
+- 当碱基G与脱氧核糖结合时，就会得到**脱氧鸟苷** Deoxyguanosine
+- 当碱基T与脱氧核糖结合时，就会得到**脱氧胸苷** Deoxythymidine
+
+> [!TIP]
+> 请注意，核糖与碱基U结合，而脱氧核糖与碱基T结合。
 
 ## 碳+氮+氧+磷（C+N+O+P）
 
@@ -336,9 +346,6 @@ draft: false
 - **dCTP** 脱氧胞苷三磷酸 Deoxycytidine triphosphate
 - **dGTP** 脱氧鸟苷三磷酸 Deoxyguanosine triphosphate
 - **dTTP** 脱氧胸苷三磷酸 Deoxythymidine triphosphate
-
-> [!TIP]
-> 请注意，核糖与碱基U结合，而脱氧核糖与碱基T结合。
 
 ### RNA & DNA
 
