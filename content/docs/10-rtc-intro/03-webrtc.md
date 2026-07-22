@@ -14,7 +14,7 @@ draft: false
 
 # 概述
 
-## 名词
+## 名词解释
 
 - **SDP**: Session Description Protocol（会话描述协议）
 - **ICE**: Interactive Connectivity Establishment（交互式连接建立）
@@ -35,7 +35,7 @@ draft: false
 - ICE 穿透层：**STUN**（公网探测）+ **TURN**（流量中继）
 - 媒体分发层：**SFU**（MediaSoup/Janus，多人会议）
 
-## 流程
+## 完整流程
 1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
 2. A 通过 WebSocket **信令服务**把 Offer 发给 B
 3. B 收到 Offer，生成 **Answer SDP**，再回传给 A
@@ -57,10 +57,10 @@ sequenceDiagram
     Note over A,SFU: SDP (Session Description Protocol)
     autonumber 1
     Note over A,B: WebSocket(url)
-    A->>A: Generate Offer SDP
+    A->>A: Generate Offer SDP and set local description
     A->>Sig: Offer SDP
     Sig->>B: Offer SDP
-    B->>B: Generate Answer SDP
+    B->>B: Generate Answer SDP and set local description
     B->>Sig: Answer SDP
     Sig->>A: Answer SDP
 
@@ -69,12 +69,12 @@ sequenceDiagram
     Note over A,B: RTCPeerConnection({iceServers})
     A->>STUN: ICE request
     B->>STUN: ICE request
-    STUN-->>A: Candidate
-    STUN-->>B: Candidate
-    A->>Sig: Candidate
-    Sig->>B: Candidate
-    B->>Sig: Candidate
-    Sig->>A: Candidate
+    STUN-->>A: Candidate1
+    STUN-->>B: Candidate2
+    A->>Sig: send Candidate1
+    Sig->>B: send Candidate1
+    B->>Sig: send Candidate2
+    Sig->>A: send Candidate2
 
     Note over A,SFU: Data Travesal
     autonumber off
@@ -102,10 +102,37 @@ sequenceDiagram
 
 MediaStream
 
-  - getUserMedia（摄像头+麦克风）
-  - getDisplayMedia（屏幕共享）
+- getUserMedia（摄像头+麦克风）
 
-输出 MediaStreamTrack（音视频轨道）
+Local media:
+```javascript
+// get stream
+const constraints = { audio: true, video: { width: 640, height: 480 } };
+this.stream = await navigator.mediaDevices.getUserMedia(constraints);
+document.createElement('video').srcObject = this.stream;
+
+// get tracks
+this.stream.getTracks();
+
+// disable audio tracks
+this.stream.getAudioTracks().forEach(t => t.enabled = false);
+
+// disable video tracks
+this.stream.getVideoTracks().forEach(t => t.enabled false);
+
+// stop tracks
+this.stream.getTracks().forEach(t => t.stop());
+```
+
+Remote media:
+```javascript
+// create stream
+this.remoteStream = new MediaStream();
+this.remoteStream.addTrack(ev.track);
+document.createElement('video').srcObject = this.remoteStream;
+```
+
+- getDisplayMedia（屏幕共享）
 
 ## 连接管理
 
@@ -115,10 +142,70 @@ RTCPeerConnection
 
   主要职责：
   - 生成 SDP 会话描述（Offer / Answer）
-  - 收集 ICE 候选地址
+  - 向 STUN 请求，收集 ICE 候选地址
   - 协商编解码器（H.264、VP8、VP9、AV1、OPUS）
   - 收发 RTP/RTCP 媒体包
   - 处理网络抖动、丢包、拥塞控制
+
+```javascript
+// new peer connection
+const iceServers = [{urls: ['stun:a.example.com:1231']}, {urls: ['turn:b.example.com:1232']}];
+this.pc = new RTCPeerConnection({ iceServers });
+this.pc.addEventListener('icecandidate', (ev) => {
+    // send `candidate` to peers through signaling server
+    const candidate = {
+        candidate: ev.candidate.candidate,
+        sdpMid: ev.candidate.sdpMid,
+        sdpMLineIndex: ev.candidate.sdpMLineIndex,
+    }
+});
+this.pc.addEventListener('track', (ev) => {
+    this.remoteStream = new MediaStream();
+    this.remoteStream.addTrack(ev.track);
+    document.createElement('video').srcObject = this.remoteStream;
+});
+this.pc.addEventListener('connectionstatechange', () => {
+    const s = this.pc.connectionState;
+    if (s === 'connected') {
+        // connected
+    } else if (s === 'failed') {
+        // failed
+    } else if (s === 'disconnected') {
+        // disconnected
+    }
+});
+
+// create offer
+// then send `offer.sdp` to peer through signaling server
+const offer = await this.pc.createOffer({ offerToReceiveAudio: true, offerToReceiveVideo: true });
+
+// create answer
+// then send `answer.sdp` to peer through signaling server
+const answer = await this.pc.createAnswer();
+
+// set local description
+await this.pc.setLocalDescription(offer);
+// access local description
+this.pc.localDescription
+
+// set remote description
+// (type='offer' if peer proactively offer it, type='answer' if peer answered my offer, through signaling server)
+await this.pc.setRemoteDescription({ type: 'offer'|'answer', sdp });
+// access remote description
+this.pc.remoteDescription
+
+// add ice candidate
+await this.pc.addIceCandidate(c);
+
+// add local tracks
+tracks = this.stream.getTracks();
+if (tracks.length) {
+    for (const t of tracks) this.pc.addTrack(t, this.stream);
+}
+
+// close peer connection
+this.pc.close();
+```
 
 ## 数据通道
 
