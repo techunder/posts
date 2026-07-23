@@ -33,17 +33,17 @@ draft: false
 服务端三层：
 - 信令层：WebSocket **信令服务**（交换 SDP+ICE）
 - ICE 穿透层：**STUN**（公网探测）+ **TURN**（流量中继）
-- 媒体分发层：**SFU**（MediaSoup/Janus，多人会议）
+- 媒体分发层：**SFU**（多人会议，开源实现 MediaSoup，可选）
 
-## 完整流程
+## 整体流程
 1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
 2. A 通过 WebSocket **信令服务**把 Offer 发给 B
 3. B 收到 Offer，生成 **Answer SDP**，再回传给 A
 4. 两端同时向 **STUN 服务**请求公网地址，收集 **ICE 候选**（**Candidate**），互相交换地址
 5. RTCPeerConnection 尝试按照 ICE 优先级建立 UDP P2P 直连
 6. 直连失败，自动切换到 **TURN 中继**模式
-7. 连通后，音视频以 RTP 包直接传输（P2P / TURN）
-8. 多人会议场景：所有流统一上报到 **SFU**，由 SFU 分发（可选）
+7. 连通后，音视频以 RTP 包直接传输（P2P or TURN）
+8. 多人会议场景：所有流推送到 **SFU**，再由 SFU 分发定订阅方（可选）
 
 ```mermaid
 sequenceDiagram
@@ -52,9 +52,8 @@ sequenceDiagram
     participant Sig as 📨 Signaling
     participant STUN as 🔍 STUN
     participant TURN as 🚚 TURN
-    participant SFU as 🎛️ SFU
 
-    Note over A,SFU: SDP (Session Description Protocol)
+    Note over A,TURN: SDP (Session Description Protocol)
     autonumber 1
     Note over A,B: WebSocket(url)
     A->>A: Generate Offer SDP and set local description
@@ -64,9 +63,9 @@ sequenceDiagram
     B->>Sig: Answer SDP
     Sig->>A: Answer SDP
 
-    Note over A,SFU: ICE (Interactive Connectivity Establishment)
+    Note over A,TURN: ICE (Interactive Connectivity Establishment)
     autonumber 1
-    Note over A,B: RTCPeerConnection({iceServers})
+    Note over A,B: RTCPeerConnection({ iceServers })
     A->>STUN: ICE request
     B->>STUN: ICE request
     STUN-->>A: Candidate1
@@ -76,7 +75,7 @@ sequenceDiagram
     B->>Sig: send Candidate2
     Sig->>A: send Candidate2
 
-    Note over A,SFU: Data Travesal
+    Note over A,TURN: Data Travesal
     autonumber off
     Note over A,B: navigator.mediaDevices.getUserMedia(constraint)
     alt NAT Traversal
@@ -86,47 +85,84 @@ sequenceDiagram
         A<<->>TURN: Media
         TURN<<->>B: Media
     end
-    opt Multi Peers
-        A->>SFU: Push
-        B->>SFU: Push
-        SFU->>A: Pull
-        SFU->>B: Pull
-    end
 ```
 
 # 客户端
 
-浏览器原生支持的三大模块：
+完整流程：
+
+```mermaid
+stateDiagram-v2
+    direction LR
+
+    peer1     : Peer1
+    peer2     : Peer2
+    ws1       : WebSocket
+    ws2       : WebSocket
+    media1    : MediaStream
+    media2    : MediaStream
+    peerconn1 : RTCPeerConnection
+    peerconn2 : RTCPeerConnection
+    stun      : STUN 
+
+    state peer1 {
+        direction LR
+        ws1 --> peerconn1: 1 create offer and set local desc
+        peerconn1 --> ws1: 2 offer
+        ws1 --> peerconn1: 7 answer and set remote desc
+    }
+
+    state peer2 {
+        direction LR
+        ws2 --> peerconn2: 4 offer and set remote desc
+        peerconn2 --> ws2: 5 answer and set local desc
+    }
+
+    ws1 --> ws2: 3 offer
+    peerconn1 --> turn: 2 offer
+    peerconn1 --> stun: 8 ICE req
+    stun --> peerconn1: 9 candidate
+    peerconn1 --> ws1: 10 candidate
+    ws1 --> ws2: 11 candidate
+
+
+    style ws1         fill:#d9f0e0,stroke:#5a9a6e
+    style media1      fill:#d9f0e0,stroke:#5a9a6e
+    style peerconn1   fill:#d9f0e0,stroke:#5a9a6e
+    style ws2         fill:#fff3cd,stroke:#d48806,stroke-width:2px
+    style media2      fill:#fff3cd,stroke:#d48806,stroke-width:2px
+    style peerconn2   fill:#fff3cd,stroke:#d48806,stroke-width:2px
+```
 
 ## 媒体采集
 
 MediaStream
 
-- getUserMedia（摄像头+麦克风）
+- navigator.mediaDevices.getUserMedia（摄像头+麦克风）
 
 Local media:
 ```javascript
-// get stream
+// -- get stream ---------------------------------------------------------------
 const constraints = { audio: true, video: { width: 640, height: 480 } };
 this.stream = await navigator.mediaDevices.getUserMedia(constraints);
 document.createElement('video').srcObject = this.stream;
 
-// get tracks
+// -- get tracks ---------------------------------------------------------------
 this.stream.getTracks();
 
-// disable audio tracks
+// -- disable audio tracks -----------------------------------------------------
 this.stream.getAudioTracks().forEach(t => t.enabled = false);
 
-// disable video tracks
-this.stream.getVideoTracks().forEach(t => t.enabled false);
+// -- disable video tracks -----------------------------------------------------
+this.stream.getVideoTracks().forEach(t => t.enabled = false);
 
-// stop tracks
+// -- stop tracks --------------------------------------------------------------
 this.stream.getTracks().forEach(t => t.stop());
 ```
 
 Remote media:
 ```javascript
-// create stream
+// -- create stream ------------------------------------------------------------
 this.remoteStream = new MediaStream();
 this.remoteStream.addTrack(ev.track);
 document.createElement('video').srcObject = this.remoteStream;
@@ -141,14 +177,14 @@ RTCPeerConnection
   负责端到端建立连接、传输音视频数据流，是最核心对象。
 
   主要职责：
-  - 生成 SDP 会话描述（Offer / Answer）
-  - 向 STUN 请求，收集 ICE 候选地址
+  - 生成 SDP 会话描述（Offer / Answer），但不负责发送到peer
+  - 向 STUN 请求，收集 ICE 候选地址，但不负责发生到peer
   - 协商编解码器（H.264、VP8、VP9、AV1、OPUS）
   - 收发 RTP/RTCP 媒体包
   - 处理网络抖动、丢包、拥塞控制
 
 ```javascript
-// new peer connection
+// -- new peer connection ------------------------------------------------------
 const iceServers = [{urls: ['stun:a.example.com:1231']}, {urls: ['turn:b.example.com:1232']}];
 this.pc = new RTCPeerConnection({ iceServers });
 this.pc.addEventListener('icecandidate', (ev) => {
@@ -175,35 +211,38 @@ this.pc.addEventListener('connectionstatechange', () => {
     }
 });
 
-// create offer
-// then send `offer.sdp` to peer through signaling server
+// -- create offer -------------------------------------------------------------
 const offer = await this.pc.createOffer({ offerToReceiveAudio: true, offerToReceiveVideo: true });
+// then send `offer.sdp` to peer through signaling server
 
-// create answer
-// then send `answer.sdp` to peer through signaling server
+// -- create answer ------------------------------------------------------------
 const answer = await this.pc.createAnswer();
+// then send `answer.sdp` to peer through signaling server
 
-// set local description
+// -- set local description ----------------------------------------------------
 await this.pc.setLocalDescription(offer);
 // access local description
 this.pc.localDescription
 
-// set remote description
-// (type='offer' if peer proactively offer it, type='answer' if peer answered my offer, through signaling server)
+// -- set remote description ---------------------------------------------------
+// (type='offer' if peer proactively offer it, 
+//  type='answer' if peer answered my offer, through signaling server)
 await this.pc.setRemoteDescription({ type: 'offer'|'answer', sdp });
 // access remote description
 this.pc.remoteDescription
 
-// add ice candidate
+// -- add ice candidate --------------------------------------------------------
 await this.pc.addIceCandidate(c);
 
-// add local tracks
+// -- add local tracks ---------------------------------------------------------
 tracks = this.stream.getTracks();
 if (tracks.length) {
     for (const t of tracks) this.pc.addTrack(t, this.stream);
 }
+// get local sedding tracks
+this.pc.getSenders()
 
-// close peer connection
+// -- close peer connection ----------------------------------------------------
 this.pc.close();
 ```
 
