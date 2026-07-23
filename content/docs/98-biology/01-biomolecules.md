@@ -144,6 +144,9 @@ draft: false
 > [!NOTE]
 > 凡是长链烃基（tīng jī） + 羧基（-COOH，suō jī）的有机物，都叫**脂肪酸**。
 
+> [!TIP]
+> 生活中，香醋、米醋、苹果醋、白酒醋、红酒醋、雪梨酒醋的主要成分都是[**醋酸**](https://ai.techunder.tech:11313/docs/98-biology/01-biomolecules/#%e4%b9%99%e9%85%b8)（乙酸）。但柠檬汁里的柠檬酸不是醋酸。
+
 ### 碳水化合物
 
 碳+氧的典型生命物质是**碳水化合物**，即由碳化合物和水结合而成，简称**碳水**。
@@ -206,7 +209,7 @@ draft: false
 > **葡萄糖的消耗渠道**：即时供能 > 保存为肝糖原、肌糖原 > 合成脂肪（打包成**极低密度脂蛋白VLDL**，释放进血液，流往**脂肪细胞**储存）。
 
 > [!NOTE]
-> **果糖的消耗渠道**：在肝脏氧化供能 > 糖异生为葡萄糖补充血糖 > 合成肝糖原储存 > 合成脂肪存储。果糖**只能由肝脏处理**，且**不能合成肌糖原**，也就是更容易转化为脂肪长胖。
+> **果糖的消耗渠道**：在肝脏氧化供能 > 糖异生为葡萄糖补充血糖 > 合成肝糖原储存 > 合成脂肪存储。果糖**只能由肝脏处理**，且**不能合成肌糖原**，也就是更容易转化为脂肪长胖，被称为“不会醉的酒精”。
 
 ### 脂类
 
@@ -396,9 +399,15 @@ SMILES: `NCCc1ccc(O)c(O)c1`
 
 #### 乙醇
 
-分子式：C₂H₅OH，SMILES：`CCO`
+分子式：C₂H₅OH，日常中被称为**酒精**，SMILES：`CCO`
 
 ![Ethanol](/images/docs/98-biology/01-biomolecules/C2H5OH_100x50.png)
+
+#### 乙酸
+
+分子式：CH₃COOH，日常中被称为**醋酸**，多由酒精通过醋酸菌发酵而成，SMILES：`CC(=O)O`。
+
+![AceticAcid](/images/docs/98-biology/01-biomolecules/AceticAcid_200x100.png)
 
 #### 己烷
 
@@ -423,12 +432,6 @@ jǐ quē，分子式：C₆H₁₀，碳碳三键，SMILES：`C#CCCCC`。
 běn，分子式：C₆H₆，芳香环，SMILES：`c1ccccc1`。
 
 ![C6H6](/images/docs/98-biology/01-biomolecules/C6H6_200x100.png)
-
-#### 乙酸
-
-分子式：CH₃COOH，日常中被称为**醋酸**，SMILES：`CC(=O)O`。
-
-![AceticAcid](/images/docs/98-biology/01-biomolecules/AceticAcid_200x100.png)
 
 ## 糖类
 
