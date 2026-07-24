@@ -105,6 +105,11 @@ sequenceDiagram
     participant stun as 🔍 STUN
     end
 
+    Note over ws1,stun: Join Room
+    autonumber off
+    ws1->>sig: Join room, start local media
+    ws2-->>sig: Join room, start local media
+
     Note over ws1,stun: Session Description Protocol (SDP)
     autonumber 1
     ws1->>peerconn1: Generate Offer SDP and set Local Description
@@ -140,7 +145,7 @@ sequenceDiagram
 
     Note over ws1,stun: NAT Hole Punching
     autonumber off
-    peerconn1<<->>peerconn2: Set up peer connection with candidates (first P2P fail over to TURN)
+    peerconn1<<->>peerconn2: Set up peer connection with candidates (first P2P fallback to TURN)
 
     Note over ws1,stun: Media Stream Hooking
     autonumber 1
@@ -209,7 +214,11 @@ RTCPeerConnection
 
 ```javascript
 // -- new peer connection ------------------------------------------------------
-const iceServers = [{urls: ['stun:a.example.com:1231']}, {urls: ['turn:b.example.com:1232']}];
+const iceServers = [
+    {urls: 'stun:stun.l.google.com:19302'}, 
+    {urls: ['turn:b.example.com:1232']},
+    {urls: ['turn:b.example.com:1232']}
+    ];
 this.pc = new RTCPeerConnection({ iceServers });
 this.pc.addEventListener('icecandidate', (ev) => {
     // send `candidate` to peers through signaling server
