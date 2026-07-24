@@ -145,7 +145,14 @@ draft: false
 > 凡是长链烃基（tīng jī） + 羧基（-COOH，suō jī）的有机物，都叫**脂肪酸**。
 
 > [!TIP]
-> 生活中，香醋、米醋、苹果醋、白酒醋、红酒醋、雪梨酒醋的主要成分都是[**醋酸**](https://ai.techunder.tech:11313/docs/98-biology/01-biomolecules/#%e4%b9%99%e9%85%b8)（乙酸）。但柠檬汁里的柠檬酸不是醋酸。
+> 生活中，香醋、米醋、苹果醋、白酒醋、红酒醋、雪梨酒醋的主要成分都是**醋酸**（[乙酸](https://ai.techunder.tech:11313/docs/98-biology/01-biomolecules/#%e4%b9%99%e9%85%b8)）。但柠檬汁里的柠檬酸不是醋酸。
+
+人体分解酒精的过程：$乙醇 \xrightarrow{ADH} 乙醛 \xrightarrow{ALDH} 乙酸 \rightarrow CO_2 + H_2O$
+- ADH: 乙醇脱氢酶，主要在肝脏，胃、肠道黏膜少量
+- ALDH: 乙醛脱氢酶，在肝脏
+
+> [!WARNING]
+> 酒精（乙醇）被 IARC 列为 1 类致癌物，乙醛有剧毒。有些人喝酒脸红，是因为基因缺陷导致乙醛脱氢酶 ALDH 活性严重不足，饮酒后血液乙醛浓度是普通人20 倍。
 
 ### 碳水化合物
 
@@ -402,6 +409,12 @@ SMILES: `NCCc1ccc(O)c(O)c1`
 分子式：C₂H₅OH，日常中被称为**酒精**，SMILES：`CCO`
 
 ![Ethanol](/images/docs/98-biology/01-biomolecules/C2H5OH_100x50.png)
+
+#### 乙醛
+
+分子式：C₂H₄O，人体肝脏会把乙醇分解为乙醛，剧毒，SMILES：`CC=O`
+
+![Ethanol](/images/docs/98-biology/01-biomolecules/C2H4O_100x50.png)
 
 #### 乙酸
 

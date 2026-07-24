@@ -55,29 +55,28 @@ sequenceDiagram
 
     Note over A,TURN: SDP (Session Description Protocol)
     autonumber 1
-    Note over A,B: WebSocket(url)
-    A->>A: Generate Offer SDP and set local description
+    A->>A: Generate Offer SDP
     A->>Sig: Offer SDP
     Sig->>B: Offer SDP
-    B->>B: Generate Answer SDP and set local description
+    B->>B: Generate Answer SDP
     B->>Sig: Answer SDP
     Sig->>A: Answer SDP
 
     Note over A,TURN: ICE (Interactive Connectivity Establishment)
     autonumber 1
-    Note over A,B: RTCPeerConnection({ iceServers })
     A->>STUN: ICE request
-    B->>STUN: ICE request
-    STUN-->>A: Candidate1
-    STUN-->>B: Candidate2
-    A->>Sig: send Candidate1
-    Sig->>B: send Candidate1
-    B->>Sig: send Candidate2
-    Sig->>A: send Candidate2
+    STUN->>A: candidate1
+    A->>Sig: send candidate1
+    Sig->>B: send candidate1
+
+    autonumber 1
+    B-->>STUN: ICE request
+    STUN-->>B: candidate2
+    B-->>Sig: send candidate2
+    Sig-->>A: send candidate2
 
     Note over A,TURN: Data Travesal
     autonumber off
-    Note over A,B: navigator.mediaDevices.getUserMedia(constraint)
     alt NAT Traversal
         A<<->>B: Media
         B<<->>A: Media
@@ -92,46 +91,71 @@ sequenceDiagram
 完整流程：
 
 ```mermaid
-stateDiagram-v2
-    direction LR
+sequenceDiagram
+    box rgba(144, 238, 144, 0.2)
+    participant ws1 as 📡 WebSocket1
+    participant peerconn1 as 🔗 RTCPeerConnection1
+    end
+    box rgba(144, 196, 238, 0.2)
+    participant ws2 as 📡 WebSocket2
+    participant peerconn2 as 🔗 RTCPeerConnection2
+    end
+    box rgba(180, 180, 180, 0.2)
+    participant sig as 📨 Signaling
+    participant stun as 🔍 STUN
+    end
 
-    peer1     : Peer1
-    peer2     : Peer2
-    ws1       : WebSocket
-    ws2       : WebSocket
-    media1    : MediaStream
-    media2    : MediaStream
-    peerconn1 : RTCPeerConnection
-    peerconn2 : RTCPeerConnection
-    stun      : STUN 
+    Note over ws1,stun: Session Description Protocol (SDP)
+    autonumber 1
+    ws1->>peerconn1: Generate Offer SDP and set Local Description
+    peerconn1->>ws1: Offer SDP
+    ws1->>sig: Offer SDP
+    sig->>ws2: Offer SDP
+    ws2->>peerconn2: Offer SDP
+    peerconn2->>peerconn2: Set Remote Description, generate Answer SDP, set Local Description
+    peerconn2->>ws2: Answer SDP
+    ws2->>sig: Answer SDP
+    sig->>ws1: Answer SDP
+    ws1->>peerconn1: Answer SDP
+    peerconn1->>peerconn1: Set Remote Description
 
-    state peer1 {
-        direction LR
-        ws1 --> peerconn1: 1 create offer and set local desc
-        peerconn1 --> ws1: 2 offer
-        ws1 --> peerconn1: 7 answer and set remote desc
-    }
+    Note over ws1,stun: Interactive Connectivity Establishment (ICE)
+    autonumber 1
+    peerconn1->>stun: ICE request
+    stun->>peerconn1: candidate1
+    peerconn1->>ws1: candidate1
+    ws1->>sig: candidate1
+    sig->>ws2: candidate1
+    ws2->>peerconn2: candidate1
+    peerconn2->>peerconn2: add peer Candidate
 
-    state peer2 {
-        direction LR
-        ws2 --> peerconn2: 4 offer and set remote desc
-        peerconn2 --> ws2: 5 answer and set local desc
-    }
+    autonumber 1
+    peerconn2-->>stun: ICE request
+    stun-->>peerconn2: candidate2
+    peerconn2-->>ws2: candidate2
+    ws2-->>sig: candidate2
+    sig-->>ws1: candidate2
+    ws1-->>peerconn1: candidate2
+    peerconn1-->>peerconn1: add peer Candidate
 
-    ws1 --> ws2: 3 offer
-    peerconn1 --> turn: 2 offer
-    peerconn1 --> stun: 8 ICE req
-    stun --> peerconn1: 9 candidate
-    peerconn1 --> ws1: 10 candidate
-    ws1 --> ws2: 11 candidate
+    Note over ws1,stun: NAT Hole Punching
+    autonumber off
+    peerconn1<<->>peerconn2: Set up peer connection with candidates (first P2P fail over to TURN)
 
+    Note over ws1,stun: Media Stream Hooking
+    autonumber 1
+    peerconn1->>peerconn1: Add media stream tracks
+    peerconn1->>peerconn2: track
+    peerconn2->>peerconn2: received and play peer track
 
-    style ws1         fill:#d9f0e0,stroke:#5a9a6e
-    style media1      fill:#d9f0e0,stroke:#5a9a6e
-    style peerconn1   fill:#d9f0e0,stroke:#5a9a6e
-    style ws2         fill:#fff3cd,stroke:#d48806,stroke-width:2px
-    style media2      fill:#fff3cd,stroke:#d48806,stroke-width:2px
-    style peerconn2   fill:#fff3cd,stroke:#d48806,stroke-width:2px
+    autonumber 1
+    peerconn2-->>peerconn2: Add media stream tracks
+    peerconn2-->>peerconn1: track
+    peerconn1-->>peerconn1: received and play peer track
+
+    Note over ws1,stun: Data Travesal
+    autonumber off
+    peerconn1<<->>peerconn2: Media over P2P/TURN
 ```
 
 ## 媒体采集
