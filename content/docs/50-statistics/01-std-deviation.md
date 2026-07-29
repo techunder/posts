@@ -85,10 +85,11 @@ E\left[\frac{SS}{n-1}\right]=\sigma^2
 
 # 正态分布
 
-
 **正态分布**（Normal distribution，又称为**常态分布**或**高斯分布**）是最常见的分布，很多自然现象的统计都符合正态分布。
 
 正态分布的概率密度函数显示为典型的钟形曲线，通常记作 $N(\mu,\sigma^2)$
+
+![正态分布的概率密度函数](/images/docs/50-statistics/01-std-deviation/normal-distribution.jpeg)
 
 正态分布对方差倍数的范围内覆盖的数据有一定的规律：
 - ±1σ：覆盖约 **68.26%** 的数据
