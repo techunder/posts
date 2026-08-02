@@ -311,6 +311,9 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 正常网络环境下，拿到公网地址后两端可以直接 P2P，不走流量中转。
 
+- 消息格式见：[STUN Message Structure](https://www.rfc-editor.org/info/rfc8489/#section-5)
+- 属性定义见：[STUN Attributes](https://www.rfc-editor.org/info/rfc8489/#section-14)
+
 ## TURN
 
 中继服务 TURN（Traversal Using Relays around NAT，备用必备）
