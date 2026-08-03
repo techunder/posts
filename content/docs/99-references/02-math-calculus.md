@@ -48,9 +48,16 @@ draft: false
     - 当$n$为奇数时：<p><img src="/images/docs/99-references/02-math-calculus/x3.png" alt="x3" style="width: 20%; height: auto;"></p>
     - 多项式通式$p(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_2x^2+a_1x+a_0$的图像中间部分取决与各项，但两侧趋势取决于最高幂项的指数$n$。
 * **有理函数**：最简式$\frac{1}{x^n}$的图像分$n$为奇数或偶数两种类型，通式为$\frac{p(x)}{q(x)}$。
-* **指数函数**：$y = b^x$的图像分$b > 1$和$0 < b < 1$两种类型，$y = b^{-x}(b > 0)$等同于$y = b^x(0 < b < 1)$。
+    - 当$n$为偶数时：<p><img src="/images/docs/99-references/02-math-calculus/1_x2.png" alt="1_x2" style="width: 20%; height: auto;"></p>
+    - 当$n$为奇数时：<p><img src="/images/docs/99-references/02-math-calculus/1_x3.png" alt="1_x3" style="width: 20%; height: auto;"></p>
+* **指数函数**：$y = b^x$的图像分$b > 1$和$0 < b < 1$两种类型，$y = b^{-x}(b > 1)$等同于$y = b^x(0 < b < 1)$。
+    - 当$b > 1$时：<p><img src="/images/docs/99-references/02-math-calculus/2x.png" alt="2x" style="width: 20%; height: auto;"></p>
+    - 当$$0 < b < 1$时：<p><img src="/images/docs/99-references/02-math-calculus/0.5x.png" alt="0.5x" style="width: 20%; height: auto;"></p>
 * **对数函数**：对数函数$y=log_b(x)$是指数函数$y=x^b$的反函数，对数函数的图像可以通过以直线$y=x$镜子，映射指数函数得出，同样分$b > 1$和$0 < b < 1$两种类型。
+    - 当$b > 1$时：<p><img src="/images/docs/99-references/02-math-calculus/log2x.png" alt="log2x" style="width: 20%; height: auto;"></p>
+    - 当$$0 < b < 1$时：<p><img src="/images/docs/99-references/02-math-calculus/log0.5x.png" alt="log0.5x" style="width: 20%; height: auto;"></p>
 * **绝对值函数**：绝对值函数$f(x)=|g(x)|$的图像，以$x$轴为镜子，把$g(x)$在$x$轴下方的图像映照上来，$x$轴上方的图像保持不变。
+    <p><img src="/images/docs/99-references/02-math-calculus/absx.png" alt="absx" style="width: 20%; height: auto;"></p>
 
 
 # 指数和对数函数
