@@ -44,7 +44,7 @@ draft: false
 * **奇偶函数**：如果一个函数$f$是奇的，且在0上有定义，则$f(0)=0$；两个奇函数之积是偶函数。
 * **线性函数**：线性函数$f(x)=mx+b$可以通过**点斜式**描述，即通过点$(x_0, y_0)$且斜率为$m$的直线为$y-y_0=m(x-x_0)$。如果只知道通过$(x_1,y_1)$和$(x_2,y_2)$两点，那么可以先计算其斜率$m=\frac{y_2-y_1}{x_2-x_1}$，再通过点斜式得到。
 * **多项式函数**：最简式$p(x)=ax^n$的图像分$n$为奇数或偶数两种类型，
-    - 当$n$为偶数时：<p><img src="/images/docs/99-references/02-math-calculus/x2.png" alt="x2" style="width: 20%; height: auto;"></p>
+    - 当$n$为偶数时（开口朝向取决于$a$的正负）：<p><img src="/images/docs/99-references/02-math-calculus/x2.png" alt="x2" style="width: 20%; height: auto;"></p>
     - 当$n$为奇数时：<p><img src="/images/docs/99-references/02-math-calculus/x3.png" alt="x3" style="width: 20%; height: auto;"></p>
     - 多项式通式$p(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_2x^2+a_1x+a_0$的图像中间部分取决与各项，但两侧趋势取决于最高幂项的指数$n$。
 * **有理函数**：最简式$\frac{1}{x^n}$的图像分$n$为奇数或偶数两种类型，通式为$\frac{p(x)}{q(x)}$。
@@ -58,20 +58,14 @@ draft: false
     - 当$$0 < b < 1$时：<p><img src="/images/docs/99-references/02-math-calculus/log0.5x.png" alt="log0.5x" style="width: 20%; height: auto;"></p>
 * **绝对值函数**：绝对值函数$f(x)=|g(x)|$的图像，以$x$轴为镜子，把$g(x)$在$x$轴下方的图像映照上来，$x$轴上方的图像保持不变。
     <p><img src="/images/docs/99-references/02-math-calculus/absx.png" alt="absx" style="width: 20%; height: auto;"></p>
+    （$f(x)=|x|$的图像）
 
 
 # 指数和对数函数
 
-* 指数法则 [9.2]:
-    * $b^0=1$
-    * $b^1=b$
-    * $b^x b^y=b^{x+y}$
-    * $\frac{b^x}{b^y}=b^{x-y}$
-    * $(b^x)^y=b^{xy}$
-
 * 对数基础 [9.1]:
-    * $\log_b(y)$表示底数为$b$，$y$的对数，含义是为了得到$y$，你必须将底数$b$提升的幂次。这里要求$y > 0$，$b > 0$且$b\neq 1$
-    * **$x$的自然对数的表示**：$log_e(x)=ln(x)=log(x)$
+    * **定义**：$\log_b(y)$表示底数为$b$，$y$的对数。含义是为了得到$y$，你必须将底数$b$提升的幂次。要求$y > 0$，$b > 0$且$b\neq 1$
+    * **$x$的自然对数**：$log_e(x)=ln(x)=log(x)$
     * <span style="color:red;">$log_b(b^x)=x$</span>：通过对数函数的定义得出。
     * <span style="color:red;">$b^{log_b(x)}=x$</span>：通过对数函数的定义得出。
     * <span style="color:red;">$log_{\frac{1}{b}}(y)=-log_b(y)$</span>：$x=log_{\frac{1}{b}}(y) \Rightarrow (\frac{1}{b})^x=y \Rightarrow b^{-x}=y \Rightarrow -x=log_b(y) \Rightarrow x=-log_b(y)$
@@ -80,24 +74,42 @@ draft: false
         * $ln(3) \approx 1.1$
         * $ln(5) \approx 1.6$ 
 
-* 对数法则 [9.3]:
+* 指数法则 [9.2]:
     * $b^0=1$
+    * $b^1=b$
+    * $b^x b^y=b^{x+y}$
+    * $\frac{b^x}{b^y}=b^{x-y}$
+    * $(b^x)^y=b^{xy}$
+
+* 对数法则 [9.3]:
     * $log_b(1)=0$
     * $log_b(b)=1$
     * $log_b(xy)=log_b(x)+log_b(y)$
     * $log_b(\frac{x}{y})=log_b(x)-log_b(y)$
     * $log_b(x^y)=y log_b(x)$
-    * <span style="color:red;">$log_b(x)=\frac{log_c(x)}{log_c(b)}$</span>：换底法则，这意味着对同一个变量，不同底数的对数函数是互为常数倍的关系（倍数为$\frac{1}{log_c(b)}$），图像为在垂直方向拉伸$\frac{1}{log_c(b)}$倍的关系
+    * **换底法则**：<span style="color:red;">$log_b(x)=\frac{log_c(x)}{log_c(b)}$</span>，这意味着对同一个变量，不同底数的对数函数是互为常数倍的关系（倍数为$\frac{1}{log_c(b)}$），图像为在垂直方向拉伸$\frac{1}{log_c(b)}$倍的关系
 
 
 # 三角函数
 * 定义 [2.1]
     * **正弦**：$sin(\theta)=\frac{OppositeSide}{Hypotenuse}=\frac{y}{r}$，以$2\pi$[$0$, $2\pi$]为周期的奇函数（[$-\frac{\pi}{2},\frac{\pi}{2}$]单调递增），$sin(-\theta)=-sin(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/sinx.png" alt="sinx" style="width: 40%; height: auto;"></p>
+
     * **余弦**：$cos(\theta)=\frac{AdjacentSide}{Hypotenuse}=\frac{x}{r}$，以$2\pi$[$0$, $2\pi$]为周期的偶函数（[$0,\pi$]单调递减），$cos(-\theta)=cos(\theta)$
-    * **正切**：$tan(\theta)=\frac{OppositeSide}{AdjacentSide}=\frac{y}{x}$，以$\pi$$[-\frac{\pi}{2}, \frac{\pi}{2}]$为周期的奇函数（[$-\frac{\pi}{2},\frac{\pi}{2}$]单调递增），$tan(-\theta)=-tan(\theta)$
-    * **余切**：$cot(\theta)=\frac{1}{tan(\theta)}=\frac{x}{y}$，以$\pi$$[0, \pi]$为周期的奇函数（[$0,\pi$]单调递减），$cot(-\theta)=-cot(\theta)$
-    * **正割**：$sec(\theta)=\frac{1}{cos(\theta)}=\frac{r}{y}$，以$2\pi$[$0$, $2\pi$]为周期的偶函数（[0,$\frac{\pi}{2}$]和[$\frac{\pi}{2},\pi$]单调递减，在$x=\frac{\pi}{2}$处有渐近线），$sec(-\theta)=sec(\theta)$
-    * **余割**：$csc(\theta)=\frac{1}{sin(\theta)}=\frac{r}{x}$，以$2\pi$[$0$, $2\pi$]为周期的奇函数（[$-\frac{\pi}{2},0$]和[$0,\frac{\pi}{2}$]单调递减，在$x=0$处有渐近线），$csc(-\theta)=-csc(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/cosx.png" alt="cosx" style="width: 40%; height: auto;"></p>
+
+    * **正切**：$tan(\theta)=\frac{OppositeSide}{AdjacentSide}=\frac{y}{x}$，以$\pi$$[-\frac{\pi}{2}, \frac{\pi}{2}]$为周期的奇函数（[$-\frac{\pi}{2},\frac{\pi}{2}$]单调递增，在$x=\frac{\pi}{2}$处有渐近线），$tan(-\theta)=-tan(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/tanx.png" alt="tanx" style="width: 20%; height: auto;"></p>
+
+    * **余切**：$cot(\theta)=\frac{1}{tan(\theta)}=\frac{x}{y}$，以$\pi$$[0, \pi]$为周期的奇函数（[$0,\pi$]单调递减，在$x=0$处有渐近线），$cot(-\theta)=-cot(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/cotx.png" alt="cotx" style="width: 20%; height: auto;"></p>
+
+    * **正割**：$sec(\theta)=\frac{1}{cos(\theta)}=\frac{r}{x}$，以$2\pi$[$0$, $2\pi$]为周期的偶函数（[0,$\frac{\pi}{2}$]和[$\frac{\pi}{2},\pi$]单调递减，在$x=\frac{\pi}{2}$处有渐近线），$sec(-\theta)=sec(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/secx.png" alt="secx" style="width: 20%; height: auto;"></p>
+
+    * **余割**：$csc(\theta)=\frac{1}{sin(\theta)}=\frac{r}{y}$，以$2\pi$[$0$, $2\pi$]为周期的奇函数（[$-\frac{\pi}{2},0$]和[$0,\frac{\pi}{2}$]单调递减，在$x=0$处有渐近线），$csc(-\theta)=-csc(\theta)$
+    <p><img src="/images/docs/99-references/02-math-calculus/cscx.png" alt="cscx" style="width: 20%; height: auto;"></p>
+
     * cos = **co**mplementary **s**in
     * cot = **co**mplementary **t**an
 
@@ -109,8 +121,9 @@ draft: false
     | $\tan(\theta)$ | $0$       | $\dfrac{\sqrt{3}}{3}$ | $1$              | $\sqrt{3}$       | *                |
     | $\cot(\theta)$ | *         | $\sqrt{3}$       | $1$              | $\dfrac{\sqrt{3}}{3}$ | $0$              |
                 
-    * 通过**参考角**计算$0$到$\frac{\pi}{2}$之外的三角函数值。
-    * **参考角**为角$\theta$的射线与**$x$轴**之间的最小夹角，它必定介于0到$\frac{\pi}{2}$之间。
+    计算[$0$, $\frac{\pi}{2}$]范围外的值：
+    * **参考角**为角$\theta$的射线与$x$轴之间的最小夹角，它必定介于0到$\frac{\pi}{2}$之间；
+    * 计算参考角的三角函数值；
     * 正负号按$x$和$y$的符号选取。
         
 * 三角恒等式 [2.3]
