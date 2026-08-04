@@ -20,6 +20,9 @@ LaTeX 是一种用于描述专业数学公式的语言，广泛应用于学术�
 | $\mathcal{X}$ | \mathcal{X} | |
 | $\mathfrak{L}$ | \mathfrak{L} | |
 | $\mathbb{R}$ | \mathbb{R} | |
+| $\left\\{ x \right\\}$ | \left\\{ x \right\\} | auto adjust height, original \\{ \\} |
+| $\left[ x \right]$ | \left[ x \right] | auto adjust height, original ( ) |
+| $\left( x \right)$ | \left( x \right) | auto adjust height, original [ ] |
 | $\in$ | \in | |
 | $\cup$ | \cup | |
 | $\cap$ | \cap | |

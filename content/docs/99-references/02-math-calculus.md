@@ -104,10 +104,10 @@ draft: false
     * **余切**：$cot(\theta)=\frac{1}{tan(\theta)}=\frac{x}{y}$，以$\pi$$[0, \pi]$为周期的奇函数（[$0,\pi$]单调递减，在$x=0$处有渐近线），$cot(-\theta)=-cot(\theta)$
     <p><img src="/images/docs/99-references/02-math-calculus/cotx.png" alt="cotx" style="width: 20%; height: auto;"></p>
 
-    * **正割**：$sec(\theta)=\frac{1}{cos(\theta)}=\frac{r}{x}$，以$2\pi$[$0$, $2\pi$]为周期的偶函数（[0,$\frac{\pi}{2}$]和[$\frac{\pi}{2},\pi$]单调递减，在$x=\frac{\pi}{2}$处有渐近线），$sec(-\theta)=sec(\theta)$
+    * **正割**：$sec(\theta)=\frac{1}{cos(\theta)}=\frac{r}{x}$，以$2\pi$[$0$, $2\pi$]为周期的偶函数（$[0,\pi] \setminus \\{ \frac{\pi}{2} \\}$单调递增，在$x=\frac{\pi}{2}$处有渐近线），$sec(-\theta)=sec(\theta)$
     <p><img src="/images/docs/99-references/02-math-calculus/secx.png" alt="secx" style="width: 20%; height: auto;"></p>
 
-    * **余割**：$csc(\theta)=\frac{1}{sin(\theta)}=\frac{r}{y}$，以$2\pi$[$0$, $2\pi$]为周期的奇函数（[$-\frac{\pi}{2},0$]和[$0,\frac{\pi}{2}$]单调递减，在$x=0$处有渐近线），$csc(-\theta)=-csc(\theta)$
+    * **余割**：$csc(\theta)=\frac{1}{sin(\theta)}=\frac{r}{y}$，以$2\pi$[$0$, $2\pi$]为周期的奇函数（$[-\frac{\pi}{2},\frac{\pi}{2}] \setminus \\{ 0 \\}$单调递减，在$x=0$处有渐近线），$csc(-\theta)=-csc(\theta)$
     <p><img src="/images/docs/99-references/02-math-calculus/cscx.png" alt="cscx" style="width: 20%; height: auto;"></p>
 
     * cos = **co**mplementary **s**in
@@ -172,10 +172,10 @@ draft: false
 * **反余切函数**：$f(x)=cot^{-1}(x)=arccot(x)$，为非奇非偶函数，$x \in \mathbb{R}$，$y \in [0, \pi]$
     <p><img src="/images/docs/99-references/02-math-calculus/arccotx.png" alt="arccot" style="width: 40%; height: auto;"></p>
 
-* **反正割函数**：$f(x)=sec^{-1}(x)=arcsec(x)$，为非奇非偶函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [0,\pi] \setminus \{ \frac{\pi}{2} \}$
+* **反正割函数**：$f(x)=sec^{-1}(x)=arcsec(x)$，为非奇非偶函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [0,\pi] \setminus \\{ \frac{\pi}{2} \\}$
     <p><img src="/images/docs/99-references/02-math-calculus/arcsecx.png" alt="arcsec" style="width: 50%; height: auto;"></p>
 
-* **反余割函数**：$f(x)=csc^{-1}(x)=arccsc(x)$，为奇函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [-\frac{\pi}{2},\frac{\pi}{2}] \setminus \{ 0 \}$
+* **反余割函数**：$f(x)=csc^{-1}(x)=arccsc(x)$，为奇函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [-\frac{\pi}{2},\frac{\pi}{2}] \setminus \\{ 0 \\}$
     <p><img src="/images/docs/99-references/02-math-calculus/arccscx.png" alt="arccsc" style="width: 50%; height: auto;"></p>
 
 # 双曲函数
