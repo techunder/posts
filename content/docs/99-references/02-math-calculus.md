@@ -127,12 +127,6 @@ draft: false
     * 正负号按$x$和$y$的符号选取。
         
 * 三角恒等式 [2.3]
-    * $tan(x)=\frac{sin(x)}{cos(x)}$
-    * $cot(x)=\frac{cos(x)}{sin(x)}$
-    * 毕达哥拉斯定理：
-        * <span style="color:red;">$cos^2(x)+sin^2(x)=1$</span>
-        * $1+tan^2(x)=sec^2(x)$ (左右两边同时除以$cos^2(x)$)
-        * $1+cot^2(x)=csc^2(x)$ (左右两边同时除以$sin^2(x)$)
     * complementary
         * $sin(x)=cos(\frac{\pi}{2} - x)$
         * $cos(x)=sin(\frac{\pi}{2} - x)$
@@ -140,15 +134,25 @@ draft: false
         * $cot(x)=tan(\frac{\pi}{2} - x)$
         * $sec(x)=csc(\frac{\pi}{2} - x)$
         * $csc(x)=sec(\frac{\pi}{2} - x)$
-    * <span style="color:red;">$sin(A+B)=sin(A)cos(B)+cos(A)sin(B)$</span>（公平策略）
-    * <span style="color:red;">$cos(A+B)=cos(A)cos(B)-sin(A)sin(B)$</span>（偏袒策略）
+    * 三角函数关系
+        * $tan(x)=\frac{sin(x)}{cos(x)}$
+        * $cot(x)=\frac{cos(x)}{sin(x)}$
+        * $sec(\theta)=\frac{1}{cos(\theta)}$
+        * $csc(\theta)=\frac{1}{sin(\theta)}$
+    * 和的正弦/余弦
+        * <span style="color:red;">$sin(A+B)=sin(A)cos(B)+cos(A)sin(B)$</span>（公平策略）
+        * <span style="color:red;">$cos(A+B)=cos(A)cos(B)-sin(A)sin(B)$</span>（偏袒策略）
         * $sin(2x)=2sin(x)cos(x)$
         * $cos(2x)=cos^2(x)-sin^2(x)=1-2sin^2(x)=2cos^2(x)-1$
-        * 积化和差公式：
+        * **积化和差公式**：
             * $cos(A)cos(B)=\frac{1}{2}(cos(A-B)+cos(A+B))$
             * $sin(A)sin(B)=\frac{1}{2}(cos(A-B)-cos(A+B))$
             * $sin(A)cos(B)=\frac{1}{2}(sin(A-B)+sin(A+B))$
-    * <span style="color:red;">余弦定理</span>：任意三角形中，$a^2 = b^2 + c^2 - 2bc \cos A$，$A$为边$b$与边$c$的夹角
+    * **毕达哥拉斯定理**（勾股定理）
+        * <span style="color:red;">$cos^2(x)+sin^2(x)=1$</span>
+        * $1+tan^2(x)=sec^2(x)$ (左右两边同时除以$cos^2(x)$)
+        * $1+cot^2(x)=csc^2(x)$ (左右两边同时除以$sin^2(x)$)
+    * **余弦定理**：任意三角形中，<span style="color:red;">$a^2 = b^2 + c^2 - 2bc \cos A$</span>，$A$为边$b$与边$c$的夹角
         * 当 $A=\frac{\pi}{2}$ 时，$a^2 = b^2 + c^2$（勾股定理）
     
 
@@ -156,30 +160,52 @@ draft: false
 
 **存在反函数的条件**：如果函数的导数总为正或有限个零（一直递增），或总为负或有限个零（一直递减），那么函数有反函数。[10.2]
 * **反正弦函数**：$f(x)=sin^{-1}(x)=arcsin(x)$，为奇函数，$x \in [-1, 1]$，$y \in [-\frac{\pi}{2}, \frac{\pi}{2}]$
+    <p><img src="/images/docs/99-references/02-math-calculus/arcsinx.png" alt="arcsin" style="width: 20%; height: auto;"></p>
+
 * **反余弦函数**：$f(x)=cos^{-1}(x)=arccos(x)$，为非奇非偶函数，$x \in [-1, 1]$，$y \in [0, \pi]$
+    <p><img src="/images/docs/99-references/02-math-calculus/arccosx.png" alt="arccos" style="width: 20%; height: auto;"></p>
+
 * 对于在区间$[-1,1]$上任意的$x$，$sin^{-1}+cos^{-1}(x)=\frac{\pi}{2}$
 * **反正切函数**：$f(x)=tan^{-1}(x)=arctan(x)$，为奇函数，$x \in \mathbb{R}$，$y \in [-\frac{\pi}{2}, \frac{\pi}{2}]$
+    <p><img src="/images/docs/99-references/02-math-calculus/arctanx.png" alt="arctan" style="width: 40%; height: auto;"></p>
+
 * **反余切函数**：$f(x)=cot^{-1}(x)=arccot(x)$，为非奇非偶函数，$x \in \mathbb{R}$，$y \in [0, \pi]$
+    <p><img src="/images/docs/99-references/02-math-calculus/arccotx.png" alt="arccot" style="width: 40%; height: auto;"></p>
+
 * **反正割函数**：$f(x)=sec^{-1}(x)=arcsec(x)$，为非奇非偶函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [0,\pi] \setminus \{ \frac{\pi}{2} \}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arcsecx.png" alt="arcsec" style="width: 50%; height: auto;"></p>
+
 * **反余割函数**：$f(x)=csc^{-1}(x)=arccsc(x)$，为奇函数，$x \in (-\infty,-1] \cup [1,\infty)$，$y \in [-\frac{\pi}{2},\frac{\pi}{2}] \setminus \{ 0 \}$
-    
+    <p><img src="/images/docs/99-references/02-math-calculus/arccscx.png" alt="arccsc" style="width: 50%; height: auto;"></p>
 
 # 双曲函数
 双曲函数实际上是伪装的指数函数 [9.8]
 
 * 定义
     * **双曲正弦函数**：<span style="color:orange;">$sinh(x)=\frac{e^x - e^{-x}}{2}$</span>
+    <p><img src="/images/docs/99-references/02-math-calculus/sinhx.png" alt="sinh" style="width: 30%; height: auto;"></p>
+
     * **双曲余弦函数**：<span style="color:orange;">$cosh(x)=\frac{e^x + e^{-x}}{2}$</span>
+    <p><img src="/images/docs/99-references/02-math-calculus/coshx.png" alt="cosh" style="width: 30%; height: auto;"></p>
+
     * **双曲正切函数**：$tanh(x)=\frac{sinh(x)}{cosh(x)}$
+    <p><img src="/images/docs/99-references/02-math-calculus/tanhx.png" alt="tanh" style="width: 50%; height: auto;"></p>
+
     * **双曲余切函数**：$coth(x)=\frac{cosh(x)}{sinh(x)}$
+    <p><img src="/images/docs/99-references/02-math-calculus/cothx.png" alt="coth" style="width: 50%; height: auto;"></p>
+
     * **双曲正割函数**：$sech(x)=\frac{1}{cosh(x)}$
+    <p><img src="/images/docs/99-references/02-math-calculus/sechx.png" alt="sech" style="width: 60%; height: auto;"></p>
+
     * **双曲余割函数**：$csch(x)=\frac{1}{sinh(x)}$
+    <p><img src="/images/docs/99-references/02-math-calculus/cschx.png" alt="csch" style="width: 50%; height: auto;"></p>
+
 
 * 性质
-    * $cosh(x)$是偶函数：<span style="color:orange;">$cosh(-x)=cosh(x)$</span>
     * $sinh(x)$是奇函数：<span style="color:orange;">$sinh(-x)=-sinh(x)$</span>
-    * <span style="color:orange;">$cosh(0)=1$</span>
+    * $cosh(x)$是偶函数：<span style="color:orange;">$cosh(-x)=cosh(x)$</span>
     * <span style="color:orange;">$sinh(0)=0$</span>
+    * <span style="color:orange;">$cosh(0)=1$</span>
     * <span style="color:orange;">$cosh^2{x} - sinh^2(x) = 1$</span>
             
 
