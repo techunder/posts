@@ -182,22 +182,22 @@ draft: false
 双曲函数实际上是伪装的指数函数 [9.8]
 
 * 定义
-    * **双曲正弦函数**：<span style="color:orange;">$sinh(x)=\frac{e^x - e^{-x}}{2}$</span>
+    * **双曲正弦函数**：<span style="color:orange;">$sinh(x)=\frac{e^x - e^{-x}}{2}$</span>，$x \in \mathbb{R}$，$y \in \mathbb{R}$
     <p><img src="/images/docs/99-references/02-math-calculus/sinhx.png" alt="sinh" style="width: 30%; height: auto;"></p>
 
-    * **双曲余弦函数**：<span style="color:orange;">$cosh(x)=\frac{e^x + e^{-x}}{2}$</span>
+    * **双曲余弦函数**：<span style="color:orange;">$cosh(x)=\frac{e^x + e^{-x}}{2}$</span>，$x \in \mathbb{R}$，$y \in [1,\infty)$
     <p><img src="/images/docs/99-references/02-math-calculus/coshx.png" alt="cosh" style="width: 30%; height: auto;"></p>
 
-    * **双曲正切函数**：$tanh(x)=\frac{sinh(x)}{cosh(x)}$
+    * **双曲正切函数**：$tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^x - e^{-x}}{e^x + e^{-x}}$，$x \in \mathbb{R}$，$y \in (-1,1)$
     <p><img src="/images/docs/99-references/02-math-calculus/tanhx.png" alt="tanh" style="width: 50%; height: auto;"></p>
 
-    * **双曲余切函数**：$coth(x)=\frac{cosh(x)}{sinh(x)}$
+    * **双曲余切函数**：$coth(x)=\frac{cosh(x)}{sinh(x)}=\frac{e^x + e^{-x}}{e^x - e^{-x}}$，$x \in \mathbb{R} \setminus \\{ 0 \\}$，$y \in (-\infty,-1) \cup (1, \infty)$
     <p><img src="/images/docs/99-references/02-math-calculus/cothx.png" alt="coth" style="width: 50%; height: auto;"></p>
 
-    * **双曲正割函数**：$sech(x)=\frac{1}{cosh(x)}$
+    * **双曲正割函数**：$sech(x)=\frac{1}{cosh(x)}=\frac{2}{e^x + e^{-x}}$，$x \in \mathbb{R}$，$y \in (0,1]$
     <p><img src="/images/docs/99-references/02-math-calculus/sechx.png" alt="sech" style="width: 60%; height: auto;"></p>
 
-    * **双曲余割函数**：$csch(x)=\frac{1}{sinh(x)}$
+    * **双曲余割函数**：$csch(x)=\frac{1}{sinh(x)}=\frac{2}{e^x - e^{-x}}$，$x \in \mathbb{R} \setminus \\{ 0 \\}$，$y \in (-\infty,0) \cup (0, \infty)$
     <p><img src="/images/docs/99-references/02-math-calculus/cschx.png" alt="csch" style="width: 50%; height: auto;"></p>
 
 
@@ -213,11 +213,22 @@ draft: false
 [10.3]
 
 * **反双曲正弦函数**：$f(x)=sinh^{-1}(x)=arcsinh(x)=ln(x+\sqrt{x^2+1})$，为奇函数，$x \in \mathbb{R}$，$y \in \mathbb{R}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arcsinhx.png" alt="arcsinh" style="width: 60%; height: auto;"></p>
+
 * **反双曲余弦函数**：$f(x)=cohh^{-1}(x)=arccosh(x)=ln(x+\sqrt{x^2-1})$，为非奇非偶函数，$x \in [1,\infty)$，$y \in [0,\infty)$
-* **反双曲正切函数**：$f(x)=tanh^{-1}(x)=arctanh(x)=ln(x+\sqrt{x^2+1})$，为奇函数，$x \in (-1,1)$，$y \in \mathbb{R}$
-* **反双曲余切函数**：$f(x)=coth^{-1}(x)=arccoth(x)=ln(x+\sqrt{x^2+1})$，为奇函数，$x \in (-\infty,-1) \cup (1,\infty)$，$y \in \mathbb{R} \setminus {0}$
-* **反双曲正割函数**：$f(x)=sech^{-1}(x)=arcsech(x)=ln(x+\sqrt{x^2+1})$，为非奇非偶函数，$x \in (0,1]$，$y \in [0,\infty)$
-* **反双曲余割函数**：$f(x)=csch^{-1}(x)=arccsch(x)=ln(x+\sqrt{x^2+1})$，为奇函数，$x \in \mathbb{R} \setminus {0}$，$y \in \mathbb{R} \setminus {0}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arccoshx.png" alt="arccosh" style="width: 60%; height: auto;"></p>
+
+* **反双曲正切函数**：$f(x)=tanh^{-1}(x)=arctanh(x)=\frac{1}{2} ln(\frac{x+1}{x-1})$，为奇函数，$x \in (-1,1)$，$y \in \mathbb{R}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arctanhx.png" alt="arctanh" style="width: 20%; height: auto;"></p>
+
+* **反双曲余切函数**：$f(x)=coth^{-1}(x)=arccoth(x)=\frac{1}{2} ln(\frac{x-1}{x+1})$，为奇函数，$x \in (-\infty,-1) \cup (1,\infty)$，$y \in \mathbb{R} \setminus \\{ 0 \\}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arccothx.png" alt="arccoth" style="width: 60%; height: auto;"></p>
+
+* **反双曲正割函数**：$f(x)=sech^{-1}(x)=arcsech(x)=ln(\frac{1}{x}+\sqrt{\frac{1}{x^2}-1})$，为非奇非偶函数，$x \in (0,1]$，$y \in [0,\infty)$
+    <p><img src="/images/docs/99-references/02-math-calculus/arcsechx.png" alt="arcsech" style="width: 20%; height: auto;"></p>
+
+* **反双曲余割函数**：$f(x)=csch^{-1}(x)=arccsch(x)=ln(\frac{1}{x}+\sqrt{\frac{1}{x^2}+1})$，为奇函数，$x \in \mathbb{R} \setminus \\{ 0 \\}$，$y \in \mathbb{R} \setminus \\{ 0 \\}$
+    <p><img src="/images/docs/99-references/02-math-calculus/arccschx.png" alt="arccsch" style="width: 50%; height: auto;"></p>
 
 
 # 极限导论 $lim$
@@ -227,11 +238,11 @@ draft: false
     * **右侧极限**：$\lim_{x \to a^+} f(x) = L$，$x$在$a$处加一点点的函数值（不关心当$x=a$时函数的值是什么，哪怕没有值）。
     * **双侧极限**：$\lim_{x \to a} f(x) = L$，仅当$\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$（不关心当$x=a$时函数的值是什么，哪怕没有值）。
     * **垂直渐近线**：如果$\lim_{x \to a^-} f(x)$或$\lim_{x \to a^+} f(x)$等于$\pm\infty$，那么$x=a$就是$f(x)$的垂直渐近线。一个函数可以有多条垂直渐近线，如$y=tan(x)$。
-    * **水平渐近线**：如果$\lim_{x \to -\infty} f(x)$或$\lim_{x \to \infty} f(x)$等于$a$，那么$y=a$就是$f(x)$的垂直渐近线。一个函数可以有不同的左侧和右侧水平渐近线，但最多只有一条左侧水平渐近线和一条右侧水平渐近线。如$\lim_{x \to -\infty}tan^{-1}(x)=-\frac{\pi}{2}$，$\lim_{x \to \infty}tan^{-1}(x)=\frac{\pi}{2}$。
+    * **水平渐近线**：如果$\lim_{x \to -\infty} f(x) = a$或$\lim_{x \to \infty} f(x) = a$，那么$y=a$就是$f(x)$的垂直渐近线。一个函数可以有不同的左侧和右侧水平渐近线，但最多只有一条左侧水平渐近线和一条右侧水平渐近线。如$\lim_{x \to -\infty}tan^{-1}(x)=-\frac{\pi}{2}$，$\lim_{x \to \infty}tan^{-1}(x)=\frac{\pi}{2}$。
     * **函数与渐近线相交**：一个函数可以和它的水平渐近线相交，例如$\lim_{x \to \infty}\frac{sin(x)}{x}=0$，$x$在接近$\infty$时无限次与$x$轴相交。
     * **<span style="color:red;">夹逼定理（三文治定理）</span>**：如果$g(x) \leq f(x) \leq {h(x)}$，且$\lim_{x \to a}g(x)=L$，$\lim_{x \to a}h(x)=L$，那么$\lim_{x \to a}f(x)=L$。
-    * **和（差）的极限等于极限的和（差）**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
-    * **积（商）的极限等于极限的积（商）**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
+    * **<span style="color:orange;">和（差）的极限等于极限的和（差）</span>**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
+    * **<span style="color:orange;">积（商）的极限等于极限的积（商）</span>**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
 
 * 多项式极限 [4]
     * 一般采用代入法计算极限。
