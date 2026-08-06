@@ -43,11 +43,11 @@ draft: false
 * **复合函数**：$f(x)=h(g(x))$可以表示为$f=h \circ g$，读作$f$是$g$与$h$的复合。
 * **奇偶函数**：如果一个函数$f$是奇的，且在0上有定义，则$f(0)=0$；两个奇函数之积是偶函数。
 * **线性函数**：线性函数$f(x)=mx+b$可以通过**点斜式**描述，即通过点$(x_0, y_0)$且斜率为$m$的直线为$y-y_0=m(x-x_0)$。如果只知道通过$(x_1,y_1)$和$(x_2,y_2)$两点，那么可以先计算其斜率$m=\frac{y_2-y_1}{x_2-x_1}$，再通过点斜式得到。
-* **多项式函数**：最简式$p(x)=ax^n$的图像分$n$为奇数或偶数两种类型，
+* **多项式函数**：最简式$p(x)=ax^n$的图像分$n$为奇数或偶数两种类型（$n > 0$），
     - 当$n$为偶数时（开口朝向取决于$a$的正负）：<p><img src="/images/docs/99-references/02-math-calculus/x2.png" alt="x2" style="width: 20%; height: auto;"></p>
     - 当$n$为奇数时：<p><img src="/images/docs/99-references/02-math-calculus/x3.png" alt="x3" style="width: 20%; height: auto;"></p>
     - 多项式通式$p(x)=a_nx^n+a_{n-1}x^{n-1}+\ldots+a_2x^2+a_1x+a_0$的图像中间部分取决与各项，但两侧趋势取决于最高幂项的指数$n$。
-* **有理函数**：最简式$\frac{1}{x^n}$的图像分$n$为奇数或偶数两种类型，通式为$\frac{p(x)}{q(x)}$。
+* **有理函数**：最简式$\frac{1}{x^n}$的图像分$n$为奇数或偶数两种类型（$n > 0$），通式为$\frac{p(x)}{q(x)}$。
     - 当$n$为偶数时：<p><img src="/images/docs/99-references/02-math-calculus/1_x2.png" alt="1_x2" style="width: 20%; height: auto;"></p>
     - 当$n$为奇数时：<p><img src="/images/docs/99-references/02-math-calculus/1_x3.png" alt="1_x3" style="width: 20%; height: auto;"></p>
 * **指数函数**：$y = b^x$的图像分$b > 1$和$0 < b < 1$两种类型，$y = b^{-x}(b > 1)$等同于$y = b^x(0 < b < 1)$。
@@ -259,7 +259,7 @@ draft: false
         * <span style="color:red;">$\lim_{n \to \infty}(1+\frac{x}{n})^n=e^x$</span>
         * $\lim_{h \to 0}(1+xh)^{\frac{1}{h}}=e^x$
     * $\lim_{h \to 0}\frac{e^h - 1}{h}=1$：通过使用定义法求$\frac{d}{dx}(e^x)=e^x=\lim_{h \to 0}\frac{e^{x+h}-e^x}{h}$，取$x=0$处的值得出。
-    * $\lim_{h \to 0}\frac{ln(1+h)}{h}=1$：通过使用定义法求$\frac{d}{dx}ln(x)=\frac{1}{x}=\lim_{h \to 0}\frac{ln(x+h)-ln(x)}{h}$，取$x=1$处的值得出。亦可以使用线性化公式证明：$\lim_{h \to 0} ln(1+h)=ln(1)+ln'(1)(1+h-1)=h$。
+    * $\lim_{h \to 0}\frac{ln(1+h)}{h}=1$：通过使用定义法求$\frac{d}{dx}ln(x)=\frac{1}{x}=\lim_{h \to 0}\frac{ln(x+h)-ln(x)}{h}$，取$x=1$处的值得出。亦可以使用**线性化公式**证明：$\lim_{h \to 0} ln(1+h)=ln(1)+ln'(1)(1+h-1)=h$。
     * 当$x \to \infty$: <span style="color:red;">$log_b(x) < x^n < b^x$</span>, where $n > 0, b > 1$, 也就是说增速排序：对数 $ < $ 幂 $ < $ 指数
         * $\lim_{x \to \infty} \frac{log_b(x)}{x^n}=0$
         * $\lim_{x \to \infty} \frac{x^n}{b^x}=0$
