@@ -1,18 +1,18 @@
 ---
-title: "AI Agent ReAct"
-weight: 302
+title: "Agent Loop"
+weight: 1
 bookCollapseSection: true
 draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
-<div class="page-title">AI Agent ReAct</div>
+<div class="page-title">Agent Loop</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
   发布时间：2026-07-06 | 更新时间：2026-07-06
 </div>
 {{< katex />}}
 
-所谓 ReAct 就是以 **Reason-Act Loop**（推理-行动循环）的方式让 LLM 自我驱动工作，直到 LLM 认为可以输出最终结果。
+所谓 Agent Loop 就是以 **Reason-Act Loop**（推理-行动循环）的方式让 LLM 自我驱动工作，直到 LLM 认为可以输出最终结果。
 
 Act（行动）通常是通过调用工具（tool/function）与外部系统互动，通过获取信息理解环境，通过作用于外部从而改变环境。
 
