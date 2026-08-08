@@ -231,7 +231,7 @@ draft: false
     <p><img src="/images/docs/99-references/02-math-calculus/arccschx.png" alt="arccsch" style="width: 50%; height: auto;"></p>
 
 
-# 极限导论 $lim$
+# 极限 $lim$
 
 * 极限定义 [3]
     * **左侧极限**：$\lim_{x \to a^-} f(x) = L$，$x$在$a$处减一点点的函数值（不关心当$x=a$时函数的值是什么，哪怕没有值）。
@@ -241,8 +241,7 @@ draft: false
     * **水平渐近线**：如果$\lim_{x \to -\infty} f(x) = a$或$\lim_{x \to \infty} f(x) = a$，那么$y=a$就是$f(x)$的垂直渐近线。一个函数可以有不同的左侧和右侧水平渐近线，但最多只有一条左侧水平渐近线和一条右侧水平渐近线。如$\lim_{x \to -\infty}tan^{-1}(x)=-\frac{\pi}{2}$，$\lim_{x \to \infty}tan^{-1}(x)=\frac{\pi}{2}$。
     * **函数与渐近线相交**：一个函数可以和它的水平渐近线相交，例如$\lim_{x \to \infty}\frac{sin(x)}{x}=0$，$x$在接近$\infty$时无限次与$x$轴相交。
     * **<span style="color:red;">夹逼定理（三文治定理）</span>**：如果$g(x) \leq f(x) \leq {h(x)}$，且$\lim_{x \to a}g(x)=L$，$\lim_{x \to a}h(x)=L$，那么$\lim_{x \to a}f(x)=L$。
-    * **<span style="color:orange;">和（差）的极限等于极限的和（差）</span>**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
-    * **<span style="color:orange;">积（商）的极限等于极限的积（商）</span>**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
+    * **<span style="color:orange;">和、差、积、商的极限等于极限的和、差、积、商</span>**：当所有分项的极限都是有限的时候成立（即分项都不是$\pm\infty$时）
 
 * 多项式极限 [4]
     * 一般采用代入法计算极限。
@@ -280,41 +279,53 @@ draft: false
     * $\lim_{x \to -\infty}csc^{-1}(x)=0$, $\lim_{x \to \infty}csc^{-1}(x)=0$
         
 
-# 连续性和可导性
+# 连续性
+
 函数图像通常满足**垂线检验**即可，进一步的要求，我们可以考虑要求其有**连续性**，即可以通过一笔勾画出来，甚至它是**光滑**（可导）的，即图像不会出现尖角。
     
-* 连续性 [5.1]
-    * **在一点处的连续**：如果<span style="color:red;">$\lim_{x \to a}f(x)=f(a)$</span>（即有左右极限且它们相等），那么函数$f(x)$在点$x=a$处连续（其实就是函数$f(x)$在点$x=a$处不跳跃）。
-    * **在一个区间上连续**：如果函数在区间$(a,b)$上的每一点都连续，那么它在该区间上连续，如果同时$\lim_{x \to a^+}f(x)=f(a)$且$\lim_{x \to b^-}f(x)=f(b)$，那么它在区间$[a,b]$也连续。
-    * **运算后的连续性**：两个连续函数的加、减、乘、除（分母不能为零）、复合后，仍然是连续函数。
-    * **连续函数**：多项式函数（幂函数）、指数函数、对数函数、三角函数都是连续函数。
-    * **<span style="color:red;">介值定理</span>**：如果$f$在$[a,b]$上**连续**，并且$f(a) < M$且$f(b) > M$，那么在区间$(a,b)$上至少有一点$c$，使得$f(c)=M$。代之以$f(a) > M$且$f(b) < M$，同样成立。
-    * **<span style="color:red;">最值定理</span>**：如果$f$在$[a,b]$（必须是闭区间）上**连续**，那么$f$在$[a,b]$上至少有一个最大值和一个最小值。
+连续性 [5.1]
 
-* 可导性（光滑性）[5.2]
-    * **平均速率**：$Average Speed = \frac{Distance}{Time}$
-    * **平均速度**：$Average Velocity = \frac{Displacement}{Time}$
-    * **瞬时速度**：$Instant Velocity = \lim_{u \to t}v_{t \leftrightarrow u} = \lim_{u \to t}\frac{f(u)-f(t)}{u-t} = \lim_{h \to 0}\frac{f(t+h)-f(t)}{h}$
-    * **函数的导数**：通过点$(x,f(x))$的切线的斜率（slope）是$x$的一个函数，这个函数被称为$f$的导数，记作$f'$或$\frac{d}{dx}f(x)$
-    * **导数的含义**：当$x$稍作改变时，$y$的变化有多大（含正负号）
-    * **$\Delta_x$与$dx$**：$\Delta_x$表示$x$的变化，$dx$表示$x$的**十分微小**的变化。
-    * **求导公式**：<span style="color:red;">$f'(x)=\lim_{h \to 0}\frac{f(x+h)-f(x)}{h}$</span>$=\lim_{\Delta_{x} \to 0}\frac{\Delta_y}{\Delta_x}=\frac{dy}{dx}$，即对于$x$，如果左右极限存且相等在则函数在$x$处可导。请注意$\frac{dy}{dx}$不是一个分数，而是当$\Delta_x \to 0$时的一个极限。
-    * **二阶导数**：导数的导数称为二阶导数，表示为$f''$或$f^{(2)}(x)$或$\frac{d^2y}{dx^2}$或$\frac{d^2}{dx^2}(\ldots)$
-    * **注意事项**：请注意$(\frac{dy}{dx})^2$和$\frac{d^2y}{d^2x}$是完全不同的，前者是一阶导数的平方，后者是一个二阶导数。
-    * **高阶导数**：高阶导数可以表示为$f^{(n)}(x)$或$\frac{d^ny}{dx^n}$或$\frac{d^n}{dx^n}(\ldots)$
-    * **左导数**：$\lim_{x \to a^-}f^{'}(x)=\lim_{h \to 0^-}\frac{f(x+h)-f(x)}{h}$
-    * **右导数**：$\lim_{x \to a^+}f^{'}(x)=\lim_{h \to 0^+}\frac{f(x+h)-f(x)}{h}$
-    * **连续与可导的关系**：可导函数一定连续，但连续函数未必可导（比如尖角处，代表函数的突然变化）
-    * **函数及其导数的图像**：原函数平坦时，导函数与$x$轴相交（即该点导数为零）。原函数是一条斜直线时，导函数是一个常数。原函数在某点不光滑（不可导），则其导数在该点不连续。原函数有渐近线，则其导数也会有渐近线，只不过导数的渐近线没有原函数的渐近线那么陡。
+* **在一点处的连续**：如果<span style="color:red;">$\lim_{x \to a}f(x)=f(a)$</span>（即有左右极限且它们相等），那么函数$f(x)$在点$x=a$处连续（其实就是函数$f(x)$在点$x=a$处不跳跃）。
+* **在一个区间上连续**：如果函数在区间$(a,b)$上的每一点都连续，那么它在该区间上连续，如果同时$\lim_{x \to a^+}f(x)=f(a)$且$\lim_{x \to b^-}f(x)=f(b)$，那么它在区间$[a,b]$也连续。
+* **<span style="color:orange;">运算后的连续性</span>**：两个连续函数的加、减、乘、除（分母不能为零）、复合后，仍然是连续函数。
+* **连续函数**：多项式函数（幂函数）、指数函数、对数函数、三角函数都是连续函数。
+* **<span style="color:red;">介值定理</span>**：如果$f$在$[a,b]$上**连续**，并且$f(a) < M$且$f(b) > M$，那么在区间$(a,b)$上至少有一点$c$，使得$f(c)=M$。代之以$f(a) > M$且$f(b) < M$，同样成立。
+* **<span style="color:red;">最值定理</span>**：如果$f$在$[a,b]$（必须是闭区间）上**连续**，那么$f$在$[a,b]$上至少有一个最大值和一个最小值。
 
 
-# 微分 $\frac{dy}{dx}$
+# 可导性
+
+可导性也就是**光滑性** [5.2]
+
+* **平均速率**：$Average Speed = \frac{Distance}{Time}$
+* **平均速度**：$Average Velocity = \frac{Displacement}{Time}$
+* **瞬时速度**：$Instant Velocity = \lim_{u \to t}v_{t \leftrightarrow u} = \lim_{u \to t}\frac{f(u)-f(t)}{u-t} = \lim_{h \to 0}\frac{f(t+h)-f(t)}{h}$
+* **<span style="color:orange;">函数的导数</span>**：通过点$(x,f(x))$的切线的斜率（slope）是$x$的一个函数，这个函数被称为$f$的导数，记作$f'$或$\frac{d}{dx}f(x)$
+* **<span style="color:orange;">导数的含义</span>**：当$x$稍作改变时，$y$的变化有多大（含正负号）
+* **$\Delta_x$与$dx$**：$\Delta_x$表示$x$的变化，$dx$表示$x$的**十分微小**的变化。
+* **求导公式**：<span style="color:red;">$f'(x)=\lim_{h \to 0}\frac{f(x+h)-f(x)}{h}$</span>$=\lim_{\Delta_{x} \to 0}\frac{\Delta_y}{\Delta_x}=\frac{dy}{dx}$，即对于$x$，如果左右极限存且相等在则函数在$x$处可导。注意$\frac{dy}{dx}$不是一个分数，而是当$\Delta_x \to 0$时的一个极限。
+* **二阶导数**：导数的导数称为二阶导数，表示为$f''$或$f^{(2)}(x)$或$\frac{d^2y}{dx^2}$或$\frac{d^2}{dx^2}(\ldots)$，注意$dx^n=(dx)^n$
+* **注意事项**：注意$(\frac{dy}{dx})^2$和$\frac{d^2y}{dx^2}$是完全不同的，前者是一阶导数的平方，后者是一个二阶导数。
+* **高阶导数**：高阶导数可以表示为$f^{(n)}(x)$或$\frac{d^ny}{dx^n}$或$\frac{d^n}{dx^n}(\ldots)$
+* **左导数**：$\lim_{x \to a^-}f^{'}(x)=\lim_{h \to 0^-}\frac{f(x+h)-f(x)}{h}$
+* **右导数**：$\lim_{x \to a^+}f^{'}(x)=\lim_{h \to 0^+}\frac{f(x+h)-f(x)}{h}$
+* **连续与可导的关系**：可导函数一定连续，但连续函数未必可导（尖角处会导致左右导数时不相等，因而不可导）
+* **导数与微分的关系**：导数是函数增量与自变量的瞬时变化率，是一个比值；微分是当自变量微小变动$dx$时，函数增量$\Delta y$的线性近似增量，是一个微小量。导数是斜率，微分是小段增量。
+* **函数及其导数的图像**：
+    - 原函数平坦时，导函数与$x$轴相交（即该点导数为零）；
+    - 原函数是一条斜直线时，导函数是一个常数；
+    - 原函数在某点不光滑（不可导），则其导数在该点不连续；
+    - 原函数有渐近线，则其导数也会有渐近线，只不过导数的渐近线没有原函数的渐近线那么陡峭。
+
+
+# 导数 $\frac{dy}{dx}$
+
     
 * 求导法则 [6.1]
     * **加法法则**：<span style="color:red;">$\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}$</span>
     * **乘法法则**：<span style="color:red;">$\frac{d}{dx}(uv)=\frac{du}{dx}v+u\frac{dv}{dx}$</span>
     * **乘法法则**：<span style="color:red;">$\frac{dy}{dx}(uvw)=\frac{du}{dx}vw+u\frac{dv}{dx}w+uv\frac{dw}{dx}$</span>
-    * **除法法则**：<span style="color:red;">$\frac{dy}{dx}(\frac{u}{v})=\frac{\frac{du}{dx}v-u\frac{dv}{dx}}{u^2}$</span>
+    * **除法法则**：<span style="color:red;">$\frac{dy}{dx}(\frac{u}{v})=\frac{\frac{du}{dx}v-u\frac{dv}{dx}}{v^2}$</span>
     * **链式法则**：<span style="color:red;">$\frac{dy}{dx}=\frac{dy}{du}\frac{du}{dx}$</span>
     * **链式法则**：<span style="color:red;">$\frac{dy}{dx}=\frac{dy}{dv}\frac{dv}{du}\frac{du}{dx}$</span>
 
@@ -337,7 +348,7 @@ draft: false
     * <span style="color:orange;">$\frac{d}{dx}cot(x)=-csc^2(x)$</span>
     * <span style="color:orange;">$\frac{d}{dx}sec(x)=sec(x)tan(x)$</span>
     * <span style="color:orange;">$\frac{d}{dx}csc(x)=-csc(x)cot(x)$</span>
-    * (记忆：$cos/cot/csc$的导数是正常函数形式，前面加上一个负号)
+    * (记忆：$cos/cot/csc$的导数前面带负号)
     * $\frac{d^2}{dx^2}sin(x)=-sin(x)$
 
 * 反三角函数的导数 [10.2]
@@ -348,7 +359,7 @@ draft: false
     * $\frac{d}{dx}sec^{-1}(x)=\frac{1}{|x|\sqrt{x^2-1}}$，其中$x \in (-\infty,-1) \cup (1,\infty)$
     * $\frac{d}{dx}csc^{-1}(x)=-\frac{1}{|x|\sqrt{x^2-1}}$，其中$x \in (-\infty,-1) \cup (1,\infty)$
 
-* 双曲函数的导数 [9.8.2]
+* 双曲函数的导数 [9.7]
     * $\frac{d}{dx}sinh(x)=cosh(x)$
     * $\frac{d}{dx}cosh(x)=sinh(x)$
     * $\frac{d}{dx} tanh(x)=sech^2(x)$
@@ -449,7 +460,7 @@ draft: false
     * C型可以取对数后化成B2型，之后尝试转换成不定式后使用洛必达法则，得到极限后取指数。
             
 
-# 积分基础 $\int$
+# 积分 $\int$
 [15.1]
 
 * **定积分和不定积分** [17.4]
