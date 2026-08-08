@@ -438,10 +438,10 @@ draft: false
 * 线性化 [13.2]
     * **线性化**：线性函数<span style="color:red;">$L(x)=f(a)+f'(a)(x-a)$</span>被称为函数$f$在$x=a$处的线性化函数。（使用了直线的点斜式表示）
     * **线性化求模拟值**：通过某一点的切线函数求切点附近的模拟值。$f(x) \approx L(x)=f(a)+f'(a)(x-a)$，$a$为切点，$f(x)$为原函数，$L(x)$为函数$f(x)$在$x=a$处的线性化函数。
-    * **微分**：$f(a+\Delta x) \approx f(a)+f'(a)\Delta x$，其中$df=f'(a) \Delta x$被称为函数$f$在$x=a$处的微分，表示当$x=a \to a+ \Delta x$时$f$变化量的近似值。
-    * 模拟值误差<span style="color:orange;">$r(x)=f(x)-L(x)=\frac {1}{2} f''(c)(x-a)^2$</span>，其中$c \in (x,a)$，通过$f''(c)$的正负号可以判断模拟值偏大（高估）还是偏小（低估）。
+    * **<span style="color:red;">微分</span>**：$f(a+\Delta x) \approx f(a)+f'(a)\Delta x$，其中$df=f'(a) \Delta x$被称为函数$f$在$x=a$处的微分，表示当$x=a \to a+ \Delta x$时$f$变化量的近似值。
+    * 模拟值误差<span style="color:orange;">$r(x)=f(x)-L(x)=\frac {1}{2} f''(c)(x-a)^2$</span>，其中$c \in (x,a)$，通过$f''(c)$的正负号可以判断模拟值偏大（高估）还是偏小（低估）。（[13.2.4]，并没有给出证明）
 * 牛顿法 [13.3]
-    * **牛顿法**：假设$a$是对方程$f(x)=0$的解的一个近似，如果令<span style="color:orange;">$b=a-\frac{f(a)}{f'(a)}$</span>，则在很多情况下，$b$是个比$a$更好的近似。
+    * **牛顿法**：假设$a$是对方程$f(x)=0$的解的一个近似，如果令<span style="color:orange;">$b=a-\frac{f(a)}{f'(a)}$</span>，则在很多情况下，$b$是个比$a$更好的近似。（通过令函数$f$在$x=a$处的线性化函数$L(x)=f(a)+f'(a)(x-a)=0$求出$x$的值得出，即为线性化函数与$x$轴的交点 —— 截距$b$）
     * **失效的四种情况**：
         * $f'(a)$的值接近于$0$，为了避免出现这种情况，要确保初始猜测不在函数$f$的临界点附近
         * 如果$f(x)=0$有不止一个解，可能得到的不是你想要的那个解
