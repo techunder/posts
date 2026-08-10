@@ -482,15 +482,6 @@ draft: false
     * **常数的定积分**：$\int_a^b cdx=c(b-a)$ [16.1]
     * **奇函数的定积分**：如果$f(x)$为奇函数，$\int_{-a}^a f(x)dx=0$（可通过换元法把$x$替换为$-t$得到） [16.1,18.1]
 
-* **位移**：$\int_a^b v(t)dt$ [16.1]
-* **路程**：$\int_a^b |v(t)|dt$ [16.1]
-* **面积** [16.4]
-    * **求通常的面积$\int_a^b |f(x)|dx$**：
-        * 找出在$[a,b]$区间内满足$f(x)=0$的所有$x$的值（$0$值点）；
-        * 在$a$点、所有$0$值点、$b$点所做成的所有相邻区间内求函数$f(x)$的积分；
-        * 对各个积分的绝对值求和。
-    * **求两条曲线之间的面积**：$\int_a^b |f(x)-g(x)|dx$，注意要使用$f(x)-g(x)$的零值点分段求解。
-    * **求曲线与$y$轴所围成的面积**：如果$f(x)$存在反函数，由函数$y=f(x)$、直线$y=A$、直线$y=B$、$y$轴所围成的面积为$\int_A^B f^{-1}(y)dy$
 * **积分估算** [16.5]
     * 如果对于在区间$[a,b]$内的所有$x$都有$f(x) \le g(x)$，那么$\int_a^b f(x)dx \le \int_a^b g(x)dx$
     * 如果对于在区间$[a,b]$内的所有$x$都有$m \le f(x) \le M$，那么$m(b-a) \le \int_a^b f(x)dx \le M(b-a)$
@@ -499,7 +490,7 @@ draft: false
 * **可积函数**：与可导的情况不同，即使是不连续的函数，只要它有有限个不连续的点，该函数也是可积的，也就是说定积分$\int_a^b f(x)dx$存在。[16.7]
     
 
-# 积分计算
+# 定积分 $\int_a^x$
     
 * **定积分通式**：<span style="color:red;">$F(x)=\int_a^x f(t)dt$</span>，表示由曲线$y=f(t)$、$t$轴、$t=a$、$t=x$围成区域的面积。其中$t$称为虚拟变量。[17.1]
 * **积分下限变换**：把积分下限从一个常数换至另一个常数，变化前后只相差一个常数：设$F(x)=\int_a^x f(t)dt$，$H(x)=\int_b^x f(t)dt$，$C$为常数，那么$F(x)=\int_a^b f(t)dt + \int_b^x f(t)dt = H(x) + C$ [17.1]
@@ -509,24 +500,37 @@ draft: false
 * **求反导数的思路**：因为$\frac{d}{dx} \int_a^x f(t)dt=f(x)$，所以<span style="color:red;">函数$f(x)$的反导数为$\int_a^x f(t)dt$</span>（$a$为任意常数）。[17.2]
 * **反导数的集合**：如果$\frac{d}{dx}F(x)=f(x)$，那么$\int f(x)dx=F(x)+C$，表示函数$f(x)$的反导数的集合（有无限多个）。[17.4]
 * **函数导数的积分就是这个函数本身**：$\int_a^b \frac{d}{dx} F(x)dx=F(x) \big|_a^b$。[17.4]
+* **位移与路程**：位移 $\int_a^b v(t)dt$ [16.1]，路程 $\int_a^b |v(t)|dt$ [16.1]
+* **面积**（分段求解）[16.4]
+    * **求通常的面积$\int_a^b |f(x)|dx$**：
+        * 找出在$[a,b]$区间内满足$f(x)=0$的所有$x$的值（$0$值点）；
+        * 在$a$点、所有$0$值点、$b$点所做成的所有相邻区间内求函数$f(x)$的积分；
+        * 对各个积分的绝对值求和。
+    * **求两条曲线之间的面积**：$\int_a^b |f(x)-g(x)|dx$，注意要使用$f(x)-g(x)$的零值点分段求解。
+    * **求曲线与$y$轴所围成的面积**：如果$f(x)$存在反函数，由函数$y=f(x)$、直线$y=A$、直线$y=B$、$y$轴所围成的面积为$\int_A^B f^{-1}(y)dy$
+
+
+# 不定积分 $\int$
+
 * **不定积分公式** [17.6]
-| Differential Calculus                | Integral Calculus                                   |
-|--------------------------------------|-----------------------------------------------------|
-| $\frac{d}{dx} x^a = ax^{a-1}$        | $\int x^a dx = \frac{x^{a+1}}{a+1}+C$ (if $a \neq -1$) |
-| $\frac{d}{dx} ln(x)=\frac{1}{x}$     | $\int \frac{1}{x} dx = ln|x|+C$                     |
-| $\frac{d}{dx} e^x = e^x$             | $\int e^x dx = e^x + C$                             |
-| $\frac{d}{dx} b^x = b^x ln(b)$       | $\int b^x dx = \frac{b^x}{ln(b)}+C$                 |
-| $\frac{d}{dx} sin(x) = cos(x)$       | $\int cos(x) dx = sin(x) + C$                       |
-| $\frac{d}{dx} cos(x) = -sin(x)$      | $\int sin(x) dx = -cos(x) + C$                      |
-| $\frac{d}{dx} tan(x) = sec^2(x)$     | $\int sec^2(x) dx = tan(x) + C$                     |
-| $\frac{d}{dx} sec(x) = sec(x)tan(x)$ | $\int sec(x)tan(x) dx = sec(x) + C$                 |
-| $\frac{d}{dx} cot(x) = -csc^2(x)$    | $\int csc^2(x) dx = -cot(x) + C$                    |
-| $\frac{d}{dx} csc(x) = -csc(x)cot(x)$| $\int csc(x)cot(x) dx = -csc(x) + C$                |
-| $\frac{d}{dx} sin^{-1}(x)= \frac{1}{\sqrt{1-x^2}}$ | $\int \frac{1}{\sqrt{1-x^2}} dx = sin^{-1}(x) + C$ |
-| $\frac{d}{dx} tan^{-1}(x)= \frac{1}{1+x^2}$ | $\int \frac{1}{1+x^2} dx = tan^{-1}(x) + C$         |
-| $\frac{d}{dx} sec^{-1}(x) = \frac{1}{\|x\|\sqrt{x^2-1}}$ | $\int \frac{1}{\|x\|\sqrt{x^2-1}} dx = sec^{-1}(x) + C$ |
-| $\frac{d}{dx} sinh(x) = cosh(x)$     | $\int cosh(x) dx = sinh(x) + C$                     |
-| $\frac{d}{dx} cosh(x) = sinh(x) $    | $\int sinh(x) dx = cosh(x) + C$                     |
+| Integral Calculus                                      | Differential Calculus                |
+|--------------------------------------------------------|--------------------------------------|
+| $\int x^a dx = \frac{x^{a+1}}{a+1}+C$ (if $a \neq -1$) | $\frac{d}{dx} x^a = ax^{a-1}$        |
+| $\int b^x dx = \frac{b^x}{ln(b)}+C$                    | $\frac{d}{dx} b^x = b^x ln(b)$       |
+| $\int e^x dx = e^x + C$                                | $\frac{d}{dx} e^x = e^x$             |
+| $\int log_b(x) dx = x log_b(x) - \frac{x}{ln(b)} + C$（使用了换底公式和分部积分法）    | $\frac{d}{dx} log_b(x) = \frac{1}{x ln(b)}$       |
+| $\int \frac{1}{x} dx = ln\|x\|+C$                      | $\frac{d}{dx} ln(x)=\frac{1}{x}$     |
+| $\int cos(x) dx = sin(x) + C$                          | $\frac{d}{dx} sin(x) = cos(x)$       |
+| $\int sin(x) dx = -cos(x) + C$                         | $\frac{d}{dx} cos(x) = -sin(x)$      |
+| $\int sec^2(x) dx = tan(x) + C$                        | $\frac{d}{dx} tan(x) = sec^2(x)$     |
+| $\int sec(x)tan(x) dx = sec(x) + C$                    | $\frac{d}{dx} sec(x) = sec(x)tan(x)$ |
+| $\int csc^2(x) dx = -cot(x) + C$                       | $\frac{d}{dx} cot(x) = -csc^2(x)$    |
+| $\int csc(x)cot(x) dx = -csc(x) + C$                   | $\frac{d}{dx} csc(x) = -csc(x)cot(x)$|
+| $\int \frac{1}{\sqrt{1-x^2}} dx = sin^{-1}(x) + C$     | $\frac{d}{dx} sin^{-1}(x)= \frac{1}{\sqrt{1-x^2}}$ |
+| $\int \frac{1}{1+x^2} dx = tan^{-1}(x) + C$            | $\frac{d}{dx} tan^{-1}(x)= \frac{1}{1+x^2}$ |
+| $\int \frac{1}{\|x\|\sqrt{x^2-1}} dx = sec^{-1}(x) + C$  | $\frac{d}{dx} sec^{-1}(x) = \frac{1}{\|x\|\sqrt{x^2-1}}$ |
+| $\int cosh(x) dx = sinh(x) + C$                        | $\frac{d}{dx} sinh(x) = cosh(x)$     |
+| $\int sinh(x) dx = cosh(x) + C$                        | $\frac{d}{dx} cosh(x) = sinh(x) $    |
 
     * 微分时，如果用$ax$替代$x$，那么每一个相应的公式乘以$a$就可以了；<br/>
     * 积分时，如果用$ax$替代$x$，那么每一个相应的公式乘以$\frac{1}{a}$就可以了。
@@ -550,73 +554,75 @@ draft: false
         * 求出常数A、B、C、D：通过$x$换值法或系数相等法
         * 对前4种情况，使用换元法求积分
         * 对第5种情况，尝试**因式分解后**化成部分分式，如不能因式分解则把分母写成平方的形式（**配方**，如最高项系数不为1，先提取最高项系数），换元，再化成部分分式，最后积分
-* **三角积分**：
-    * 可以通过以下公式化解平方根：
-        * **倍角公式**：
-            * $cos^2(x)=\frac{1}{2}(1+cos(2x))$
-            * $sin^2(x)=\frac{1}{2}(1-cos(2x))$
-        * **毕达哥拉斯定理**：
-            * $sin^2(x)+cos^2(x)=1$
-            * $1+tan^2(x)=sec^2(x)$
-            * $1+cot^2(x)=csc^2(x)$
-    * 可以通过**积化和差公式**化解三角函数的积：
-        * $cos(A)cos(B)=\frac{1}{2}(cos(A-B)+cos(A+B))$
-        * $sin(A)sin(B)=\frac{1}{2}(cos(A-B)-cos(A+B))$
-        * $sin(A)cos(B)=\frac{1}{2}(sin(A-B)+sin(A+B))$
-    * 对分母是$1+trig(x)$或$1-trig(x)$的，可以分子分母同乘以其**共轭表达式**化解（$trig(x)$表示任意三角函数）
-    * $sin$或$cos$的幂：
-        * 有奇次幂的，拆开一项（优先低次幂项）与$dx$搭配，剩下的利用毕达哥拉斯定理化成同一个三角函数，以多项式方式展开求解
-        * 只有偶次幂的，以倍角公式降幂处理
-    * $sin$的幂（约化公式）：
-        * $ \int sin(x) dx = -cos(x) + C $
-        * $ \int sin^2(x) dx = \int \frac{1}{2} (1-cos(2x)) dx = \frac{1}{2} x - \frac{1}{4} sin(2x) + C$ （倍角公式）
-        * $ \int sin^n(x) dx $（when $n \ge 2$）
-            * $ = \int sin(x)sin^{n-1}(x) dx $
-            * $ = - sin^{n-1}(x)cos(x) + (n-1) \int cos^{2}(x)sin^{n-2}(x) dx $（分部积分法）
-            * $ = - sin^{n-1}(x)cos(x) + (n-1) \int (1-sin^2(x))sin^{n-2}(x) dx $
-            * $ = - sin^{n-1}(x)cos(x) + (n-1) \int sin^{n-2}(x) dx - (n-1) \int sin^{n}(x) dx $
-            * <span style="color:blue;">$ \implies \int sin^n(x) dx = - \frac{1}{n} sin^{n-1}(x)cos(x) + \frac{n-1}{n} \int sin^{n-2}(x) dx $</span>
-    * $cos$的幂（约化公式）：
-        * $ \int cos(x) dx = sin(x) + C $
-        * $ \int cos^2(x) dx = \int \frac{1}{2} (1+cos(2x)) dx = \frac{1}{2} x + \frac{1}{4} sin(2x) + C$ （倍角公式）
-        * $ \int cos^n(x) dx $（when $n \ge 2$）
-            * $ = \int cos(x)cos^{n-1}(x) dx $
-            * $ = cos^{n-1}(x)sin(x) + (n-1) \int sin^{2}(x)cos^{n-2}(x) dx $（分部积分法）
-            * $ = cos^{n-1}(x)sin(x) + (n-1) \int (1-cos^2(x))cos^{n-2}(x) dx $
-            * $ = cos^{n-1}(x)sin(x) + (n-1) \int cos^{n-2}(x) dx - (n-1) \int cos^{n}(x) dx $
-            * <span style="color:blue;">$ \implies \int cos^n(x) dx = \frac{1}{n} cos^{n-1}(x)sin(x) + \frac{n-1}{n} \int cos^{n-2}(x) dx $</span>
-    * $tan$的幂（约化公式）：
-        * $ \int tan(x) dx = \int \frac{sin(x)}{cos(x)} dx = -ln|cos(x)| + C $ (设$t=cos(x)$)
-        * $ \int tan^2(x) dx =  \int (sec^2(x)-1) dx = tan(x) - x + C$ 
-        * $ \int tan^n(x) dx $（when $n \ge 2$）
-            * $ = \int (sec^2(x)-1) tan^{n-2}(x) dx $
-            * $ = \int tan^{n-2}(x)sec^2(x)dx - \int tan^{n-2}(x)dx $
-            * <span style="color:blue;">$ = \frac{1}{n-1}tan^{n-1}(x) - \int tan^{n-2}(x)dx $</span>
-    * $cot$的幂（约化公式）：
-        * $ \int cot(x) dx = \int \frac{cos(x)}{sin(x)} dx = ln|sin(x)| + C $ (设$t=sin(x)$)
-        * $ \int cot^2(x) dx =  \int (csc^2(x)-1) dx = cot(x) - x + C$ 
-        * $ \int cot^n(x) dx $（when $n \ge 2$）
-            * $ = \int (csc^2(x)-1) cot^{n-2}(x) dx $
-            * $ = \int cot^{n-2}(x)csc^2(x)dx - \int cot^{n-2}(x)dx $
-            * <span style="color:blue;">$ = \frac{1}{n-1}cot^{n-1}(x) - \int cot^{n-2}(x)dx $</span>
-    * $sec$的幂（约化公式）：
-        * $ \int sec(x) dx = \int \frac{sec(x)tan(x) + sec^2(x)}{sec(x) + tan(x)} dx = ln|sec(x) + tan(x)| + C $
-        * $ \int sec^2(x) dx = tan(x) + C $
-        * $ \int sec^{n}(x) dx $（when $n \ge 2$）
-            * $ = \int sec^2(x)sec^{n-2}(x) dx $
-            * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^{n-2}(x)tan^2(x) dx $（分部积分法）
-            * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^{n-2}(x)(sec^2(x)-1) dx $
-            * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^n(x) dx + (n-2) \int sec^{n-2}(x) dx $
-            * <span style="color:blue;">$ \implies \int sec^n(x) dx = \frac{1}{n-1} sec^{n-2}(x)tan(x) + \frac{n-2}{n-1} \int sec^{n-2}(x) dx $</span>
-    * $csc$的幂（约化公式）：
-        * $ \int csc(x) dx = \int \frac{csc(x)cot(x) + csc^2(x)}{csc(x) + cot(x)} dx = -ln|csc(x) + cot(x)| + C $
-        * $ \int csc^2(x) dx = -cot(x) + C $
-        * $ \int csc^{n}(x) dx $（when $n \ge 2$）
-            * $ = \int csc^2(x)csc^{n-2}(x) dx $
-            * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^{n-2}(x)cot^2(x) dx $（分部积分法）
-            * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^{n-2}(x)(csc^2(x)-1) dx $
-            * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^n(x) dx + (n-2) \int csc^{n-2}(x) dx $
-            * <span style="color:blue;">$ \implies \int csc^n(x) dx = - \frac{1}{n-1} csc^{n-2}(x)cot(x) + \frac{n-2}{n-1} \int csc^{n-2}(x) dx $</span>
+
+
+# 三角积分
+* 可以通过以下公式化解平方根：
+    * **倍角公式**：
+        * $cos^2(x)=\frac{1}{2}(1+cos(2x))$
+        * $sin^2(x)=\frac{1}{2}(1-cos(2x))$
+    * **毕达哥拉斯定理**：
+        * $sin^2(x)+cos^2(x)=1$
+        * $1+tan^2(x)=sec^2(x)$
+        * $1+cot^2(x)=csc^2(x)$
+* 可以通过**积化和差公式**化解三角函数的积：
+    * $cos(A)cos(B)=\frac{1}{2}(cos(A-B)+cos(A+B))$
+    * $sin(A)sin(B)=\frac{1}{2}(cos(A-B)-cos(A+B))$
+    * $sin(A)cos(B)=\frac{1}{2}(sin(A-B)+sin(A+B))$
+* 对分母是$1+trig(x)$或$1-trig(x)$的，可以分子分母同乘以其**共轭表达式**化解（$trig(x)$表示任意三角函数）
+* $sin$或$cos$的幂：
+    * 有奇次幂的，拆开一项（优先低次幂项）与$dx$搭配，剩下的利用毕达哥拉斯定理化成同一个三角函数，以多项式方式展开求解
+    * 只有偶次幂的，以倍角公式降幂处理
+* $sin$的幂（约化公式）：
+    * $ \int sin(x) dx = -cos(x) + C $
+    * $ \int sin^2(x) dx = \int \frac{1}{2} (1-cos(2x)) dx = \frac{1}{2} x - \frac{1}{4} sin(2x) + C$ （倍角公式）
+    * $ \int sin^n(x) dx $（when $n \ge 2$）
+        * $ = \int sin(x)sin^{n-1}(x) dx $
+        * $ = - sin^{n-1}(x)cos(x) + (n-1) \int cos^{2}(x)sin^{n-2}(x) dx $（分部积分法）
+        * $ = - sin^{n-1}(x)cos(x) + (n-1) \int (1-sin^2(x))sin^{n-2}(x) dx $
+        * $ = - sin^{n-1}(x)cos(x) + (n-1) \int sin^{n-2}(x) dx - (n-1) \int sin^{n}(x) dx $
+        * <span style="color:blue;">$ \implies \int sin^n(x) dx = - \frac{1}{n} sin^{n-1}(x)cos(x) + \frac{n-1}{n} \int sin^{n-2}(x) dx $</span>
+* $cos$的幂（约化公式）：
+    * $ \int cos(x) dx = sin(x) + C $
+    * $ \int cos^2(x) dx = \int \frac{1}{2} (1+cos(2x)) dx = \frac{1}{2} x + \frac{1}{4} sin(2x) + C$ （倍角公式）
+    * $ \int cos^n(x) dx $（when $n \ge 2$）
+        * $ = \int cos(x)cos^{n-1}(x) dx $
+        * $ = cos^{n-1}(x)sin(x) + (n-1) \int sin^{2}(x)cos^{n-2}(x) dx $（分部积分法）
+        * $ = cos^{n-1}(x)sin(x) + (n-1) \int (1-cos^2(x))cos^{n-2}(x) dx $
+        * $ = cos^{n-1}(x)sin(x) + (n-1) \int cos^{n-2}(x) dx - (n-1) \int cos^{n}(x) dx $
+        * <span style="color:blue;">$ \implies \int cos^n(x) dx = \frac{1}{n} cos^{n-1}(x)sin(x) + \frac{n-1}{n} \int cos^{n-2}(x) dx $</span>
+* $tan$的幂（约化公式）：
+    * $ \int tan(x) dx = \int \frac{sin(x)}{cos(x)} dx = -ln|cos(x)| + C $ (设$t=cos(x)$)
+    * $ \int tan^2(x) dx =  \int (sec^2(x)-1) dx = tan(x) - x + C$ 
+    * $ \int tan^n(x) dx $（when $n \ge 2$）
+        * $ = \int (sec^2(x)-1) tan^{n-2}(x) dx $
+        * $ = \int tan^{n-2}(x)sec^2(x)dx - \int tan^{n-2}(x)dx $
+        * <span style="color:blue;">$ = \frac{1}{n-1}tan^{n-1}(x) - \int tan^{n-2}(x)dx $</span>
+* $cot$的幂（约化公式）：
+    * $ \int cot(x) dx = \int \frac{cos(x)}{sin(x)} dx = ln|sin(x)| + C $ (设$t=sin(x)$)
+    * $ \int cot^2(x) dx =  \int (csc^2(x)-1) dx = cot(x) - x + C$ 
+    * $ \int cot^n(x) dx $（when $n \ge 2$）
+        * $ = \int (csc^2(x)-1) cot^{n-2}(x) dx $
+        * $ = \int cot^{n-2}(x)csc^2(x)dx - \int cot^{n-2}(x)dx $
+        * <span style="color:blue;">$ = \frac{1}{n-1}cot^{n-1}(x) - \int cot^{n-2}(x)dx $</span>
+* $sec$的幂（约化公式）：
+    * $ \int sec(x) dx = \int \frac{sec(x)tan(x) + sec^2(x)}{sec(x) + tan(x)} dx = ln|sec(x) + tan(x)| + C $
+    * $ \int sec^2(x) dx = tan(x) + C $
+    * $ \int sec^{n}(x) dx $（when $n \ge 2$）
+        * $ = \int sec^2(x)sec^{n-2}(x) dx $
+        * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^{n-2}(x)tan^2(x) dx $（分部积分法）
+        * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^{n-2}(x)(sec^2(x)-1) dx $
+        * $ = sec^{n-2}(x)tan(x) - (n-2) \int sec^n(x) dx + (n-2) \int sec^{n-2}(x) dx $
+        * <span style="color:blue;">$ \implies \int sec^n(x) dx = \frac{1}{n-1} sec^{n-2}(x)tan(x) + \frac{n-2}{n-1} \int sec^{n-2}(x) dx $</span>
+* $csc$的幂（约化公式）：
+    * $ \int csc(x) dx = \int \frac{csc(x)cot(x) + csc^2(x)}{csc(x) + cot(x)} dx = -ln|csc(x) + cot(x)| + C $
+    * $ \int csc^2(x) dx = -cot(x) + C $
+    * $ \int csc^{n}(x) dx $（when $n \ge 2$）
+        * $ = \int csc^2(x)csc^{n-2}(x) dx $
+        * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^{n-2}(x)cot^2(x) dx $（分部积分法）
+        * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^{n-2}(x)(csc^2(x)-1) dx $
+        * $ = - csc^{n-2}(x)cot(x) - (n-2) \int csc^n(x) dx + (n-2) \int csc^{n-2}(x) dx $
+        * <span style="color:blue;">$ \implies \int csc^n(x) dx = - \frac{1}{n-1} csc^{n-2}(x)cot(x) + \frac{n-2}{n-1} \int csc^{n-2}(x) dx $</span>
 * **三角换元法的积分**：
     * **$\sqrt{a^2-x^2}$**：设$x=asin(\theta)$换元，把$\theta,a,x$的关系看成$\theta$的对边为$a$斜边为$x$邻边为$\sqrt{x^2-a^2}$的直角三角形
     * **$\sqrt{x^2+a^2}$**：设$x=atan(\theta)$换元，把$\theta,a,x$的关系看成$\theta$的对边为$x$邻边为$a$斜边为$\sqrt{x^2+a^2}$的直角三角形
