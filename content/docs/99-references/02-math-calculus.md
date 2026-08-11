@@ -1,6 +1,6 @@
 ---
 title: "微积分 (Calculus)"
-weight: 20
+weight: 2
 bookToC: true
 draft: false
 ---
@@ -666,3 +666,10 @@ draft: false
         1. 确定区间$[a,b]$上的所有**瑕点**
         1. 将积分拆分成若干积分之和，使得每个积分至多有一个瑕点，并且瑕点在积分的上限或下限处
         1. 只有全部分部积分都收敛积分才收敛
+
+
+# 级数
+* **几何级数一般式**：$\sum_{n=m}^\infty ar^n$，其中$r$是**公比**。
+* 若$-1<r<1$，则<span style="color:red;">$\sum_{n=m}^\infty ar^n=\frac{ar^m}{1-r}$</span>（即$\frac{首项}{1-公比}$）。
+* 若$r\le-1$或$r\ge1$，则无穷几何级数发散。
+* **第$n$项判别法**：若$\lim_{n \to \infty} a_n \ne 0$或极限不存在，则级数$\sum_{n=1}^\infty a_n$发散（即使级数通项趋于0，级数可能收敛也可能发散，即通项趋于0是级数收敛的前提条件）。

@@ -1,6 +1,6 @@
 ---
 title: "深度学习 (DL)"
-weight: 40
+weight: 10
 bookToC: true
 draft: false
 ---

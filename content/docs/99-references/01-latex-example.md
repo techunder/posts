@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 示例"
-weight: 10
+weight: 1
 bookToC: true
 draft: false
 ---

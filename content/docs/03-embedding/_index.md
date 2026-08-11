@@ -137,7 +137,7 @@ $cos(\theta)$ 的值范围为 [-1,1]，两个向量的越相似，它们之间�
 
 > [!WARNING]
 > 除了常见的使用**余弦相似度**来表示向量相似度之外，还有**点积**（Inner Product，简称 IP）、**曼哈顿距离**（Manhattan Distance，就是 L1 Norm）、**欧几里得距离**（Euclidean Distance，亦叫笛卡尔距离/Cartesian Distance，就是 L2 Norm）等。  
-> 计算公式见 [$L_p$范数](/docs/99-references/03-math-linalg/#l_p-norm)。
+> 计算公式见 [$L_p$范数](/docs/99-references/04-math-linalg/#l_p-norm)。
 
 
 # 相似度示例

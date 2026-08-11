@@ -1,6 +1,6 @@
 ---
 title: "化学符号 (Chemical)"
-weight: 50
+weight: 20
 bookToC: true
 draft: false
 ---
@@ -10,8 +10,8 @@ draft: false
 
 # 元素周期表
 
-![元素周期表](/images/docs/99-references/05-chem-symbols/table_of_elements_cn.jpg)
-![Table of Elements](/images/docs/99-references/05-chem-symbols/table_of_elements_en.png)
+![元素周期表](/images/docs/99-references/20-chem-symbols/table_of_elements_cn.jpg)
+![Table of Elements](/images/docs/99-references/20-chem-symbols/table_of_elements_en.png)
 
 # 数字上标与下标
 
