@@ -278,6 +278,19 @@ draft: false
     * $\lim_{x \to -\infty}sec^{-1}(x)=\frac{\pi}{2}$, $\lim_{x \to \infty}sec^{-1}(x)=\frac{\pi}{2}$
     * $\lim_{x \to -\infty}csc^{-1}(x)=0$, $\lim_{x \to \infty}csc^{-1}(x)=0$
         
+* <span style="color:red;">**洛必达法则**</span>求极限 [14]
+    * 洛必达法则是一种利用导数求极限的方法。
+    * 极限的主要形式：
+        * A型$\frac{0}{0}$, $\frac{\pm \infty}{\pm \infty}$（称为**不定式**）：$\lim_{x \to a} \frac {f(x)}{g(x)}$
+        * B1型$\pm(\infty - \infty)$：$\lim_{x \to a} (f(x)-g(x))$
+        * B2型$0 \times \pm \infty$：$\lim_{x \to a} f(x)g(x)$
+        * C型$1^{\pm \infty}$, $0^0$, $\infty^0$：$\lim_{x \to a} f(x)^{g(x)}$
+    * B1 => A, C => B2 => A
+        * B1型可以尝试分子分母同时乘以（除以）一个共轭表达式，转换成A型后使用洛必达法则。
+        * B2型可以尝试把较简单的一个因子取倒数后移动到分母，转换成A型后使用洛必达法则。
+        * C型可以取对数后化成B2型，之后尝试转换成不定式后使用洛必达法则，得到极限后取指数。
+    * A型直接应用洛必达法则：如果$f(a)=g(a)=0$，那么<span style="color:red;">$\lim_{x \to a} \frac{f(x)}{g(x)}=\lim_{x \to a} \frac{f'(x)}{g'(x)}$</span>（通过点$a$的线性化$f(x) \approx f(a)+f'(a)(x-a)$和$g(x) \approx g(a)+g'(a)(x-a)$得出）
+
 
 # 连续性
 
@@ -447,18 +460,6 @@ draft: false
         * 如果$f(x)=0$有不止一个解，可能得到的不是你想要的那个解
         * 陷入循环一直重复，无法更进一步
         * 近似值有可能会变得越来越偏离
-* 通过<span style="color:red;">洛必达</span>法则求极限 [14]
-    * **极限的主要形式**：
-        * A型$\frac{0}{0}$, $\frac{\pm \infty}{\pm \infty}$（称为**不定式**）：$\lim_{x \to a} \frac {f(x)}{g(x)}$
-        * B1型$\pm(\infty - \infty)$：$\lim_{x \to a} (f(x)-g(x))$
-        * B2型$0 \times \pm \infty$：$\lim_{x \to a} f(x)g(x)$
-        * C型$1^{\pm \infty}$, $0^0$, $\infty^0$：$\lim_{x \to a} f(x)^{g(x)}$
-        * B1 -> A, C -> B2 -> A
-    * **$\frac{0}{0}$型极限**：如果$f(a)=g(a)=0$，那么<span style="color:red;">$\lim_{x \to a} \frac{f(x)}{g(x)}=\lim_{x \to a} \frac{f'(x)}{g'(x)}$</span>（通过点$a$的线性化$f(x) \approx f(a)+f'(a)(x-a)$和$g(x) \approx g(a)+g'(a)(x-a)$得出）
-    * **$\frac{\pm \infty}{\pm \infty}$型极限**：照样可以使用洛必达法则。
-    * B1型可以尝试分子分母同时乘以除以一个共轭表达式，转换成A型后使用洛必达法则。
-    * B2型可以尝试把较简单的一个因子取倒数移动到分母，转换成A型后使用洛必达法则。
-    * C型可以取对数后化成B2型，之后尝试转换成不定式后使用洛必达法则，得到极限后取指数。
             
 
 # 积分定义 $\int$
