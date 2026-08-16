@@ -286,10 +286,12 @@ draft: false
         * B2型$0 \times \pm \infty$：$\lim_{x \to a} f(x)g(x)$
         * C型$1^{\pm \infty}$, $0^0$, $\infty^0$：$\lim_{x \to a} f(x)^{g(x)}$
     * B1 => A, C => B2 => A
-        * B1型可以尝试分子分母同时乘以（除以）一个共轭表达式，转换成A型后使用洛必达法则。
+        * B1型可以尝试通分、分子分母同时乘以（除以）一个共轭表达式，转换成A型后使用洛必达法则。
         * B2型可以尝试把较简单的一个因子取倒数后移动到分母，转换成A型后使用洛必达法则。
         * C型可以取对数后化成B2型，之后尝试转换成不定式后使用洛必达法则，得到极限后取指数。
-    * A型直接应用洛必达法则：如果$f(a)=g(a)=0$，那么<span style="color:red;">$\lim_{x \to a} \frac{f(x)}{g(x)}=\lim_{x \to a} \frac{f'(x)}{g'(x)}$</span>（通过点$a$的线性化$f(x) \approx f(a)+f'(a)(x-a)$和$g(x) \approx g(a)+g'(a)(x-a)$得出）
+    * A型直接应用洛必达法则：
+        * 如果$f(a)=g(a)=0$，那么<span style="color:red;">$\lim_{x \to a} \frac{f(x)}{g(x)}=\lim_{x \to a} \frac{f'(x)}{g'(x)}$</span>（通过点$a$的线性化$f(x) \approx f(a)+f'(a)(x-a)$和$g(x) \approx g(a)+g'(a)(x-a)$得出）
+        * 对$f(a)=g(a)=\pm \infty$同样成立，但其他情况不成立！
 
 
 # 连续性
