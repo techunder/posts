@@ -675,8 +675,13 @@ draft: false
 * **几何级数一般式**：$\sum_{n=m}^\infty ar^n$，其中$r$是**公比**。
     * 若$-1<r<1$，则<span style="color:red;">$\sum_{n=m}^\infty ar^n=\frac{ar^m}{1-r}$</span>（即$\frac{首项}{1-公比}$）。
     * 若$r\le-1$或$r\ge1$，则无穷几何级数发散。
-* **第$n$项判别法**：若$\lim_{n \to \infty} a_n \ne 0$或极限不存在，则级数$\sum_{n=1}^\infty a_n$发散。即使级数通项趋于0，级数可能收敛也可能发散，即**通项趋于0是级数收敛的前提条件**。
+* **第$n$项判别法**：**通项趋于0是级数收敛的前提条件**，若$\lim_{n \to \infty} a_n \ne 0$或极限不存在，则级数$\sum_{n=1}^\infty a_n$发散。
 * **比式判别法**：设$L=\lim_{n \to \infty} \vert \frac{a_{n+1}}{a_n} \vert$，则$\sum_{n=1}^\infty a_n$
     * 在$L \lt 1$时绝对收敛；
     * 在$L \gt 1$时发散；
     * 在$L=1$或极限不存在时，无法判别。
+* **根式判别法**：设$L=\lim_{n \to \infty} \vert a_n \vert ^ \frac{1}{n}$，则$\sum_{n=1}^\infty a_n$
+    * 在$L \lt 1$时绝对收敛；
+    * 在$L \gt 1$时发散；
+    * 在$L=1$或极限不存在时，无法判别。
+* **积分判别法**：若对连续递减函数$f$有$a_n=f(n)$，则$\sum_{n=N}^\infty a_n$与$\int_N^\infty f(x) dx$同时收敛或同时发散（$N$为任意正整数）。
