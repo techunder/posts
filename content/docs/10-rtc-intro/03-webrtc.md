@@ -309,6 +309,8 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 客户端向 STUN 服务器发送请求，拿到自身外网地址（IP + 端口），生成 ICE 候选。
 
+通信过程见[公网出口端口探测](../02-p2p/#%e5%85%ac%e7%bd%91%e5%87%ba%e5%8f%a3%e7%ab%af%e5%8f%a3%e6%8e%a2%e6%b5%8b)
+
 正常网络环境下，拿到公网地址后两端可以直接 P2P，不走流量中转。
 
 - 消息格式见：[STUN Message Structure](https://www.rfc-editor.org/info/rfc8489/#section-5)
@@ -316,16 +318,130 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 ## TURN
 
-中继服务 TURN（Traversal Using Relays around NAT，备用必备）
+中继服务 TURN（Traversal Using Relays around NAT）
 
-当多层 NAT、对称 NAT、防火墙严格拦截，两端无法直连 P2P 时，自动降级为所有音视频流量全部经过 TURN 服务器中转。
+当多层 NAT、对称 NAT、防火墙严格拦截，两端无法 P2P 直连时，会自动降级为所有流量经过 TURN 服务器中转。
 
-常见的协议有 TURN over UDP / TCP / TLS。
+有 TURN over UDP / TCP / TLS 多种传输方式，TURN over UDP 最为常见。
 
-要承载媒体流量，带宽消耗大，成本高。
+服务器要承载媒体流量，带宽消耗大，成本较高。
 
 > [!NOTE]
 > 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
+
+过程为：
+1. Create Allocation
+2. Create Permission for peer
+3. Bind Channel ID for peer
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant A as Peer A (TURN client)<br/>192.0.2.1:5000
+    participant T as TURN Server
+    participant B as Peer B (TURN client)<br/>198.51.100.7:7000
+
+    rect rgb(240, 248, 255)
+    Note over A,T: Peer A allocates relay R1 (allocator.go:198)
+    A->>T: Allocate request to TURN control (default :9081)
+    T-->>A: success, relay = R1 (server IP, port in 9090-9099)
+    end
+
+    rect rgb(240, 248, 255)
+    Note over B,T: Peer B allocates relay R2 (allocator.go:198)
+    B->>T: Allocate request to TURN control
+    T-->>B: success, relay = R2 (server IP, next port in 9090-9099)
+    end
+
+    rect rgb(255, 248, 240)
+    Note over A,T: Peer A authorizes peer B (allocator.go:90)
+    A->>T: CreatePermission for peer B
+    A->>T: BindChannel 0x4001 to peer B (allocator.go:115)
+    end
+
+    rect rgb(255, 248, 240)
+    Note over B,T: Peer B authorizes peer A (allocator.go:90)
+    B->>T: CreatePermission for peer A
+    B->>T: BindChannel 0x4001 to peer A (allocator.go:115)
+    end
+
+    rect rgb(240, 255, 240)
+    Note over T: Peer A sends to peer B (server hops via R2)
+    A->>T: ChannelData 0x4001 with payload (to TURN control)
+    T->>T: FindChannelByID 0x4001 returns peer B addr = R2 (allocator.go:140)
+    T->>T: write payload as UDP to R2 (server owns R2)
+    T->>T: GetByRelay R2 returns peer B allocation (allocator.go:229)
+    T->>B: forward payload to peer B ClientAddr (peer B public IP:port)
+    end
+
+    rect rgb(255, 245, 245)
+    Note over T: Peer B sends to peer A (server hops via R1)
+    B->>T: ChannelData 0x4001 with payload (to TURN control)
+    T->>T: FindChannelByID 0x4001 returns peer A addr = R1
+    T->>T: write payload as UDP to R1 (server owns R1)
+    T->>T: GetByRelay R1 returns peer A allocation
+    T->>A: forward payload to peer A ClientAddr (peer A public IP:port)
+    end
+
+    rect rgb(250, 250, 250)
+    Note over T: Sweep removes expired allocations (allocator.go:247)
+    T->>T: IsExpired check, drop expired, return port
+    end
+
+```
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant A as Peer A (TURN client)<br/>1.1.1.1:32230
+    participant T as TURN Server<br/>1.2.3.4:9081
+    participant B as Peer B (TURN client)<br/>2.2.2.2:22309
+
+    Note over A,B: Suppose configured TURN replay port range is 9090~9099
+
+    rect rgb(240, 248, 255)
+    Note over A,T: Peer A allocates relay R1
+    A->>T: Allocate request to TURN control server (1.2.3.4:9081)
+    T-->>A: success, relay = R1 (1.2.3.4:9090)
+    end
+
+    rect rgb(240, 248, 255)
+    Note over B,T: Peer B allocates relay R2
+    B->>T: Allocate request to TURN control server (1.2.3.4:9081)
+    T-->>B: success, relay = R2 (1.2.3.4:9091)
+    end
+
+    rect rgb(255, 248, 240)
+    Note over A,T: Peer A authorizes peer B
+    A->>T: Create permission for peer B
+    A->>T: Bind channel id 0x4001 to peer B
+    end
+
+    rect rgb(255, 248, 240)
+    Note over B,T: Peer B authorizes peer A
+    B->>T: Create permission for peer A
+    B->>T: Bind channel id 0x4002 to peer A
+    end
+
+    rect rgb(240, 255, 240)
+    Note over T: Peer A sends to peer B via relay R2
+    A->>T: ChannelData 0x4001 with payload
+    T->>T: FindChannelByID 0x4001 returns peer B
+    T->>B: payload via peer B relay R2
+    end
+
+    rect rgb(255, 245, 245)
+    Note over T: Peer B sends to peer A via relay R1
+    B->>T: ChannelData 0x4002 with payload
+    T->>T: FindChannelByID 0x4002 returns peer A
+    T->>A: payload via peer A relay R1
+    end
+
+    rect rgb(250, 250, 250)
+    Note over T: Sweep removes expired allocations (allocator.go:247)
+    T->>T: IsExpired check, drop expired, return port
+    end
+```
 
 ## SFU
 
