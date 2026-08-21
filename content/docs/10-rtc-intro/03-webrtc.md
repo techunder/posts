@@ -329,12 +329,9 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 > [!NOTE]
 > 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
 
-> [!TIP]
-> Relay Port 就是 Client 的“**代言人**”。Client 发出的数据以 Relay Port 的身份发出，发往 Client 的数据先发往 Replay Port。
-
 TURN Server 服务于两种通信情况：
 - TURN Client ↔ TURN Client（两个Peer都在NAT之后）
-- TURN Client ↔ Plain UDP（也就是有公网IP的Peer）
+- TURN Client ↔ Plain UDP（Plain UDP指有公网IP的Peer）
 
 > Plain UDP ↔ Plain UDP 的情况无需TURN Server，它们可以直接P2P通信
 
@@ -347,55 +344,75 @@ TURN Client 与 TURN Server 建立通信关系的主要过程为：
 2. AddPermission for peer
 3. BindChannel for peer (channelID is unique only in current Allocation)
 
+Plain UDP 无需 Create Allocation。
+
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant T as TURN Server<br/>ServerIP:ControlPort
     participant A as Peer A (TURN client)<br/>PeerAIP:PeerAPort
+    participant T as TURN Server<br/>ServerIP:ControlPort
     participant B as Peer B (TURN client)<br/>PeerBIP:PeerBPort
     participant C as Peer C (plain UDP)<br/>PeerCIP:PeerCPort
 
     rect rgb(240, 248, 255)
     Note over A,T: Peer A allocates relay R1
-    A->>T: Allocate request to TURN control server (ServerIP:ControlPort)
-    T-->>A: success, relay = R1 (ServerIP:9090)
+    A->>T: Allocate request to TURN control (ServerIP:ControlPort)
+    T-->>A: success, relay = R1 (ServerIP:RelayPort1)
     end
 
     rect rgb(240, 248, 255)
     Note over B,T: Peer B allocates relay R2
-    B->>T: Allocate request to TURN control server (ServerIP:ControlPort)
-    T-->>B: success, relay = R2 (ServerIP:RelayPort1)
+    B->>T: Allocate request to TURN control (ServerIP:ControlPort)
+    T-->>B: success, relay = R2 (ServerIP:RelayPort2)
     end
 
     rect rgb(255, 248, 240)
     Note over A,T: Peer A authorizes peer B
-    A->>T: Create permission for peer B
-    A->>T: Bind channel id 0x4001 to peer B
+    A->>T: CreatePermission for peer B
+    A->>T: BindChannel 0x4001 to peer B
     end
 
     rect rgb(255, 248, 240)
     Note over B,T: Peer B authorizes peer A
-    B->>T: Create permission for peer A
-    B->>T: Bind channel id 0x4002 to peer A
+    B->>T: CreatePermission for peer A
+    B->>T: BindChannel 0x4002 to peer A
     end
 
     rect rgb(240, 255, 240)
     Note over T: Peer A sends to peer B via relay R2
-    A->>T: ChannelData 0x4001 with payload
+    A->>T: ChannelData1 0x4001
     T->>T: FindChannelByID 0x4001 returns peer B
-    T->>B: payload via peer B relay R2
+    T->>T: Data1 to peer B relay R2
+    T->>T: FindChannelByPeer returns channel 0x4002
+    T->>B: ChannelData1 0x4002
     end
 
     rect rgb(255, 245, 245)
     Note over T: Peer B sends to peer A via relay R1
-    B->>T: ChannelData 0x4002 with payload
+    B->>T: ChannelData2 0x4002
     T->>T: FindChannelByID 0x4002 returns peer A
-    T->>A: payload via peer A relay R1
+    T->>T: Data2 to peer A relay R1
+    T->>T: FindChannelByPeer returns channel 0x4001
+    T->>A: ChannelData2 0x4001
+    end
+
+    rect rgb(240, 255, 240)
+    Note over T: Peer A sends to peer C
+    A->>T: ChannelData3 0x4003
+    T->>T: FindChannelByID 0x4003 returns peer C
+    T->>C: Data3
+    end
+
+    rect rgb(255, 245, 245)
+    Note over T: Peer C sends to peer A via relay R1
+    C->>T: Data4 to Peer A relay R1
+    T->>T: FindChannelByPeer returns channel 0x4003
+    T->>A: ChannelData2 0x4003
     end
 
     rect rgb(250, 250, 250)
-    Note over T: Sweep removes expired allocations (allocator.go:247)
+    Note over T: Sweep removes expired allocations
     T->>T: IsExpired check, drop expired, return port
     end
 ```
@@ -465,6 +482,9 @@ flowchart TD
     e7@{ animate: true }
 ```
 
+> [!TIP]
+> Relay Port 就是 Client 的“**代言人**”。Client 发出的数据以 Relay Port 的身份发出，发往 Client 的数据先发往 Replay Port。
+
 ## SFU
 
 多人视频会议（3 人及以上）的场景下，P2P 会形成网状连接，带宽爆炸，需要使用引入 **SFU**（Selective Forwarding Unit）。
@@ -474,6 +494,8 @@ SFU 工作机制：
 - SFU 只做流量分发，把流分发给其他所有参会者
 
 MCU（Multipoint Control Unit）是把多路上行画面混合成一路画面再下发的机制，其 CPU 开销高，常见于老旧视频会议系统。
+
+> SFU 并不是 WebRTC 标准的一部分。
 
 # References
 
