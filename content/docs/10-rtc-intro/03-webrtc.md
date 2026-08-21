@@ -329,86 +329,43 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 > [!NOTE]
 > 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
 
-过程为：
-1. Create Allocation
-2. Create Permission for peer
-3. Bind Channel ID for peer
+> [!TIP]
+> Relay Port 就是 Client 的“**代言人**”。Client 发出的数据以 Relay Port 的身份发出，发往 Client 的数据先发往 Replay Port。
+
+TURN Server 服务于两种通信情况：
+- TURN Client ↔ TURN Client（两个Peer都在NAT之后）
+- TURN Client ↔ Plain UDP（也就是有公网IP的Peer）
+
+> Plain UDP ↔ Plain UDP 的情况无需TURN Server，它们可以直接P2P通信
+
+通信中有两种格式的数据：
+- ChannelData: 带 TURN framing 头，格式为"Channel(2B), Length(2B), Data"
+- Data: 没有 TURN framing 头，只有 "Data"，
+
+TURN Client 与 TURN Server 建立通信关系的主要过程为：
+1. Create Allocation by Allocate
+2. AddPermission for peer
+3. BindChannel for peer (channelID is unique only in current Allocation)
+
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant A as Peer A (TURN client)<br/>192.0.2.1:5000
-    participant T as TURN Server
-    participant B as Peer B (TURN client)<br/>198.51.100.7:7000
-
-    rect rgb(240, 248, 255)
-    Note over A,T: Peer A allocates relay R1 (allocator.go:198)
-    A->>T: Allocate request to TURN control (default :9081)
-    T-->>A: success, relay = R1 (server IP, port in 9090-9099)
-    end
-
-    rect rgb(240, 248, 255)
-    Note over B,T: Peer B allocates relay R2 (allocator.go:198)
-    B->>T: Allocate request to TURN control
-    T-->>B: success, relay = R2 (server IP, next port in 9090-9099)
-    end
-
-    rect rgb(255, 248, 240)
-    Note over A,T: Peer A authorizes peer B (allocator.go:90)
-    A->>T: CreatePermission for peer B
-    A->>T: BindChannel 0x4001 to peer B (allocator.go:115)
-    end
-
-    rect rgb(255, 248, 240)
-    Note over B,T: Peer B authorizes peer A (allocator.go:90)
-    B->>T: CreatePermission for peer A
-    B->>T: BindChannel 0x4001 to peer A (allocator.go:115)
-    end
-
-    rect rgb(240, 255, 240)
-    Note over T: Peer A sends to peer B (server hops via R2)
-    A->>T: ChannelData 0x4001 with payload (to TURN control)
-    T->>T: FindChannelByID 0x4001 returns peer B addr = R2 (allocator.go:140)
-    T->>T: write payload as UDP to R2 (server owns R2)
-    T->>T: GetByRelay R2 returns peer B allocation (allocator.go:229)
-    T->>B: forward payload to peer B ClientAddr (peer B public IP:port)
-    end
-
-    rect rgb(255, 245, 245)
-    Note over T: Peer B sends to peer A (server hops via R1)
-    B->>T: ChannelData 0x4001 with payload (to TURN control)
-    T->>T: FindChannelByID 0x4001 returns peer A addr = R1
-    T->>T: write payload as UDP to R1 (server owns R1)
-    T->>T: GetByRelay R1 returns peer A allocation
-    T->>A: forward payload to peer A ClientAddr (peer A public IP:port)
-    end
-
-    rect rgb(250, 250, 250)
-    Note over T: Sweep removes expired allocations (allocator.go:247)
-    T->>T: IsExpired check, drop expired, return port
-    end
-
-```
-
-```mermaid
-sequenceDiagram
-    autonumber
-    participant A as Peer A (TURN client)<br/>1.1.1.1:32230
-    participant T as TURN Server<br/>1.2.3.4:9081
-    participant B as Peer B (TURN client)<br/>2.2.2.2:22309
-
-    Note over A,B: Suppose configured TURN replay port range is 9090~9099
+    participant T as TURN Server<br/>ServerIP:ControlPort
+    participant A as Peer A (TURN client)<br/>PeerAIP:PeerAPort
+    participant B as Peer B (TURN client)<br/>PeerBIP:PeerBPort
+    participant C as Peer C (plain UDP)<br/>PeerCIP:PeerCPort
 
     rect rgb(240, 248, 255)
     Note over A,T: Peer A allocates relay R1
-    A->>T: Allocate request to TURN control server (1.2.3.4:9081)
-    T-->>A: success, relay = R1 (1.2.3.4:9090)
+    A->>T: Allocate request to TURN control server (ServerIP:ControlPort)
+    T-->>A: success, relay = R1 (ServerIP:9090)
     end
 
     rect rgb(240, 248, 255)
     Note over B,T: Peer B allocates relay R2
-    B->>T: Allocate request to TURN control server (1.2.3.4:9081)
-    T-->>B: success, relay = R2 (1.2.3.4:9091)
+    B->>T: Allocate request to TURN control server (ServerIP:ControlPort)
+    T-->>B: success, relay = R2 (ServerIP:RelayPort1)
     end
 
     rect rgb(255, 248, 240)
@@ -441,6 +398,71 @@ sequenceDiagram
     Note over T: Sweep removes expired allocations (allocator.go:247)
     T->>T: IsExpired check, drop expired, return port
     end
+```
+
+**数据流转图**，覆盖一下情况：
+- TURN client → TURN client (A → B: Data1)
+- TURN client → plain UDP   (A → C: Data2)
+- plain UDP → TURN client   (C → A: Data3)
+
+```mermaid
+flowchart TD
+    subgraph AllocA["Allocation 1 - Peer A"]
+        C1["clientAddr:<br/>PeerAIP:PeerAPort"]
+        R1["relayAddr (R1):<br/>ServerIP:RelayPort1"]
+        PA["permissions:<br/>allow PeerBIP"]
+        CHA["channels:<br/>0x4001 → ServerIP:RelayPort2<br/>0x4003 → PeerCIP:PeerCPort"]
+    end
+
+    subgraph AllocB["Allocation 2 - Peer B"]
+        C2["clientAddr:<br/>PeerBIP:PeerBPort"]
+        R2["relayAddr (R2):<br/>ServerIP:RelayPort2"]
+        PB["permissions:<br/>allow PeerAIP"]
+        CHB["channels:<br/>0x4002 → ServerIP:RelayPort1"]
+    end
+
+    subgraph Server["TURN Server Listening"]
+        CP(ServerIP:ControlPort)
+        RP1(ServerIP:RelayPort1<br/>R1)
+        RP2(ServerIP:RelayPort2<br/>R2)
+    end
+
+    A(Peer A<br/>TURN Client<br/>PeerAIP:PeerAPort)
+    B(Peer B<br/>TURN Client<br/>PeerBIP:PeerBPort)
+    C(Peer C<br/>Plain UDP<br/>PeerCIP:PeerCPort)
+
+    A -->|Allocate| AllocA
+    B -->|Allocate| AllocB
+
+    %% A → B (TURN client to TURN client)
+    A e1@-->|ChannelData1 channel=0x4001| CP
+    CP -.->|GetByClient| AllocA
+    CP e2@-->|Data1 src=ServerIP:RelayPort1| RP2
+    RP2 -.->|GetByRelay| AllocB
+    RP2 e3@-->|ChannelData1 channel=0x4002 src=ServerIP:ControlPort| B
+
+    %% A → C (TURN client to plain UDP)
+    A e4@-->|ChannelData2 channel=0x4003| CP
+    CP e5@-->|Data2 src=ServerIP:ControlPort| C
+
+    %% C → A (plain UDP to TURN client)
+    C e6@-->|Data3| RP2
+    RP2 e7@-->|Data3 src=ServerIP:ControlPort| A
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style CP fill:#fff,stroke:#333,stroke-width:2px
+    style RP1 fill:#fff,stroke:#333,stroke-width:2px
+    style RP2 fill:#fff,stroke:#333,stroke-width:2px
+
+    e1@{ animate: true }
+    e2@{ animate: true }
+    e3@{ animate: true }
+    e4@{ animate: true }
+    e5@{ animate: true }
+    e6@{ animate: true }
+    e7@{ animate: true }
 ```
 
 ## SFU
