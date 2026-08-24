@@ -1,6 +1,6 @@
 ---
 title: "WebRTC"
-weight: 3
+weight: 2
 bookCollapseSection: false
 draft: false
 ---
@@ -324,7 +324,7 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 有 TURN over UDP / TCP / TLS 多种传输方式，TURN over UDP 最为常见。
 
-服务器要承载媒体流量，带宽消耗大，成本较高。
+TURN 服务器要承载媒体流量，带宽消耗大，成本较高。
 
 > [!NOTE]
 > 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
@@ -380,35 +380,35 @@ sequenceDiagram
     end
 
     rect rgb(240, 255, 240)
-    Note over T: Peer A sends to peer B via relay R2
-    A->>T: ChannelData1 0x4001
+    Note over A,B: Peer A sends to peer B via relay R2
+    A->>T: ChannelData1 dst=0x4001
     T->>T: FindChannelByID 0x4001 returns peer B
     T->>T: Data1 to peer B relay R2
     T->>T: FindChannelByPeer returns channel 0x4002
-    T->>B: ChannelData1 0x4002
+    T->>B: ChannelData1 src=0x4002
     end
 
     rect rgb(255, 245, 245)
-    Note over T: Peer B sends to peer A via relay R1
-    B->>T: ChannelData2 0x4002
+    Note over A,B: Peer B sends to peer A via relay R1
+    B->>T: ChannelData2 dst=0x4002
     T->>T: FindChannelByID 0x4002 returns peer A
     T->>T: Data2 to peer A relay R1
     T->>T: FindChannelByPeer returns channel 0x4001
-    T->>A: ChannelData2 0x4001
+    T->>A: ChannelData2 src=0x4001
     end
 
     rect rgb(240, 255, 240)
-    Note over T: Peer A sends to peer C
-    A->>T: ChannelData3 0x4003
+    Note over A,C: Peer A sends to peer C
+    A->>T: ChannelData3 dst=0x4003
     T->>T: FindChannelByID 0x4003 returns peer C
     T->>C: Data3
     end
 
     rect rgb(255, 245, 245)
-    Note over T: Peer C sends to peer A via relay R1
+    Note over A,C: Peer C sends to peer A via relay R1
     C->>T: Data4 to Peer A relay R1
     T->>T: FindChannelByPeer returns channel 0x4003
-    T->>A: ChannelData2 0x4003
+    T->>A: ChannelData4 src=0x4003
     end
 
     rect rgb(250, 250, 250)
@@ -427,7 +427,7 @@ flowchart TD
     subgraph AllocA["Allocation 1 - Peer A"]
         C1["clientAddr:<br/>PeerAIP:PeerAPort"]
         R1["relayAddr (R1):<br/>ServerIP:RelayPort1"]
-        PA["permissions:<br/>allow PeerBIP"]
+        PA["permissions:<br/>allow PeerBIP<br/>allow PeerCIP"]
         CHA["channels:<br/>0x4001 → ServerIP:RelayPort2<br/>0x4003 → PeerCIP:PeerCPort"]
     end
 
@@ -463,8 +463,9 @@ flowchart TD
     CP e5@-->|Data2 src=ServerIP:ControlPort| C
 
     %% C → A (plain UDP to TURN client)
-    C e6@-->|Data3| RP2
-    RP2 e7@-->|Data3 src=ServerIP:ControlPort| A
+    C e6@-->|Data3| RP1
+    RP1 -.->|GetByRelay| AllocA
+    RP1 e7@-->|Data3 src=ServerIP:ControlPort| A
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style B fill:#f9f,stroke:#333,stroke-width:2px
