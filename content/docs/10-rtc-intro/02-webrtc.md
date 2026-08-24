@@ -33,7 +33,7 @@ draft: false
 服务端三层：
 - 信令层：WebSocket **信令服务**（交换 SDP+ICE）
 - ICE 穿透层：**STUN**（公网探测）+ **TURN**（流量中继）
-- 媒体分发层：**SFU**（多人会议，开源实现 MediaSoup，可选）
+- 媒体分发层：**SFU**（多人会议，有开源实现 MediaSoup，可选）
 
 ## 整体流程
 1. A 打开摄像头，创建 RTCPeerConnection，生成 **Offer SDP**
@@ -145,7 +145,7 @@ sequenceDiagram
 
     Note over ws1,stun: NAT Hole Punching
     autonumber off
-    peerconn1<<->>peerconn2: Set up peer connection with candidates (first P2P fallback to TURN)
+    peerconn1<<->>peerconn2: Set up peer connection with candidates (first P2P then fallback to TURN)
 
     Note over ws1,stun: Media Stream Hooking
     autonumber 1
@@ -313,8 +313,38 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 正常网络环境下，拿到公网地址后两端可以直接 P2P，不走流量中转。
 
-- 消息格式见：[STUN Message Structure](https://www.rfc-editor.org/info/rfc8489/#section-5)
-- 属性定义见：[STUN Attributes](https://www.rfc-editor.org/info/rfc8489/#section-14)
+**消息格式**：
+
+所有 STUN 消息由一个 20 字节的头部和零个或多个属性组成。
+
+头部的格式：
+```text
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |0 0|     STUN Message Type     |         Message Length        |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                         Magic Cookie                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     |                     Transaction ID (96 bits)                  |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+消息格式详见：[STUN Message Structure](https://www.rfc-editor.org/info/rfc8489/#section-5)
+
+属性的格式：
+```text
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |         Type                  |            Length             |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                         Value (variable)                ....
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+属性格式详见：[STUN Attributes](https://www.rfc-editor.org/info/rfc8489/#section-14)
 
 ## TURN
 
@@ -326,26 +356,34 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 TURN 服务器要承载媒体流量，带宽消耗大，成本较高。
 
-> [!NOTE]
+> [!TIP]
 > 工程上一般把 STUN + TURN 部署在同一套服务，统称 ICE Server。
 
-TURN Server 服务于两种通信情况：
-- TURN Client ↔ TURN Client（两个Peer都在NAT之后）
-- TURN Client ↔ Plain UDP（Plain UDP指有公网IP的Peer）
+> [!NOTE]
+> TURN Server 服务于两种通信场景：
+> - TURN Client ↔ TURN Client（两个Peer都在NAT之后）
+> - TURN Client ↔ Plain UDP（Plain UDP指有公网IP的Peer）
 
 > Plain UDP ↔ Plain UDP 的情况无需TURN Server，它们可以直接P2P通信
 
-通信中有两种格式的数据：
-- ChannelData: 带 TURN framing 头，格式为"Channel(2B), Length(2B), Data"
-- Data: 没有 TURN framing 头，只有 "Data"，
+> [!NOTE]
+> TURN通道上，有两种格式的数据：
+> - STUN 消息：见[STUN消息格式](../02-webrtc/#stun)
+> - ChannelData：TURN framing 头 + Data，格式为"ChannelID(2B), Length(2B), Data"，ChannelID 的范围为 0x4000 ~ 0x7FFF  
+> 此外，可能会有与 Plain UDP 客户端的纯 Data 数据，没有 TURN framing 头，只有 "Data"
+
+> STUN消息的first 2-bit 必须为0，刚好与 0x4000 ~ 0x7FFF 的 ChannelID 错开。STUN消息的 Message Type 与 ChannelData 的 ChannelID 不重合，让 TURN Control Server 可以区分两种消息格式。
+
+> Plain UDP 客户端的纯 Data 数据不会进入 TURN Control Port，只会发送到 Relay Port，所以不会造成困扰。
 
 TURN Client 与 TURN Server 建立通信关系的主要过程为：
 1. Create Allocation by Allocate
 2. AddPermission for peer
 3. BindChannel for peer (channelID is unique only in current Allocation)
 
-Plain UDP 无需 Create Allocation。
+> 它们都是使用STUN格式的指令实现
 
+> Plain UDP 无需 Create Allocation。
 
 ```mermaid
 sequenceDiagram
@@ -473,6 +511,13 @@ flowchart TD
     style CP fill:#fff,stroke:#333,stroke-width:2px
     style RP1 fill:#fff,stroke:#333,stroke-width:2px
     style RP2 fill:#fff,stroke:#333,stroke-width:2px
+
+    %% Data1
+    linkStyle 2,4,6 stroke:#e74c3c,stroke-width:2px
+    %% Data2
+    linkStyle 7,8 stroke:#3498db,stroke-width:2px
+    %% Data3
+    linkStyle 9,11 stroke:#2ecc71,stroke-width:2px
 
     e1@{ animate: true }
     e2@{ animate: true }
