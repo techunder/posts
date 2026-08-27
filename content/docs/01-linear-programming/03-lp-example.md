@@ -298,11 +298,6 @@ for t in range(T):
         == P_rigid[t] + P_charge[t] + P_sell[t]
     )
 
-    # SOC 动态：SOC_t = SOC_{t-1} + (P_charge - P_discharge) * dt
-    constraints.append(
-        SOC[t + 1] == SOC[t] + (P_charge[t] - P_discharge[t]) * dt
-    )
-
 # ── 4.2 初始 SOC ──────────────────────────────────────────
 constraints.append(SOC[0] == SOC_init * C_batt)
 
