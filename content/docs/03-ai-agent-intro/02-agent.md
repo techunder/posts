@@ -506,9 +506,9 @@ metadata:
 > 有时候也不是 skill 安装得越多越好的，太多 skills 的 name 和 description 也会把上下文塞满，分散 LLM 的注意力。更好的做法是，**建立不同的 agent，不同的 agent 启用不同的技能**，让不同的 agent 各有所长
 
 列几个当下流行的 skills 市场：
-- [ClawHub](https://clawhub.ai)：OpenClaw 生态的官方 skills 市场 
 - [skills.sh](https://skills.sh/)：社区运营的开放 agent skills 生态
 - [Github](https://github.com/)：可通过 `npx skills add <github repos>` 直接安装任意 `github` 代码仓库中的 `/skills`
+- [ClawHub](https://clawhub.ai)：OpenClaw 生态的官方 skills 市场 
 
 # Tools & MCP
 
