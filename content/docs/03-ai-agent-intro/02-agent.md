@@ -1076,7 +1076,7 @@ OpenClaw 当前使用做梦机制（Dreaming）提取记忆，它有三个阶段
 
 OpenClaw 更像一个操作系统，它可以自我运行，随时访问。而 Claude Code、OpenCode 等更像是一个工具，但是它们离变成操作系统也只有一步之遥，只需要变成后台运行、添加更多的访问入口即可（事实上它们已经开始这么做了）。
 
-不过无论怎样，**智能体生态已经慢慢形成开放标准**，例如 [MCP](https://modelcontextprotocol.io/)、[Agent Skills](https://agentskills.io/specification)、[AGENTS.md](https://agents.md/)、[llms.txt](https://llmstxt.org/)。所有这些 agent 正在趋于同化。
+不过无论怎样，**智能体生态已经慢慢形成开放标准**，例如 [MCP](https://modelcontextprotocol.io/)、[Agent Skills](https://agentskills.io/specification)、[AGENTS.md](https://agents.md/)、[llms.txt](https://llmstxt.org/)、[AG-UI](https://docs.ag-ui.com/introduction)。所有这些 agent 正在趋于同化。
 
 其实大语言模型厂商也没闲着，它们除了在提高模型性能、扩充上下文长度之外，也在逐渐植入 agent 的能力，比如工具调用、缓存上下文，所以**大语言模型平台和通用智能体之间的界限也在逐渐变得模糊**。
 

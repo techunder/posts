@@ -676,11 +676,11 @@ draft: false
     * 若$-1<r<1$，则<span style="color:red;">$\sum_{n=m}^\infty ar^n=\frac{ar^m}{1-r}$</span>（即$\frac{首项}{1-公比}$）。
     * 若$r\le-1$或$r\ge1$，则无穷几何级数发散。
 * **第$n$项判别法**：**通项趋于0是级数收敛的前提条件**，若$\lim_{n \to \infty} a_n \ne 0$或极限不存在，则级数$\sum_{n=1}^\infty a_n$发散。
-* **比式判别法**：设$L=\lim_{n \to \infty} \vert \frac{a_{n+1}}{a_n} \vert$，则$\sum_{n=1}^\infty a_n$
+* **比式判别法**：设$L=\lim_{n \to \infty} \vert \frac{a_{n+1}}{a_n} \vert$，则$\sum_{n=1}^\infty a_n$：
     * 在$L \lt 1$时绝对收敛；
     * 在$L \gt 1$时发散；
     * 在$L=1$或极限不存在时，无法判别。
-* **根式判别法**：设$L=\lim_{n \to \infty} \vert a_n \vert ^ \frac{1}{n}$，则$\sum_{n=1}^\infty a_n$
+* **根式判别法**：设$L=\lim_{n \to \infty} \vert a_n \vert ^ \frac{1}{n}$，则$\sum_{n=1}^\infty a_n$：
     * 在$L \lt 1$时绝对收敛；
     * 在$L \gt 1$时发散；
     * 在$L=1$或极限不存在时，无法判别。
