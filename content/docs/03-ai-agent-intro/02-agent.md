@@ -8,7 +8,7 @@ draft: false
 <div class="page-title">Agent，工程的起航</div>
 <div class="page-info">
    <span class="original-tag">原创</span>
-  发布时间：2026-04-19 | 更新时间：2026-07-15
+  发布时间：2026-04-19 | 更新时间：2026-09-09
 </div>
 {{< katex />}}
 
@@ -1068,16 +1068,6 @@ OpenClaw 当前使用做梦机制（Dreaming）提取记忆，它有三个阶段
 2. 快速眼动睡眠阶段（REM Phase）：提取模式，生成反思摘要
 3. 深度睡眠阶段（Deep Phase）：追加写入短期记忆和长期记忆文件
 
-# 生态协议
-
-相关的生态标准协议汇总如下：
-- [MCP: for agent-to-tool communication](https://modelcontextprotocol.io/)
-- [A2A: for agent-to-agent communication](https://a2a-protocol.org/latest/)
-- [AG-UI: for agent-to-ui communication](https://docs.ag-ui.com/introduction)
-- [Skills](https://agentskills.io/specification)
-- [AGENTS.md](https://agents.md/)
-- [llms.txt](https://llmstxt.org/)
-
 # 结语
 
 包括 OpenClaw 在内的**所有 agent 本质上只是把大语言模型这个大脑关在笼子里面，然后去驾驭它**。所不同的是，有些智能体产品更加激进，敢于给 agent 授权，给它更多的空间，而有些相对节制，严格控制权限，如此而已。
@@ -1086,7 +1076,7 @@ OpenClaw 当前使用做梦机制（Dreaming）提取记忆，它有三个阶段
 
 OpenClaw 更像一个操作系统，它可以自我运行，随时访问。而 Claude Code、OpenCode 等更像是一个工具，但是它们离变成操作系统也只有一步之遥，只需要变成后台运行、添加更多的访问入口即可（事实上它们已经开始这么做了）。
 
-不过无论怎样，**智能体生态已经慢慢形成开放标准**（见“生态协议”），所有这些 agent 正在趋于同化。
+不过无论怎样，**智能体生态已经慢慢形成开放标准**（见[生态协议](#%E7%94%9F%E6%80%81%E5%8D%8F%E8%AE%AE)），所有这些 agent 正在趋于同化。
 
 其实大语言模型厂商也没闲着，它们除了在提高模型性能、扩充上下文长度之外，也在逐渐植入 agent 的能力，比如工具调用、缓存上下文，所以**大语言模型平台和通用智能体之间的界限也在逐渐变得模糊**。
 
@@ -1102,3 +1092,14 @@ OpenClaw 更像一个操作系统，它可以自我运行，随时访问。而 C
 **开源与开放的架构，让 OpenClaw 更具学习与研究价值**，
 
 其设计思想与方法论可迁移至我们的业务流程，交叉学习、触类旁通是我写本文的初心。
+
+# 生态协议
+
+相关的生态标准协议汇总如下：
+- [MCP: agent-to-tool communication](https://modelcontextprotocol.io/)
+- [A2A: agent-to-agent communication](https://a2a-protocol.org/latest/)
+- [AG-UI: agent-to-ui communication](https://docs.ag-ui.com/introduction)
+- [AGENTS.md: README for agents](https://agents.md/)
+- [llms.txt: Website information for agents](https://llmstxt.org/)
+- [Agent Skills](https://agentskills.io/specification)
+
