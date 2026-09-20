@@ -142,9 +142,9 @@ OpenClaw 是运行在个人电脑或服务器上的 AI Agent 框架。
 <table>
   <tr><th>层级</th><th>名称</th><th>说明</th></tr>
   <tr style="background:#E8F4FD"><td>8</td><td>👤 用户层</td><td>需求·权限·审计</td></tr>
-  <tr style="background:#F8F8F8"><td>7</td><td>📖 技能层</td><td>工具使用说明和技能手册（skill.md），AI 时代的 App</td></tr>
-  <tr style="background:#F8F8F8"><td>6</td><td>🔧 工具层</td><td>命令·接口·MCP，智能体的武器装备库</td></tr>
-  <tr style="background:#F0E8FF"><td>5</td><td>🤖 智能体层</td><td>LLM 驾驭系统，AI 时代的 OS（Claude Code, Codex, OpenClaw）</td></tr>
+  <tr style="background:#F0E8FF"><td>7</td><td>🤖 智能体层</td><td>LLM 驾驭系统，AI 时代的 OS（Claude Code, Codex, OpenClaw）</td></tr>
+  <tr style="background:#F8F8F8"><td>6</td><td>📖 技能层</td><td>工具使用说明和技能手册（skill.md），AI 时代的 App</td></tr>
+  <tr style="background:#F8F8F8"><td>5</td><td>🔧 工具层</td><td>命令·接口·MCP，智能体的武器装备库</td></tr>
   <tr style="background:#FFF3CD"><td>4</td><td>🧠 模型层</td><td>智能引擎，AI 时代的发动机/CPU（OpenAI, Anthropic, Google）</td></tr>
   <tr style="background:#F8F8F8"><td>3</td><td>🏗️ 基础设施层</td><td>服务器·存储·网络（AWS, Azure, 阿里云）</td></tr>
   <tr style="background:#F8F8F8"><td>2</td><td>🔲 芯片层</td><td>GPU·TPU（英伟达 Nvidia，Google）</td></tr>
