@@ -2,7 +2,7 @@
 title: "BT 规范"
 weight: 1002
 bookCollapseSection: true
-draft: true
+draft: false
 ---
 <!-- Copyright © 2026 Techunder (Guanhua Liu) | All Rights Reserved | https://techunder.tech | Email: techunder@163.com -->
 <div class="page-title">BT 规范</div>
@@ -14,7 +14,7 @@ draft: true
 
 蓝牙规范由**蓝牙技术联盟**（Bluetooth Special Interest Group，简称 Bluetooth SIG / SIG）维护。
 
-**核心规范**是 [Bluetooth Core Specification](https://www.bluetooth.com/specifications/specs/core-specification-6-3/)，有多个版本。
+**核心规范**是 [Bluetooth Core Specification 6.3](https://www.bluetooth.com/specifications/specs/core-specification-6-3/)，有多个版本。
 
 **BLE**（Bluetooth Low Energy）是蓝牙核心规范里的低功耗子集，从 4.0 开始引入，向下兼容。
 
@@ -37,9 +37,10 @@ draft: true
 
 > 蓝牙 5.x 为目前消费物联网量产主力
 
-# BLE 协议栈架构
+# 协议栈架构
 BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**，中间通过 **HCI**（Host Controller Interface）通信。
 
+参考：[Part A. Architecture](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/architecture,-change-history,-and-conventions/architecture.html)
 <table>
   <tr style="background:#E8F4FD"><th>物理层次</th><th>协议层次</th><th>说明</th></tr>
   <tr><td><b>主机 Host</b></td><td>
@@ -65,23 +66,26 @@ BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**�
 
 | 角色 | 说明 |
 |---|---|
-| **Broadcaster** | 单纯广播，不接受连接（ beacon 类设备） |
-| **Observer** | 单纯扫描，不发起连接 |
 | **Central** | 扫描广播、发起连接，相当于"主设备"（手机） |
 | **Peripheral** | 广播并接受连接，相当于"从设备"（传感器） |
+| **Broadcaster** | 单纯广播，不接受连接（ beacon 类设备） |
+| **Observer** | 单纯扫描，不发起连接 |
 
 > 手机通常是 **Central**，智能设备通常是 **Peripheral**。
 
-# LL 层 PDU 
+# 广播信道 PDU
 
-## 广播信道 PDU（Advertising Channel PDU）
+Advertising Channel PDU
 
 ```
 ┌──────────────────────────┬───────────────────────────┐
 │ Header (2 bytes)         │ Payload (1~37 bytes)      │
 └──────────────────────────┴───────────────────────────┘
 ```
-**Header 字段拆分**（bit15~bit0）:
+
+## Header 字段
+
+bit15 ~ bit0
 
 1) PDU Type (bit 15~12)
 4 bits，决定**PDU 的种类**：
@@ -96,7 +100,7 @@ BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**�
 | 0b0110 | ADV_SCAN_IND | 可扫描、不可连接 |
 | 0b0111-0b1111 | Reserved | 保留 |
 
-2) TxAdd / RxAdd (bit 11、bit 10)
+2) TxAdd / RxAdd (bit 11 / bit 10)
 地址类型标志位，决定设备地址是 **Public** 还是 **Random**：
 | Bit | 值 | 含义 |
 |---|---|---|
@@ -105,7 +109,7 @@ BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**�
 | RxAdd (bit 10) | 0 | 接收方地址是 Public |
 | RxAdd (bit 10) | 1 | 接收方地址是 Random |
 
-> 不同类型的 PDU Type 的 Payload ，可能会有 **6 字节的 AdvA**（发送方地址）和 **InitA**（CONNECT_REQ 里接收方地址）。这两个 bit 就是告诉 LL 解析器地址用哪种类型解。
+    > 不同类型的 PDU Type 的 Payload ，可能会有 6 字节的发送方或（和）接收方地址，这两个 bit 就是告诉 LL 解析器地址该用哪种类型解。
 
 3) 保留位 (bit 9 ~ 8)
 
@@ -116,31 +120,35 @@ BLE 协议栈分两层：**主机（Host）** 和 **控制器（Controller）**�
 5) 保留位 (bit 1 ~ 0)
 
 
-**不同 PDU Type 的 Payload 结构**
+## Payload 结构
 
 - **ADV_IND Payload**
 ```
 ┌──────────────────┐
-│   AdvA (6B)      │  ← 发送方地址
-│   AdvData (≤31B) │  ← 广播数据（AD Structure 串）
+│   AdvA (6B)      │ 
+│   AdvData (≤31B) │
 └──────────────────┘
 ```
+
+详见：[Volume 6. Low Energy Controller/Part B. Link Layer Specification/2.3.1. Advertising PDUs](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/low-energy-controller/link-layer-specification.html#UUID-8909a735-7143-2804-ce68-c535a4fc011d0)
 
 - **SCAN_REQ Payload**
 ```
 ┌──────────────────┐
-│   ScanA (6B)     │  ← ?
-│   AdvA (6B)      │  ← 发送方地址
+│   ScanA (6B)     │
+│   AdvA (6B)      │
 └──────────────────┘
 ```
 
 - **SCAN_RSP Payload**
 ```
 ┌──────────────────────┐
-│   AdvA (6B)          │  ← 发送方地址
-│   ScanRspData (≤31B) │  ← 扫描响应数据
+│   AdvA (6B)          │
+│   ScanRspData (≤31B) │
 └──────────────────────┘
 ```
+
+详见：[Volume 6. Low Energy Controller/Part B. Link Layer Specification/2.3.2. Scanning PDUs](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/low-energy-controller/link-layer-specification.html#UUID-dbc32eec-00f4-da00-9c92-6238a2135cdb)
 
 - **CONNECT_REQ Payload**
 ```
@@ -170,31 +178,15 @@ Offset  Size   字段                        说明
 | Timeout | 0x000A ~ 0x0C80 (100ms ~ 32s) | 监控超时，10ms 单位 |
 > **超时必须满足：** Timeout > (1 + Latency) × Interval × 2
 
+详见：[Volume 6. Low Energy Controller/Part B. Link Layer Specification/2.3.3. Initiating PDUs](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/low-energy-controller/link-layer-specification.html#UUID-65e56c20-d733-6cef-3caf-dc3d5aba7918)
 
-## 数据信道 PDU（Data Channel PDU）
-
-## 链路控制 PDU（LL Control PDU）
-
-# 广播（Advertising）
-
-**广播行为**：
+## 广播行为
 
 1. 在LL层，广播在 37/38/39 三个广播频道上循环发送
     - Channel 37 (2402 MHz) → 发送 ADV_IND
     - Channel 38 (2426 MHz) → 发送 ADV_IND
     - Channel 39 (2480 MHz) → 发送 ADV_IND
 2. 然后短暂进入扫描窗口，等待扫描请求并响应
-
-**广播包类型**（Advertising Type）：
-
-| Type | 说明 |
-|---|---|
-| **ADV_IND** | 可连接、可扫描（最常用） |
-| **ADV_DIRECT_IND** | 定向可连接，指向特定设备（最快重连） |
-| **ADV_NONCONN_IND** | 不可连接、不可扫描（纯 beacon） |
-| **ADV_SCAN_IND** | 不可连接、可扫描（被动广播） |
-| **SCAN_REQ / SCAN_RSP** | 扫描请求与响应 |
-
 
 从设备（Peripheral）对外发送广播包，包含：
 - **设备地址**（MAC）
@@ -203,11 +195,17 @@ Offset  Size   字段                        说明
 主设备（Peripheral）发送扫描帧，从设备回复：
 - **扫描响应数据**（更长，可按需填写）
 
-主设备收到从设备的广播包和扫描响应数据后，通知主设备的应用层。
+主设备收到从设备的**广播数据**和**扫描响应数据**后，通知主设备的应用层。
+
+## Data 格式
 
 每一帧的长度最大31个字节，每帧数据可以包含多个字段，每个字段的格式为 `Length(1B), Type(1B), Data(nB)`。
 
-# GATT 模型（数据组织）
+具体格式见：[Advertising and Scan Response data format](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/host/generic-access-profile.html#UUID-c2a0b759-8ef4-7055-c13b-17c083691361)
+
+关于 Type 的枚举见 [Assigned Numbers Document](https://www.bluetooth.com/specifications/assigned-numbers/) 的`2.3 Common Data Types`
+
+# GATT 模型
 
 GATT 是 BLE 应用开发最核心的部分，定义了一套树形数据结构：
 ```
