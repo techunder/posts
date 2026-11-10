@@ -203,20 +203,20 @@ document.createElement('video').srcObject = this.remoteStream;
 
 RTCPeerConnection
 
-  负责端到端建立连接、传输音视频数据流，是最核心对象。
+负责端到端连接建立、传输音视频数据流，是最核心对象。WebSocket和Signal服务器只是邮递员。
 
-  主要职责：
-  - 生成 SDP 会话描述（Offer / Answer），但不负责发送到peer
-  - 向 STUN 请求，收集 ICE 候选地址，但不负责发生到peer
-  - 协商编解码器（H.264、VP8、VP9、AV1、OPUS）
-  - 收发 RTP/RTCP 媒体包
-  - 处理网络抖动、丢包、拥塞控制
+主要职责：
+- 生成 SDP 会话描述（Offer / Answer），但不负责发送到peer（交给邮递员）
+- 向 STUN 请求，收集 ICE 候选地址，但不负责发生到peer（交给邮递员）
+- 协商编解码器（H.264、VP8、VP9、AV1、OPUS）
+- 收发 RTP/RTCP 媒体包
+- 处理网络抖动、丢包、拥塞控制
 
 ```javascript
 // -- new peer connection ------------------------------------------------------
 const iceServers = [
     {urls: 'stun:stun.l.google.com:19302'}, 
-    {urls: ['turn:b.example.com:1232']},
+    {urls: ['turn:a.example.com:1232']},
     {urls: ['turn:b.example.com:1232']}
     ];
 this.pc = new RTCPeerConnection({ iceServers });
@@ -258,8 +258,8 @@ await this.pc.setLocalDescription(offer);
 this.pc.localDescription
 
 // -- set remote description ---------------------------------------------------
-// (type='offer' if peer proactively offer it, 
-//  type='answer' if peer answered my offer, through signaling server)
+//  type='offer' if peer proactively offer it, 
+//  type='answer' if peer answered my offer
 await this.pc.setRemoteDescription({ type: 'offer'|'answer', sdp });
 // access remote description
 this.pc.remoteDescription
@@ -272,7 +272,7 @@ tracks = this.stream.getTracks();
 if (tracks.length) {
     for (const t of tracks) this.pc.addTrack(t, this.stream);
 }
-// get local sedding tracks
+// get local sending tracks
 this.pc.getSenders()
 
 // -- close peer connection ----------------------------------------------------
