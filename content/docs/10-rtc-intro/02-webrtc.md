@@ -267,7 +267,7 @@ this.pc.remoteDescription
 // -- add ice candidate --------------------------------------------------------
 await this.pc.addIceCandidate(c);
 
-// -- add local tracks ---------------------------------------------------------
+// -- add local tracks (push streams) ------------------------------------------
 tracks = this.stream.getTracks();
 if (tracks.length) {
     for (const t of tracks) this.pc.addTrack(t, this.stream);
@@ -297,7 +297,7 @@ Signaling Server（必备）
 
 WebRTC 本身不内置信令通道，必须自建服务交换协商信息。
 
-交换内容：
+交换内容（不负责生成，只负责转发）：
 - SDP（Offer/Answer）
 - ICE 网络候选地址（Candidate）
 
@@ -309,7 +309,7 @@ NAT 穿透服务 STUN（Session Traversal Utilities for NAT，必备）
 
 客户端向 STUN 服务器发送请求，拿到自身外网地址（IP + 端口），生成 ICE 候选。
 
-通信过程见[公网出口端口探测](../02-p2p/#%e5%85%ac%e7%bd%91%e5%87%ba%e5%8f%a3%e7%ab%af%e5%8f%a3%e6%8e%a2%e6%b5%8b)
+通信过程见[公网出口端口探测](../03-p2p/#%E5%85%AC%E7%BD%91%E5%87%BA%E5%8F%A3%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B)
 
 正常网络环境下，拿到公网地址后两端可以直接 P2P，不走流量中转。
 
@@ -363,7 +363,6 @@ TURN 服务器要承载媒体流量，带宽消耗大，成本较高。
 > TURN Server 服务于两种通信场景：
 > - TURN Client ↔ TURN Client（两个Peer都在NAT之后）
 > - TURN Client ↔ Plain UDP（Plain UDP指有公网IP的Peer）
-
 > Plain UDP ↔ Plain UDP 的情况无需TURN Server，它们可以直接P2P通信
 
 > [!NOTE]
@@ -374,7 +373,7 @@ TURN 服务器要承载媒体流量，带宽消耗大，成本较高。
 
 > STUN消息的first 2-bit 必须为0，刚好与 0x4000 ~ 0x7FFF 的 ChannelID 错开。STUN消息的 Message Type 与 ChannelData 的 ChannelID 不重合，让 TURN Control Server 可以区分两种消息格式。
 
-> Plain UDP 客户端的纯 Data 数据不会进入 TURN Control Port，只会发送到 Relay Port，所以不会造成困扰。
+> Plain UDP 客户端的纯 Data 数据不会发送到 TURN Control Port，只会发送到 Relay Port，所以不会造成困扰。
 
 TURN Client 与 TURN Server 建立通信关系的主要过程为：
 1. Create Allocation by Allocate
@@ -555,7 +554,7 @@ MCU（Multipoint Control Unit）是把多路上行画面混合成一路画面再
         - [RFC 8489: Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc8489/)
         - [RFC 7350: Datagram Transport Layer Security (DTLS) as Transport for Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc7350/)
         - [RFC 7064: URI Scheme for the Session Traversal Utilities for NAT (STUN) Protocol](https://www.rfc-editor.org/info/rfc7064/)
-    - STUN
+    - TURN
         - [RFC 8656: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)](https://www.rfc-editor.org/info/rfc8656/)
         - [RFC 8155: Traversal Using Relays around NAT (TURN) Server Auto Discovery](https://www.rfc-editor.org/info/rfc8155/)
         - [RFC 6062: Traversal Using Relays around NAT (TURN) Extensions for TCP Allocations](https://www.rfc-editor.org/info/rfc6062/)
